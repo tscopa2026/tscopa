@@ -71,8 +71,8 @@ td.pts{font-weight:700;color:var(--ouro)}
 .bd.V{background:var(--ok)}.bd.E{background:#8a8f2a}.bd.D{background:var(--verm)}.bd.n{background:#333;color:var(--mut)}
 /* artilheiros */
 .art{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.07);border-radius:10px;padding:8px 12px;margin-bottom:6px}
-.art:first-child{background:linear-gradient(90deg,rgba(245,197,24,.3),rgba(255,255,255,.07))}
-.art .r{font:400 24px Anton;width:28px;color:var(--ouro)}
+.art.top{background:linear-gradient(90deg,rgba(245,197,24,.3),rgba(255,255,255,.07))}
+.art .r{font:400 22px Anton;width:34px;color:var(--ouro)}
 .art .ft{width:54px;height:54px;border-radius:50%;object-fit:cover;background:#12552a;display:grid;place-items:center;font:400 20px Anton;border:2px solid var(--ouro);flex:none;overflow:hidden}
 .art .nm{flex:1;font-size:21px;text-transform:uppercase;font-weight:700;line-height:1.1}
 .art .nm .eq-t{font-size:16px;color:var(--mut)}
@@ -89,9 +89,10 @@ input,select{font:700 18px 'Barlow Condensed';background:#04130a;color:#fff;bord
 input.n{width:46px;text-align:center;font:400 22px Anton;padding:0}
 input.dt{width:84px;text-align:center}
 input.tx{flex:1;min-width:0}.jr>input.tx{width:100%}.chk{color:#ffe9a0;font-size:14px}
-.dev{margin-top:20px}.dev img{width:210px;max-width:70%;background:#fff;border-radius:12px;padding:6px 10px;display:block;margin:6px auto}.dev a{color:var(--ouro)}
+.dev{margin-top:20px}.dev img{width:140px;background:#fff;border-radius:10px;padding:4px 8px;display:block;margin:6px auto 8px}.dev{font-size:15px;line-height:1.5}.dev a{color:var(--ouro)}
 .x{background:var(--verm);color:#fff;margin-left:auto;padding:4px 12px}
 .add{width:100%;margin:6px 0 12px;background:#fff}
+.barra[hidden]{display:none}
 .barra{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;gap:6px;padding:10px;background:#000d;backdrop-filter:blur(6px)}
 .barra button{flex:1;padding:8px 4px}
 #toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ok);color:#fff;padding:8px 16px;border-radius:20px;z-index:30;display:none}
@@ -120,8 +121,8 @@ footer{text-align:center;color:var(--mut);font-size:15px;margin-top:24px}
   <div id="art"></div>
 </section>
 
-<footer><img src="img/logo.jpg" alt="TS" style="width:64px;border-radius:8px;margin-bottom:6px"><br>TS Futebol Funcional · Copa do Mundo Casa Esportiva<br>Desempate: pontos, saldo de gols, gols pró, vitórias.
-<div class="dev"><small>Desenvolvido por</small><a href="https://www.compusist.com.br/pages/para-voce.html" target="_blank" rel="noopener"><img src="img/compusist.png" alt="Compusist – Reparo de Notebook"></a><a href="https://instagram.com/compusist.fsa" target="_blank" rel="noopener">@compusist.fsa</a> · <a href="tel:+557536260318">(75) 3626-0318</a> · <a href="tel:+5575998219842">(75) 99821-9842</a></div></footer>
+<footer>Desempate: pontos, saldo de gols, gols pró, vitórias.
+<div class="dev"><small>Desenvolvido por</small><a href="https://www.compusist.com.br" target="_blank" rel="noopener"><img src="img/compusist.png" alt="Compusist – Reparo de Notebook"></a><a href="https://instagram.com/compusist.fsa" target="_blank" rel="noopener">@compusist.fsa</a> · <a href="tel:+557536260318">(75) 3626-0318</a> · <a href="tel:+5575998219842">(75) 99821-9842</a></div></footer>
 </div>
 
 <div id="modal" hidden><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
@@ -129,7 +130,8 @@ footer{text-align:center;color:var(--mut);font-size:15px;margin-top:24px}
   <button id="bCopiar">Copiar dados.js</button><button id="bBaixar">Baixar</button><button id="bDescartar" style="background:#fff">Descartar rascunho</button>
 </div>
 <div id="toast"></div>
-<script src="dados.js"></script>
+<script>document.write('<script src="dados.js?v='+Date.now()+'"><\/script>')</script>
+<script>if(!window.COPA){document.body.insertAdjacentHTML("afterbegin",'<div style="background:#e5202e;color:#fff;padding:14px;margin:10px;border-radius:8px;font-size:18px">Erro no arquivo <b>dados.js</b>. Confira se cada linha de jogo tem aspas nos textos, colchetes [ ] e vírgula no fim.</div>');throw new Error("dados.js inválido")}</script>
 <script>
 const C=window.COPA,T=C.times,G=C.grupos,editor=location.hash==="#editor";
 let S={jogos:C.jogos.map(([d,a,b,x,y,g1,g2])=>({d,a,b,x:x??null,y:y??null,g1:g1||"",g2:g2||""})),fotos:{...(C.fotos||{})},mostrar:!!C.artilheiros};
@@ -195,7 +197,7 @@ function renderArt(){
     $("#art").innerHTML=L.length?`<p class="dica">Somados automaticamente a partir dos jogos. Aqui você só coloca a foto (opcional): arquivo dentro da pasta fotos/.</p>`+L.map(a=>`<div class="jr"><div class="l1">${tb(a.t)}<b style="margin-left:auto;font:400 24px Anton;color:var(--ouro)">${a.g} gol${a.g>1?"s":""}</b></div><div class="l1"><b>${esc(a.n)}</b><input class="tx" data-foto="${esc(a.n)}" value="${esc(S.fotos[a.n]||"")}" placeholder="fotos/${esc(a.n.toLowerCase().replace(/\s+/g,"-"))}.jpg"></div></div>`).join(""):'<p class="vazio-msg">Escreva quem fez os gols dentro de cada jogo (aba Jogos) e os artilheiros aparecem aqui.</p>';
     return;
   }
-  $("#art").innerHTML=L.length?L.map((a,i)=>{const f=S.fotos[a.n]||"";return `<div class="art"><div class="r">${i+1}</div><div class="ft">${f?`<img src="${esc(f)}" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.textContent='${esc(ini(a.n))}'">`:esc(ini(a.n))}</div><div class="nm">${esc(a.n)}<br>${tb(a.t)}</div><div class="g">${a.g}<small>GOLS</small></div></div>`}).join(""):'<p class="vazio-msg">Os artilheiros aparecem aqui.</p>';
+  $("#art").innerHTML=L.length?L.map(a=>{const f=S.fotos[a.n]||"",r=L.findIndex(x=>x.g===a.g)+1;return `<div class="art${r===1?" top":""}"><div class="r">${r}º</div><div class="ft">${f?`<img src="${esc(f)}" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.textContent='${esc(ini(a.n))}'">`:esc(ini(a.n))}</div><div class="nm">${esc(a.n)}<br>${tb(a.t)}</div><div class="g">${a.g}<small>GOLS</small></div></div>`}).join(""):'<p class="vazio-msg">Os artilheiros aparecem aqui.</p>';
 }
 
 /* abas */

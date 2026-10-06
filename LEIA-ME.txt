@@ -1,0 +1,21 @@
+COPA DO MUNDO - CASA ESPORTIVA (TS Futebol Funcional)
+Desenvolvido por Compusist - Reparo de Notebook
+
+PUBLICAR NO GITHUB PAGES
+1. Envie TODO o conteudo desta pasta para um repositorio (index.html, dados.js, flags/, img/, fotos/).
+2. Settings > Pages > Branch main, pasta / (root).
+
+ATUALIZAR JOGOS (arquivo dados.js)
+   Sem placar:     ["07/10","FRA","BRA"],
+   Com placar:     ["07/10","FRA","BRA",2,1],
+   Com autores:    ["07/10","FRA","BRA",2,1,"Neto 2","Maria"],
+   "Neto 2, Ana" = Neto fez 2 gols e Ana fez 1.  Use "" se ninguem fez gol daquele lado.
+   Os ARTILHEIROS sao somados sozinhos. Para mostrar a aba: artilheiros: true
+
+MODO EDITOR (mais facil): abra o site com #editor no endereco.
+   Edite placar, escreva quem fez os gols, adicione/exclua jogos, marque "Mostrar aba Artilheiros".
+   Toque em "Copiar dados.js" e cole no arquivo dados.js do GitHub.
+   Depois de publicar, toque em "Descartar rascunho".
+
+FOTOS DOS ARTILHEIROS (opcional): coloque a imagem na pasta fotos/ e informe o nome do arquivo
+na aba Artilheiros do editor (ex.: fotos/neto.jpg).

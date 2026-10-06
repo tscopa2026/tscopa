@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#04130a">
+<link rel="icon" href="img/logo.jpg">
+<title>Copa do Mundo – Casa Esportiva | TS Futebol Funcional</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--verde-esc:#06240f;--ouro:#f5c518;--ouro2:#c99a0a;--txt:#f3f6f2;--mut:#9fb3a3;--verm:#e5202e;--ok:#1fb84a}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Barlow Condensed',system-ui,sans-serif;font-weight:600;color:var(--txt);background:radial-gradient(ellipse at 20% 0,#12552a 0,transparent 55%),radial-gradient(ellipse at 90% 30%,#0b2a6b 0,transparent 50%),#04130a;min-height:100vh;padding:12px 10px 40px;font-size:18px}
+body.editor{padding-bottom:90px}
+.wrap{max-width:760px;margin:0 auto}
+.topo{width:100%;display:block;border-radius:14px;margin-bottom:10px;border:2px solid var(--ouro)}
+.tabs{position:sticky;top:0;z-index:5;display:flex;gap:6px;background:rgba(4,19,10,.94);padding:8px 0;margin-bottom:8px}
+.tabs button{flex:1;font:400 20px Anton;text-transform:uppercase;background:#0c2a18;color:var(--mut);border:2px solid #1f8a3f;padding:9px 4px}
+.tabs button.on{background:var(--ouro);color:var(--verde-esc);border-color:var(--ouro)}
+button{font:700 18px 'Barlow Condensed';text-transform:uppercase;background:var(--ouro);color:var(--verde-esc);border:0;border-radius:8px;padding:10px 16px;cursor:pointer;min-height:44px}
+button:focus-visible,input:focus-visible,select:focus-visible,[data-t]:focus-visible{outline:3px solid #fff}
+section[hidden]{display:none}
+.grupo{border-radius:14px;padding:12px 8px 8px;margin-bottom:14px;border:1.5px solid}
+.grupo.a{background:linear-gradient(#08301a,#041a0d);border-color:#1f8a3f}
+.grupo.b{background:linear-gradient(#0c2150,#06112a);border-color:#2a56b8}
+.grupo h2{font:400 32px Anton;text-transform:uppercase;font-style:italic;padding-left:6px;margin-bottom:4px}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{color:var(--ouro);font-size:16px;font-weight:700;padding:4px 2px;text-align:center}
+td{padding:8px 2px;text-align:center;border-top:1px solid rgba(245,197,24,.25);font-size:20px}
+td.t{text-align:left;font-weight:700;text-transform:uppercase;white-space:nowrap;cursor:pointer}
+td.t img,.eq-t img{width:32px;height:22px;object-fit:cover;vertical-align:middle;margin-right:7px;border-radius:2px}
+td.pos span{display:inline-block;width:28px;line-height:28px;border-radius:5px;font:400 18px Anton;background:var(--ok)}
+tr.elim td.pos span{background:var(--verm)}
+td.pts{font-weight:700;color:var(--ouro)}
+.dica{text-align:center;color:var(--mut);font-size:15px;margin:-6px 0 10px}
+.leg{display:flex;gap:18px;justify-content:center;font-size:16px;text-transform:uppercase;margin:4px 0 14px}
+.leg i{display:inline-block;width:16px;height:16px;border-radius:3px;vertical-align:-3px;margin-right:6px}
+.chips{display:flex;gap:6px;margin-bottom:6px}
+.chips button{flex:1;background:#0c2a18;color:var(--mut);border:1.5px solid #1f8a3f;padding:6px;min-height:38px;font-size:16px}
+.chips button.on{background:#fff;color:var(--verde-esc);border-color:#fff}
+.data{background:var(--ouro);color:var(--verde-esc);font:400 18px Anton;display:inline-block;padding:1px 12px;border-radius:4px 4px 0 0;margin-top:10px}
+.data.hoje{background:var(--ok);color:#fff}
+.jogo{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:6px;background:rgba(255,255,255,.07);border-left:4px solid var(--ouro);padding:9px 8px;margin-bottom:2px}
+.jogo .eq{display:flex;align-items:center;font-size:20px;text-transform:uppercase;font-weight:700;min-width:0}
+.jogo .eq.b{justify-content:flex-end;text-align:right}
+.eq-t{display:inline-flex;align-items:center;cursor:pointer;padding:4px 0}
+.eq.b .eq-t{flex-direction:row-reverse}
+.eq.b .eq-t img{margin:0 0 0 7px}
+.placar{font:400 26px Anton;min-width:74px;text-align:center}
+.placar.vazio{color:var(--mut);font-size:20px}
+.vazio-msg{color:var(--mut);text-align:center;padding:20px}
+/* modal */
+#modal{position:fixed;inset:0;z-index:20;background:rgba(0,0,0,.7);display:flex;align-items:flex-end;justify-content:center}
+#modal[hidden]{display:none}
+.sheet{background:linear-gradient(#0a2a16,#06112a);border:2px solid var(--ouro);border-bottom:0;border-radius:18px 18px 0 0;width:100%;max-width:560px;max-height:88vh;overflow:auto;padding:16px 14px 24px}
+.sh-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.sh-top img{width:72px;height:48px;object-fit:cover;border-radius:4px}
+.sh-top h4{font:400 32px Anton;text-transform:uppercase;line-height:1}
+.sh-top small{color:var(--mut);font-size:16px;display:block}
+.sh-top button{margin-left:auto;padding:6px 12px}
+.stats{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;text-align:center;margin-bottom:12px}
+.stats div{background:rgba(255,255,255,.08);border-radius:6px;padding:4px 0;font:400 22px Anton}
+.stats small{display:block;font:700 12px 'Barlow Condensed';color:var(--ouro)}
+.sheet h5{font:400 20px Anton;text-transform:uppercase;color:var(--ouro);margin:10px 0 4px}
+.lj{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid rgba(255,255,255,.12);font-size:19px;text-transform:uppercase}
+.lj .d{color:var(--mut);width:46px;font-size:16px}
+.lj .eq-t{flex:1}
+.lj .pl{font:400 22px Anton;min-width:54px;text-align:center}
+.bd{width:26px;line-height:26px;text-align:center;border-radius:5px;font:400 16px Anton;color:#fff}
+.bd.V{background:var(--ok)}.bd.E{background:#8a8f2a}.bd.D{background:var(--verm)}.bd.n{background:#333;color:var(--mut)}
+/* artilheiros */
+.art{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.07);border-radius:10px;padding:8px 12px;margin-bottom:6px}
+.art:first-child{background:linear-gradient(90deg,rgba(245,197,24,.3),rgba(255,255,255,.07))}
+.art .r{font:400 24px Anton;width:28px;color:var(--ouro)}
+.art .ft{width:54px;height:54px;border-radius:50%;object-fit:cover;background:#12552a;display:grid;place-items:center;font:400 20px Anton;border:2px solid var(--ouro);flex:none;overflow:hidden}
+.art .nm{flex:1;font-size:21px;text-transform:uppercase;font-weight:700;line-height:1.1}
+.art .nm .eq-t{font-size:16px;color:var(--mut)}
+.art .g{font:400 34px Anton;color:var(--ouro);text-align:center;line-height:1}
+.art .g small{display:block;font:700 12px 'Barlow Condensed';color:var(--mut)}
+/* editor */
+.painel{background:#1a1500;border:2px dashed var(--ouro);border-radius:10px;padding:12px;margin-bottom:10px;font-size:16px;color:#ffe9a0}
+.painel label{display:flex;gap:8px;align-items:center;margin-top:8px;font-size:18px}
+.painel input[type=checkbox]{width:22px;height:22px}
+.jr{background:rgba(255,255,255,.08);border-left:4px solid var(--ouro);padding:8px;margin-bottom:6px;border-radius:0 8px 8px 0;display:grid;gap:6px}
+.l1,.l2{display:flex;gap:6px;align-items:center}
+.l2 select{flex:1;min-width:0}
+input,select{font:700 18px 'Barlow Condensed';background:#04130a;color:#fff;border:2px solid var(--ouro);border-radius:6px;height:42px;padding:0 6px}
+input.n{width:46px;text-align:center;font:400 22px Anton;padding:0}
+input.dt{width:84px;text-align:center}
+input.tx{flex:1;min-width:0}.jr>input.tx{width:100%}.chk{color:#ffe9a0;font-size:14px}
+.dev{margin-top:20px}.dev img{width:210px;max-width:70%;background:#fff;border-radius:12px;padding:6px 10px;display:block;margin:6px auto}.dev a{color:var(--ouro)}
+.x{background:var(--verm);color:#fff;margin-left:auto;padding:4px 12px}
+.add{width:100%;margin:6px 0 12px;background:#fff}
+.barra{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;gap:6px;padding:10px;background:#000d;backdrop-filter:blur(6px)}
+.barra button{flex:1;padding:8px 4px}
+#toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ok);color:#fff;padding:8px 16px;border-radius:20px;z-index:30;display:none}
+footer{text-align:center;color:var(--mut);font-size:15px;margin-top:24px}
+@media(max-width:420px){.jogo .eq{font-size:17px}.eq-t img{width:26px;height:18px;margin-right:5px}td{font-size:18px}.stats div{font-size:18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<img class="topo" src="img/copa.jpg" alt="Copa do Mundo Casa Esportiva – TS Futebol Funcional – Classificação">
+<nav class="tabs" id="tabs"></nav>
+
+<section id="s-class"><div id="grupos"></div>
+  <p class="dica">Toque em um time para ver os jogos dele</p>
+  <div class="leg"><span><i style="background:var(--ok)"></i>Classificados</span><span><i style="background:var(--verm)"></i>Eliminado</span></div>
+</section>
+
+<section id="s-jogos" hidden>
+  <div id="painel"></div>
+  <div class="chips" id="chips"></div>
+  <div id="jogos"></div>
+  <button class="add" id="addJogo" hidden>+ Adicionar jogo</button>
+</section>
+
+<section id="s-art" hidden>
+  <div id="art"></div>
+</section>
+
+<footer><img src="img/logo.jpg" alt="TS" style="width:64px;border-radius:8px;margin-bottom:6px"><br>TS Futebol Funcional · Copa do Mundo Casa Esportiva<br>Desempate: pontos, saldo de gols, gols pró, vitórias.
+<div class="dev"><small>Desenvolvido por</small><a href="https://www.compusist.com.br/pages/para-voce.html" target="_blank" rel="noopener"><img src="img/compusist.png" alt="Compusist – Reparo de Notebook"></a><a href="https://instagram.com/compusist.fsa" target="_blank" rel="noopener">@compusist.fsa</a> · <a href="tel:+557536260318">(75) 3626-0318</a> · <a href="tel:+5575998219842">(75) 99821-9842</a></div></footer>
+</div>
+
+<div id="modal" hidden><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
+<div class="barra" id="barra" hidden>
+  <button id="bCopiar">Copiar dados.js</button><button id="bBaixar">Baixar</button><button id="bDescartar" style="background:#fff">Descartar rascunho</button>
+</div>
+<div id="toast"></div>
+<script src="dados.js"></script>
+<script>
+const C=window.COPA,T=C.times,G=C.grupos,editor=location.hash==="#editor";
+let S={jogos:C.jogos.map(([d,a,b,x,y,g1,g2])=>({d,a,b,x:x??null,y:y??null,g1:g1||"",g2:g2||""})),fotos:{...(C.fotos||{})},mostrar:!!C.artilheiros};
+let rasc=false;
+if(editor){try{const r=JSON.parse(localStorage.getItem("copa-rascunho")||"null");if(r&&r.jogos){S=r;S.fotos=S.fotos||{};rasc=true}}catch(e){}document.body.classList.add("editor");$("#barra").hidden=false}
+function $(s){return document.querySelector(s)}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const salvar=()=>{if(editor)try{localStorage.setItem("copa-rascunho",JSON.stringify(S))}catch(e){}};
+const flag=c=>`<img src="flags/${c}.png" alt="">`;
+const nome=c=>T[c][0];
+const jogou=j=>j.x!=null&&j.y!=null;
+const ord=j=>{const[d,m]=(j.d||"0/0").split("/");return m*100+ +d};
+const tb=c=>`<span class="eq-t" data-t="${c}" role="button" tabindex="0">${flag(c)}<b>${nome(c)}</b></span>`;
+function parseG(s){return String(s||"").split(",").map(p=>p.trim()).filter(Boolean).map(p=>{const m=p.match(/^(.*?)(?:\s*[x×]?\s*(\d+))?$/);return{n:m[1].trim(),g:m[2]?+m[2]:1}}).filter(o=>o.n)}
+function artilheiros(){const m={};S.jogos.forEach(j=>[[j.g1,j.a],[j.g2,j.b]].forEach(([s,t])=>parseG(s).forEach(o=>{const k=o.n.toLowerCase()+"|"+t;(m[k]=m[k]||{n:o.n,t,g:0}).g+=o.g})));return Object.values(m).sort((p,q)=>q.g-p.g||p.n.localeCompare(q.n))}
+const chk=j=>{if(!jogou(j))return"Informe o placar para conferir os gols";const f=(s,x)=>{const t=parseG(s).reduce((a,o)=>a+o.g,0);return t===+x?"✓":t+" de "+x};const a=f(j.g1,j.x),b=f(j.g2,j.y);return a==="✓"&&b==="✓"?"✓ Gols conferem com o placar":`Gols informados — casa: ${a} · fora: ${b} (gol contra não precisa lançar)`};
+const grupoDe=c=>Object.keys(G).find(g=>G[g].includes(c));
+
+function tabela(g){
+  const L=G[g].map(c=>({c,pts:(C.ajustes||{})[c]||0,j:0,v:0,e:0,d:0,gp:0,gc:0})),get=c=>L.find(x=>x.c===c);
+  S.jogos.forEach(j=>{
+    if(!jogou(j)||!G[g].includes(j.a)||!G[g].includes(j.b))return;
+    const A=get(j.a),B=get(j.b),x=+j.x,y=+j.y;
+    A.j++;B.j++;A.gp+=x;A.gc+=y;B.gp+=y;B.gc+=x;
+    if(x>y){A.v++;A.pts+=3;B.d++}else if(x<y){B.v++;B.pts+=3;A.d++}else{A.e++;B.e++;A.pts++;B.pts++}
+  });
+  return L.sort((p,q)=>q.pts-p.pts||(q.gp-q.gc)-(p.gp-p.gc)||q.gp-p.gp||q.v-p.v);
+}
+const sg=x=>{const s=x.gp-x.gc;return(s>0?"+":"")+s};
+
+function renderGrupos(){
+  $("#grupos").innerHTML=Object.keys(G).map((g,k)=>{
+    const lin=tabela(g).map((x,i)=>`<tr class="${i>=4?"elim":""}"><td class="pos"><span>${i+1}</span></td><td class="t" data-t="${x.c}" role="button" tabindex="0">${flag(x.c)}${nome(x.c)}</td><td class="pts">${x.pts}</td><td>${x.j}</td><td>${x.v}</td><td>${x.e}</td><td>${x.d}</td><td>${sg(x)}</td></tr>`).join("");
+    return `<section class="grupo ${k%2?"b":"a"}"><h2>Grupo ${g}</h2><div class="scroll"><table><tr><th></th><th></th><th>PTS</th><th>J</th><th>V</th><th>E</th><th>D</th><th>SG</th></tr>${lin}</table></div></section>`;
+  }).join("");
+}
+
+let filtro="todos";
+const opt=s=>Object.keys(T).map(k=>`<option value="${k}"${k===s?" selected":""}>${nome(k)}</option>`).join("");
+function renderJogos(){
+  if(editor){
+    $("#painel").innerHTML=`<div class="painel"><b>Modo editor.</b> Altere data, times e placares. Em cada jogo, escreva quem fez os gols (ex.: <b>Neto 2, Maria</b>) e os artilheiros são somados sozinhos. Tudo é guardado neste aparelho como rascunho. Quando terminar, toque em <b>Copiar dados.js</b> e cole no arquivo <code>dados.js</code> do GitHub.<label><input type="checkbox" id="ckArt" ${S.mostrar?"checked":""}> Mostrar aba Artilheiros</label>${rasc?'<br><small>Rascunho carregado deste aparelho.</small>':''}</div>`;
+    $("#ckArt").onchange=e=>{S.mostrar=e.target.checked;salvar();renderTabs()};
+    $("#chips").innerHTML="";$("#addJogo").hidden=false;
+    $("#jogos").innerHTML=S.jogos.map((j,i)=>`<div class="jr" data-i="${i}"><div class="l1"><input class="dt" data-f="d" value="${esc(j.d)}" placeholder="dd/mm" inputmode="numeric" maxlength="5"><button class="x" data-del="${i}" aria-label="Excluir jogo">Excluir</button></div><div class="l2"><select data-f="a">${opt(j.a)}</select><input class="n" data-f="x" type="number" min="0" inputmode="numeric" value="${j.x??""}"><span>×</span><input class="n" data-f="y" type="number" min="0" inputmode="numeric" value="${j.y??""}"><select data-f="b">${opt(j.b)}</select></div><input class="tx" data-f="g1" value="${esc(j.g1||"")}" placeholder="Gols do time da casa. Ex.: Neto 2, Maria"><input class="tx" data-f="g2" value="${esc(j.g2||"")}" placeholder="Gols do time de fora. Ex.: Pedro"><small class="chk" data-chk>${chk(j)}</small></div>`).join("");
+    return;
+  }
+  $("#chips").innerHTML=[["todos","Todos"],["prox","Próximos"],["res","Resultados"]].map(([k,t])=>`<button data-fl="${k}" class="${filtro===k?"on":""}">${t}</button>`).join("");
+  const hj=new Date(),hs=String(hj.getDate()).padStart(2,"0")+"/"+String(hj.getMonth()+1).padStart(2,"0");
+  const lista=[...S.jogos].sort((p,q)=>ord(p)-ord(q)).filter(j=>filtro==="todos"||(filtro==="res")===jogou(j));
+  let h="",ult="";
+  lista.forEach(j=>{
+    if(j.d!==ult){h+=`<div class="data ${j.d===hs?"hoje":""}">${esc(j.d)}${j.d===hs?" · hoje":""}</div>`;ult=j.d}
+    h+=`<div class="jogo"><div class="eq">${tb(j.a)}</div>${jogou(j)?`<div class="placar">${j.x} × ${j.y}</div>`:`<div class="placar vazio">×</div>`}<div class="eq b">${tb(j.b)}</div></div>`;
+  });
+  $("#jogos").innerHTML=h||'<p class="vazio-msg">Nenhum jogo aqui ainda.</p>';
+}
+
+const ini=n=>n.trim().split(/\s+/).slice(0,2).map(p=>p[0]).join("").toUpperCase();
+function renderArt(){
+  const L=artilheiros();
+  if(editor){
+    $("#art").innerHTML=L.length?`<p class="dica">Somados automaticamente a partir dos jogos. Aqui você só coloca a foto (opcional): arquivo dentro da pasta fotos/.</p>`+L.map(a=>`<div class="jr"><div class="l1">${tb(a.t)}<b style="margin-left:auto;font:400 24px Anton;color:var(--ouro)">${a.g} gol${a.g>1?"s":""}</b></div><div class="l1"><b>${esc(a.n)}</b><input class="tx" data-foto="${esc(a.n)}" value="${esc(S.fotos[a.n]||"")}" placeholder="fotos/${esc(a.n.toLowerCase().replace(/\s+/g,"-"))}.jpg"></div></div>`).join(""):'<p class="vazio-msg">Escreva quem fez os gols dentro de cada jogo (aba Jogos) e os artilheiros aparecem aqui.</p>';
+    return;
+  }
+  $("#art").innerHTML=L.length?L.map((a,i)=>{const f=S.fotos[a.n]||"";return `<div class="art"><div class="r">${i+1}</div><div class="ft">${f?`<img src="${esc(f)}" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.textContent='${esc(ini(a.n))}'">`:esc(ini(a.n))}</div><div class="nm">${esc(a.n)}<br>${tb(a.t)}</div><div class="g">${a.g}<small>GOLS</small></div></div>`}).join(""):'<p class="vazio-msg">Os artilheiros aparecem aqui.</p>';
+}
+
+/* abas */
+let aba="class";
+function renderTabs(){
+  const ab=[["class","Classificação"],["jogos","Jogos"]];if(S.mostrar||editor)ab.push(["art","Artilheiros"]);
+  if(aba==="art"&&!ab.some(a=>a[0]==="art"))aba="class";
+  $("#tabs").innerHTML=ab.map(([k,t])=>`<button data-aba="${k}" class="${aba===k?"on":""}">${t}</button>`).join("");
+  ["class","jogos","art"].forEach(k=>$("#s-"+k).hidden=k!==aba);
+}
+
+/* modal do time */
+function abrir(c){
+  const g=grupoDe(c),L=tabela(g),i=L.findIndex(x=>x.c===c),x=L[i];
+  const meus=[...S.jogos].filter(j=>j.a===c||j.b===c).sort((p,q)=>ord(p)-ord(q));
+  const jl=meus.map(j=>{
+    const casa=j.a===c,op=casa?j.b:j.a;let pl="×",b='<span class="bd n">–</span>';
+    if(jogou(j)){const m=casa?j.x:j.y,s=casa?j.y:j.x;pl=`${j.x} × ${j.y}`;const r=m>s?"V":m<s?"D":"E";b=`<span class="bd ${r}">${r}</span>`}
+    return `<div class="lj"><span class="d">${esc(j.d)}</span>${tb(op)}<span class="pl">${pl}</span>${b}</div>`;
+  }).join("");
+  const as=S.mostrar?artilheiros().filter(a=>a.t===c):[];
+  $("#sheet").innerHTML=`<div class="sh-top">${flag(c)}<div><h4>${nome(c)}</h4><small>Grupo ${g} · ${i+1}º lugar</small></div><button id="fechar">Fechar</button></div>
+  <div class="stats">${[["PTS",x.pts],["J",x.j],["V",x.v],["E",x.e],["D",x.d],["GP",x.gp],["GC",x.gc],["SG",sg(x)]].map(([k,v])=>`<div><small>${k}</small>${v}</div>`).join("")}</div>
+  <h5>Jogos</h5>${jl||'<p class="vazio-msg">Sem jogos.</p>'}
+  ${as.length?`<h5>Artilheiros</h5>${as.map(a=>`<div class="lj"><span style="flex:1">${esc(a.n)}</span><span class="pl">${a.g} gols</span></div>`).join("")}`:""}`;
+  $("#modal").hidden=false;
+}
+const fechar=()=>$("#modal").hidden=true;
+
+/* eventos */
+document.addEventListener("click",e=>{
+  const t=e.target.closest("[data-t]");if(t){abrir(t.dataset.t);return}
+  if(e.target.id==="modal"||e.target.id==="fechar")return fechar();
+  const ab=e.target.closest("[data-aba]");if(ab){aba=ab.dataset.aba;renderTabs();renderArt();scrollTo(0,0);return}
+  const fl=e.target.closest("[data-fl]");if(fl){filtro=fl.dataset.fl;renderJogos();return}
+  const dj=e.target.closest("[data-del]");if(dj){S.jogos.splice(+dj.dataset.del,1);salvar();renderJogos();renderGrupos();return}
+  });
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape")fechar();
+  if(e.key==="Enter"&&e.target.dataset&&e.target.dataset.t)abrir(e.target.dataset.t);
+});
+if(editor){
+  $("#jogos").addEventListener("input",e=>{
+    const r=e.target.closest("[data-i]"),f=e.target.dataset.f;if(!r||!f)return;
+    const j=S.jogos[+r.dataset.i];
+    j[f]=(f==="x"||f==="y")?(e.target.value===""?null:+e.target.value):e.target.value;
+    const cc=r.querySelector("[data-chk]");if(cc)cc.textContent=chk(j);
+    salvar();renderGrupos();
+  });
+  $("#art").addEventListener("input",e=>{const n=e.target.dataset.foto;if(n===undefined)return;S.fotos[n]=e.target.value.trim();salvar()});
+  $("#addJogo").onclick=()=>{const u=S.jogos[S.jogos.length-1]||{};S.jogos.push({d:u.d||"",a:Object.keys(T)[0],b:Object.keys(T)[1],x:null,y:null});salvar();renderJogos();scrollTo(0,document.body.scrollHeight)};
+  $("#bCopiar").onclick=async()=>{try{await navigator.clipboard.writeText(gerar());aviso("dados.js copiado!")}catch(e){baixar()}};
+  $("#bBaixar").onclick=baixar;
+  $("#bDescartar").onclick=()=>{if(confirm("Descartar o rascunho deste aparelho e voltar ao dados.js publicado?")){localStorage.removeItem("copa-rascunho");location.reload()}};
+}
+function aviso(t){const x=$("#toast");x.textContent=t;x.style.display="block";setTimeout(()=>x.style.display="none",2200)}
+function baixar(){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([gerar()],{type:"text/javascript"}));a.download="dados.js";a.click();aviso("Arquivo dados.js baixado")}
+function gerar(){
+  const L=o=>Object.entries(o).map(([k,v])=>`    ${k}: ${JSON.stringify(v)}`).join(",\n");
+  const jg=[...S.jogos].sort((p,q)=>ord(p)-ord(q)).map(j=>"    "+JSON.stringify([j.d,j.a,j.b,...(jogou(j)?[+j.x,+j.y,...(j.g1||j.g2?[j.g1||"",j.g2||""]:[])]:[])])).join(",\n");
+  return `/* DADOS DA COPA - gerado pelo modo editor. Jogo sem placar = ["data","CASA","FORA"]; com placar = [...,gols,gols]; com autores = [...,gols,gols,"Neto 2, Ana","Pedro"] */\nwindow.COPA = {\n  ano: ${C.ano},\n  artilheiros: ${S.mostrar},\n  ajustes: ${JSON.stringify(C.ajustes||{})},\n  times: {\n${L(C.times)}\n  },\n  grupos: {\n${L(C.grupos)}\n  },\n  jogos: [\n${jg}\n  ],\n  fotos: ${JSON.stringify(S.fotos)}\n};\n`;
+}
+renderTabs();renderGrupos();renderJogos();renderArt();
+</script>
+</body>
+</html>

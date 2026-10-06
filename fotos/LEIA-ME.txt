@@ -1,0 +1,1 @@
+Coloque aqui as fotos dos artilheiros (ex.: joao.jpg) e use "fotos/joao.jpg" no campo de foto.

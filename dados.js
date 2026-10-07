@@ -28,9 +28,9 @@ window.COPA = {
   },
   // ATENÇÃO: placares abaixo são PROVISÓRIOS (só para bater com a arte). Corrija.
   jogos: [
-    ["26/09","BRA","ARG",1,1],
-    ["26/09","CRO","MEX",1,1],
-    ["03/10","JAM","HOL",2,2,"Matheus-23 1,David-4 1","Ruan-22 1,BG-1924 1"],
+    ["26/09","BRA","ARG",1,1,"Wesley 1","Vinny 1"],
+    ["26/09","CRO","MEX",1,1,"","Netto 1"],
+    ["03/10","JAM","HOL",2,2,"João Matheus-23 1,David-4 1","Ruan-22 1,BG-1924 1"],
     ["03/10","JAP","ESP",0,2,"","Andrezão-7 1,Jean-10 1"],
     ["07/10","FRA","BRA"],
     ["07/10","NIG","CRO"],

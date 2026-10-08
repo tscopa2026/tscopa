@@ -14,8 +14,8 @@ body{font-family:'Barlow Condensed',system-ui,sans-serif;font-weight:600;color:v
 body.editor{padding-bottom:90px}
 .wrap{max-width:760px;margin:0 auto}
 .topo{width:100%;display:block;border-radius:14px;margin-bottom:10px;border:2px solid var(--ouro)}
-.tabs{position:sticky;top:0;z-index:5;display:flex;gap:6px;background:rgba(4,19,10,.94);padding:8px 0;margin-bottom:8px}
-.tabs button{flex:1;font:400 20px Anton;text-transform:uppercase;background:#0c2a18;color:var(--mut);border:2px solid #1f8a3f;padding:9px 4px}
+.tabs{flex-wrap:wrap;position:sticky;top:0;z-index:5;display:flex;gap:6px;background:rgba(4,19,10,.94);padding:8px 0;margin-bottom:8px}
+.tabs button{flex:1 0 auto;white-space:nowrap;font:400 17px Anton;text-transform:uppercase;background:#0c2a18;color:var(--mut);border:2px solid #1f8a3f;padding:8px 10px}
 .tabs button.on{background:var(--ouro);color:var(--verde-esc);border-color:var(--ouro)}
 button{font:700 18px 'Barlow Condensed';text-transform:uppercase;background:var(--ouro);color:var(--verde-esc);border:0;border-radius:8px;padding:10px 16px;cursor:pointer;min-height:44px}
 button:focus-visible,input:focus-visible,select:focus-visible,[data-t]:focus-visible{outline:3px solid #fff}
@@ -96,6 +96,16 @@ input.tx{flex:1;min-width:0}.jr>input.tx{width:100%}.chk{color:#ffe9a0;font-size
 .barra{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;gap:6px;padding:10px;background:#000d;backdrop-filter:blur(6px)}
 .barra button{flex:1;padding:8px 4px}
 #toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ok);color:#fff;padding:8px 16px;border-radius:20px;z-index:30;display:none}
+.dh{display:flex;align-items:flex-end;justify-content:space-between;margin-top:10px}.dh .data{margin-top:0}.sh{padding:4px 12px;min-height:34px;font-size:15px;background:#fff}
+.acoes{display:flex;gap:8px;margin:0 0 12px}.acoes button{flex:1}.acoes .b2{background:#fff}
+.sec{font:400 26px Anton;text-transform:uppercase;margin:16px 0 6px}
+.kp{display:grid;grid-template-columns:1fr 1fr;gap:8px}.k{background:rgba(255,255,255,.08);border-left:4px solid var(--ouro);padding:10px;border-radius:0 10px 10px 0}.k b{font:400 38px Anton;color:var(--ouro);display:block;line-height:1.05}.k span{font-size:16px;color:var(--mut)}
+.hl{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid rgba(255,255,255,.12);font-size:19px}.hl span{color:var(--mut);flex:none}.hl b{text-align:right}
+.bar{display:flex;align-items:center;gap:8px;padding:4px 0}.bar .eq-t{flex:0 0 150px;font-size:18px;text-transform:uppercase}.bar i{display:block;height:16px;background:linear-gradient(90deg,#1fb84a,#f5c518);border-radius:4px;min-width:3px}.bar em{font:400 20px Anton;font-style:normal;margin-left:4px}.bar div{flex:1}
+.sel{display:grid;grid-template-columns:1fr 1fr;gap:10px}.sc{background:rgba(255,255,255,.08);border-radius:12px;overflow:hidden;padding-bottom:8px;text-align:center}.sc .ph{height:120px;background:#0a2a16;display:grid;place-items:center;cursor:pointer;overflow:hidden}.sc .ph img{width:100%;height:100%;object-fit:cover}.sc .ph img.fl{width:58%;height:auto;border-radius:4px}.sc b{display:block;font:400 22px Anton;text-transform:uppercase;margin-top:6px}.sc small{color:var(--mut);font-size:15px}.sc input{width:calc(100% - 12px);margin:6px 6px 0;font-size:14px;height:34px}
+.lg{font-size:16px;color:#cfe9d6;padding:0 0 8px 54px;margin-top:-4px}
+.fotoT{width:100%;max-height:200px;object-fit:cover;border-radius:12px;margin-bottom:10px}
+.cta{display:block;margin:22px 0 0;padding:14px 16px;border-radius:14px;background:linear-gradient(135deg,#00433a,#0a6a55);border:2px solid #00bf97;color:#fff;text-decoration:none;text-align:center}.cta b{display:block;font:400 24px Anton;text-transform:uppercase}.cta span{font-size:17px;color:#cfeee6}
 footer{text-align:center;color:var(--mut);font-size:15px;margin-top:24px}
 @media(max-width:420px){.jogo .eq{font-size:17px}.eq-t img{width:26px;height:18px;margin-right:5px}td{font-size:18px}.stats div{font-size:18px}}
 </style>
@@ -108,6 +118,8 @@ footer{text-align:center;color:var(--mut);font-size:15px;margin-top:24px}
 <section id="s-class"><div id="grupos"></div>
   <p class="dica">Toque em um time para ver os jogos dele</p>
   <div class="leg"><span><i style="background:var(--ok)"></i>Classificados</span><span><i style="background:var(--verm)"></i>Eliminado</span></div>
+  <div id="top5"></div>
+  <button class="add" data-sh="class">Compartilhar classificação</button>
 </section>
 
 <section id="s-jogos" hidden>
@@ -118,10 +130,16 @@ footer{text-align:center;color:var(--mut);font-size:15px;margin-top:24px}
 </section>
 
 <section id="s-art" hidden>
+  <button class="add" id="shArt" data-sh="art">Compartilhar artilheiros</button>
   <div id="art"></div>
 </section>
 
-<footer>Desempate: pontos, saldo de gols, gols pró, vitórias.
+<section id="s-stats" hidden><button class="add" id="shStats" data-sh="stats">Compartilhar estatísticas</button><div id="stats"></div></section>
+
+<section id="s-sel" hidden><p class="dica" id="selDica"></p><div id="sel" class="sel"></div></section>
+
+<a class="cta" href="tel:+557536260318"><b>Notebook com problema?</b><span>A Compusist conserta. Ligue e peça seu orçamento: (75) 3626-0318</span></a>
+<footer>Desempate: pontos, saldo de gols, gols pró, vitórias. <small style="opacity:.55">v1.8</small>
 <div class="dev"><small>Desenvolvido por</small><a href="https://www.compusist.com.br" target="_blank" rel="noopener"><img src="img/compusist.png" alt="Compusist – Reparo de Notebook"></a><a href="https://instagram.com/compusist.fsa" target="_blank" rel="noopener">@compusist.fsa</a> · <a href="tel:+557536260318">(75) 3626-0318</a> · <a href="tel:+5575998219842">(75) 99821-9842</a></div></footer>
 </div>
 
@@ -134,9 +152,9 @@ footer{text-align:center;color:var(--mut);font-size:15px;margin-top:24px}
 <script>if(!window.COPA){document.body.insertAdjacentHTML("afterbegin",'<div style="background:#e5202e;color:#fff;padding:14px;margin:10px;border-radius:8px;font-size:18px">Erro no arquivo <b>dados.js</b>. Confira se cada linha de jogo tem aspas nos textos, colchetes [ ] e vírgula no fim.</div>');throw new Error("dados.js inválido")}</script>
 <script>
 const C=window.COPA,T=C.times,G=C.grupos,editor=location.hash==="#editor";
-let S={jogos:C.jogos.map(([d,a,b,x,y,g1,g2])=>({d,a,b,x:x??null,y:y??null,g1:g1||"",g2:g2||""})),fotos:{...(C.fotos||{})},mostrar:!!C.artilheiros};
+let S={jogos:C.jogos.map(([d,a,b,x,y,g1,g2])=>({d,a,b,x:x??null,y:y??null,g1:g1||"",g2:g2||""})),fotos:{...(C.fotos||{})},fotosTimes:{...(C.fotosTimes||{})},mostrar:!!C.artilheiros};
 let rasc=false;
-if(editor){try{const r=JSON.parse(localStorage.getItem("copa-rascunho")||"null");if(r&&r.jogos){S=r;S.fotos=S.fotos||{};rasc=true}}catch(e){}document.body.classList.add("editor");$("#barra").hidden=false}
+if(editor){try{const r=JSON.parse(localStorage.getItem("copa-rascunho")||"null");if(r&&r.jogos){S=r;S.fotos=S.fotos||{};S.fotosTimes=S.fotosTimes||{};rasc=true}}catch(e){}document.body.classList.add("editor");$("#barra").hidden=false}
 function $(s){return document.querySelector(s)}
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const salvar=()=>{if(editor)try{localStorage.setItem("copa-rascunho",JSON.stringify(S))}catch(e){}};
@@ -173,8 +191,7 @@ let filtro="todos";
 const opt=s=>Object.keys(T).map(k=>`<option value="${k}"${k===s?" selected":""}>${nome(k)}</option>`).join("");
 function renderJogos(){
   if(editor){
-    $("#painel").innerHTML=`<div class="painel"><b>Modo editor.</b> Altere data, times e placares. Em cada jogo, escreva quem fez os gols (ex.: <b>Neto 2, Maria</b>) e os artilheiros são somados sozinhos. Tudo é guardado neste aparelho como rascunho. Quando terminar, toque em <b>Copiar dados.js</b> e cole no arquivo <code>dados.js</code> do GitHub.<label><input type="checkbox" id="ckArt" ${S.mostrar?"checked":""}> Mostrar aba Artilheiros</label>${rasc?'<br><small>Rascunho carregado deste aparelho.</small>':''}</div>`;
-    $("#ckArt").onchange=e=>{S.mostrar=e.target.checked;salvar();renderTabs()};
+    $("#painel").innerHTML=`<div class="painel"><b>Modo editor.</b> Altere data, times e placares. Em cada jogo, escreva quem fez os gols (ex.: <b>Neto 2, Maria</b>) e os artilheiros são somados sozinhos. Tudo é guardado neste aparelho como rascunho. Quando terminar, toque em <b>Copiar dados.js</b> e cole no arquivo <code>dados.js</code> do GitHub.${rasc?'<br><small>Rascunho carregado deste aparelho.</small>':''}</div>`;
     $("#chips").innerHTML="";$("#addJogo").hidden=false;
     $("#jogos").innerHTML=S.jogos.map((j,i)=>`<div class="jr" data-i="${i}"><div class="l1"><input class="dt" data-f="d" value="${esc(j.d)}" placeholder="dd/mm" inputmode="numeric" maxlength="5"><button class="x" data-del="${i}" aria-label="Excluir jogo">Excluir</button></div><div class="l2"><select data-f="a">${opt(j.a)}</select><input class="n" data-f="x" type="number" min="0" inputmode="numeric" value="${j.x??""}"><span>×</span><input class="n" data-f="y" type="number" min="0" inputmode="numeric" value="${j.y??""}"><select data-f="b">${opt(j.b)}</select></div><input class="tx" data-f="g1" value="${esc(j.g1||"")}" placeholder="Gols do time da casa. Ex.: Neto 2, Maria"><input class="tx" data-f="g2" value="${esc(j.g2||"")}" placeholder="Gols do time de fora. Ex.: Pedro"><small class="chk" data-chk>${chk(j)}</small></div>`).join("");
     return;
@@ -184,29 +201,34 @@ function renderJogos(){
   const lista=[...S.jogos].sort((p,q)=>ord(p)-ord(q)).filter(j=>filtro==="todos"||(filtro==="res")===jogou(j));
   let h="",ult="";
   lista.forEach(j=>{
-    if(j.d!==ult){h+=`<div class="data ${j.d===hs?"hoje":""}">${esc(j.d)}${j.d===hs?" · hoje":""}</div>`;ult=j.d}
+    if(j.d!==ult){h+=`<div class="dh"><div class="data ${j.d===hs?"hoje":""}">${esc(j.d)}${j.d===hs?" · hoje":""}</div><button class="sh" data-sh="jogos" data-d="${esc(j.d)}">Compartilhar</button></div>`;ult=j.d}
     h+=`<div class="jogo"><div class="eq">${tb(j.a)}</div>${jogou(j)?`<div class="placar">${j.x} × ${j.y}</div>`:`<div class="placar vazio">×</div>`}<div class="eq b">${tb(j.b)}</div></div>`;
   });
   $("#jogos").innerHTML=h||'<p class="vazio-msg">Nenhum jogo aqui ainda.</p>';
 }
 
 const ini=n=>n.trim().split(/\s+/).slice(0,2).map(p=>p[0]).join("").toUpperCase();
+const cardsArt=(sub,full)=>sub.map(a=>{const f=S.fotos[a.n]||"",r=full.findIndex(x=>x.g===a.g)+1;return `<div class="art${r===1?" top":""}"><div class="r">${r}º</div><div class="ft">${f?`<img src="${esc(f)}" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.textContent='${esc(ini(a.n))}'">`:esc(ini(a.n))}</div><div class="nm">${esc(a.n)}<br>${tb(a.t)}</div><div class="g">${a.g}<small>${a.g>1?"GOLS":"GOL"}</small></div></div>`}).join("");
+function renderTop5(L){
+  $("#top5").innerHTML=L.length?`<h3 class="sec">Artilharia · quem está na briga</h3>${cardsArt(L.slice(0,5),L)}<button class="add" data-aba="art">Ver todos os artilheiros</button>`:"";
+}
 function renderArt(){
-  const L=artilheiros();
+  const L=artilheiros();renderTop5(L);
+  $("#shArt").hidden=editor||!L.length;
   if(editor){
     $("#art").innerHTML=L.length?`<p class="dica">Somados automaticamente a partir dos jogos. Aqui você só coloca a foto (opcional): arquivo dentro da pasta fotos/.</p>`+L.map(a=>`<div class="jr"><div class="l1">${tb(a.t)}<b style="margin-left:auto;font:400 24px Anton;color:var(--ouro)">${a.g} gol${a.g>1?"s":""}</b></div><div class="l1"><b>${esc(a.n)}</b><input class="tx" data-foto="${esc(a.n)}" value="${esc(S.fotos[a.n]||"")}" placeholder="fotos/${esc(a.n.toLowerCase().replace(/\s+/g,"-"))}.jpg"></div></div>`).join(""):'<p class="vazio-msg">Escreva quem fez os gols dentro de cada jogo (aba Jogos) e os artilheiros aparecem aqui.</p>';
     return;
   }
-  $("#art").innerHTML=L.length?L.map(a=>{const f=S.fotos[a.n]||"",r=L.findIndex(x=>x.g===a.g)+1;return `<div class="art${r===1?" top":""}"><div class="r">${r}º</div><div class="ft">${f?`<img src="${esc(f)}" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.textContent='${esc(ini(a.n))}'">`:esc(ini(a.n))}</div><div class="nm">${esc(a.n)}<br>${tb(a.t)}</div><div class="g">${a.g}<small>GOLS</small></div></div>`}).join(""):'<p class="vazio-msg">Os artilheiros aparecem aqui.</p>';
+  $("#art").innerHTML=L.length?cardsArt(L,L):'<p class="vazio-msg">Os artilheiros aparecem aqui.</p>';
 }
 
 /* abas */
 let aba="class";
 function renderTabs(){
-  const ab=[["class","Classificação"],["jogos","Jogos"]];if(S.mostrar||editor)ab.push(["art","Artilheiros"]);
+  const ab=[["class","Classificação"],["jogos","Jogos"]];ab.push(["art","Artilheiros"]);ab.push(["stats","Estatísticas"]);if(editor)ab.push(["sel","Seleções"]);
   if(aba==="art"&&!ab.some(a=>a[0]==="art"))aba="class";
   $("#tabs").innerHTML=ab.map(([k,t])=>`<button data-aba="${k}" class="${aba===k?"on":""}">${t}</button>`).join("");
-  ["class","jogos","art"].forEach(k=>$("#s-"+k).hidden=k!==aba);
+  ["class","jogos","art","stats","sel"].forEach(k=>$("#s-"+k).hidden=k!==aba);
 }
 
 /* modal do time */
@@ -214,24 +236,25 @@ function abrir(c){
   const g=grupoDe(c),L=tabela(g),i=L.findIndex(x=>x.c===c),x=L[i];
   const meus=[...S.jogos].filter(j=>j.a===c||j.b===c).sort((p,q)=>ord(p)-ord(q));
   const jl=meus.map(j=>{
-    const casa=j.a===c,op=casa?j.b:j.a;let pl="×",b='<span class="bd n">–</span>';
+    const casa=j.a===c,op=casa?j.b:j.a,sm=casa?j.g1:j.g2,so=casa?j.g2:j.g1,ls=[sm&&nome(c)+": "+sm,so&&nome(op)+": "+so].filter(Boolean).join(" · "),lg=jogou(j)&&ls?`<div class="lg">Gols — ${esc(ls)}</div>`:"";let pl="×",b='<span class="bd n">–</span>';
     if(jogou(j)){const m=casa?j.x:j.y,s=casa?j.y:j.x;pl=`${j.x} × ${j.y}`;const r=m>s?"V":m<s?"D":"E";b=`<span class="bd ${r}">${r}</span>`}
-    return `<div class="lj"><span class="d">${esc(j.d)}</span>${tb(op)}<span class="pl">${pl}</span>${b}</div>`;
+    return `<div class="lj"><span class="d">${esc(j.d)}</span>${tb(op)}<span class="pl">${pl}</span>${b}</div>${lg}`;
   }).join("");
-  const as=S.mostrar?artilheiros().filter(a=>a.t===c):[];
-  $("#sheet").innerHTML=`<div class="sh-top">${flag(c)}<div><h4>${nome(c)}</h4><small>Grupo ${g} · ${i+1}º lugar</small></div><button id="fechar">Fechar</button></div>
+  const as=artilheiros().filter(a=>a.t===c);
+  $("#sheet").innerHTML=`${(S.fotosTimes||{})[c]?`<img class="fotoT" src="${esc(S.fotosTimes[c])}" alt="" onerror="this.remove()">`:""}<div class="sh-top">${flag(c)}<div><h4>${nome(c)}</h4><small>Grupo ${g} · ${i+1}º lugar</small></div><button id="fechar">Fechar</button></div>
   <div class="stats">${[["PTS",x.pts],["J",x.j],["V",x.v],["E",x.e],["D",x.d],["GP",x.gp],["GC",x.gc],["SG",sg(x)]].map(([k,v])=>`<div><small>${k}</small>${v}</div>`).join("")}</div>
   <h5>Jogos</h5>${jl||'<p class="vazio-msg">Sem jogos.</p>'}
-  ${as.length?`<h5>Artilheiros</h5>${as.map(a=>`<div class="lj"><span style="flex:1">${esc(a.n)}</span><span class="pl">${a.g} gols</span></div>`).join("")}`:""}`;
+  ${as.length?`<h5>Artilheiros</h5>${as.map(a=>`<div class="lj"><span style="flex:1">${esc(a.n)}</span><span class="pl">${a.g} gol${a.g>1?"s":""}</span></div>`).join("")}`:""}`;
   $("#modal").hidden=false;
 }
 const fechar=()=>$("#modal").hidden=true;
 
 /* eventos */
 document.addEventListener("click",e=>{
+  const sh=e.target.closest("[data-sh]");if(sh){compartilhar(sh.dataset.sh,sh.dataset.d);return}
   const t=e.target.closest("[data-t]");if(t){abrir(t.dataset.t);return}
   if(e.target.id==="modal"||e.target.id==="fechar")return fechar();
-  const ab=e.target.closest("[data-aba]");if(ab){aba=ab.dataset.aba;renderTabs();renderArt();scrollTo(0,0);return}
+  const ab=e.target.closest("[data-aba]");if(ab){aba=ab.dataset.aba;renderTabs();renderArt();renderStats();renderSel();scrollTo(0,0);return}
   const fl=e.target.closest("[data-fl]");if(fl){filtro=fl.dataset.fl;renderJogos();return}
   const dj=e.target.closest("[data-del]");if(dj){S.jogos.splice(+dj.dataset.del,1);salvar();renderJogos();renderGrupos();return}
   });
@@ -248,6 +271,7 @@ if(editor){
     salvar();renderGrupos();
   });
   $("#art").addEventListener("input",e=>{const n=e.target.dataset.foto;if(n===undefined)return;S.fotos[n]=e.target.value.trim();salvar()});
+  $("#sel").addEventListener("input",e=>{const c=e.target.dataset.ft;if(c===undefined)return;S.fotosTimes[c]=e.target.value.trim();salvar()});
   $("#addJogo").onclick=()=>{const u=S.jogos[S.jogos.length-1]||{};S.jogos.push({d:u.d||"",a:Object.keys(T)[0],b:Object.keys(T)[1],x:null,y:null});salvar();renderJogos();scrollTo(0,document.body.scrollHeight)};
   $("#bCopiar").onclick=async()=>{try{await navigator.clipboard.writeText(gerar());aviso("dados.js copiado!")}catch(e){baixar()}};
   $("#bBaixar").onclick=baixar;
@@ -258,9 +282,181 @@ function baixar(){const a=document.createElement("a");a.href=URL.createObjectURL
 function gerar(){
   const L=o=>Object.entries(o).map(([k,v])=>`    ${k}: ${JSON.stringify(v)}`).join(",\n");
   const jg=[...S.jogos].sort((p,q)=>ord(p)-ord(q)).map(j=>"    "+JSON.stringify([j.d,j.a,j.b,...(jogou(j)?[+j.x,+j.y,...(j.g1||j.g2?[j.g1||"",j.g2||""]:[])]:[])])).join(",\n");
-  return `/* DADOS DA COPA - gerado pelo modo editor. Jogo sem placar = ["data","CASA","FORA"]; com placar = [...,gols,gols]; com autores = [...,gols,gols,"Neto 2, Ana","Pedro"] */\nwindow.COPA = {\n  ano: ${C.ano},\n  artilheiros: ${S.mostrar},\n  ajustes: ${JSON.stringify(C.ajustes||{})},\n  times: {\n${L(C.times)}\n  },\n  grupos: {\n${L(C.grupos)}\n  },\n  jogos: [\n${jg}\n  ],\n  fotos: ${JSON.stringify(S.fotos)}\n};\n`;
+  return `/* DADOS DA COPA - gerado pelo modo editor. Jogo sem placar = ["data","CASA","FORA"]; com placar = [...,gols,gols]; com autores = [...,gols,gols,"Neto 2, Ana","Pedro"] */\nwindow.COPA = {\n  ano: ${C.ano},\n  artilheiros: ${S.mostrar},\n  ajustes: ${JSON.stringify(C.ajustes||{})},\n  times: {\n${L(C.times)}\n  },\n  grupos: {\n${L(C.grupos)}\n  },\n  jogos: [\n${jg}\n  ],\n  fotos: ${JSON.stringify(S.fotos)},\n  fotosTimes: ${JSON.stringify(S.fotosTimes)}\n};\n`;
 }
-renderTabs();renderGrupos();renderJogos();renderArt();
+
+
+function dadosStats(){
+  const jg=S.jogos.filter(jogou),n=jg.length;if(!n)return null;
+  const f=v=>String(Math.round(v*100)/100).replace(".",","),gl=j=>+j.x+ +j.y;
+  const tg=jg.reduce((a,j)=>a+gl(j),0),T2=Object.keys(G).flatMap(g=>tabela(g));
+  const top=(arr,fn,best)=>{const m=best(...arr.map(fn));return arr.filter(a=>fn(a)===m)};
+  const nomes=a=>a.slice(0,4).map(r=>nome(r.c)).join(", ")+(a.length>4?"…":"");
+  const at=top(T2,r=>r.gp,Math.max),df=top(T2.filter(r=>r.j>0),r=>r.gc,Math.min);
+  const gj=top(jg,gl,Math.max)[0],gd=top(jg,j=>Math.abs(j.x-j.y),Math.max)[0];
+  const res=j=>`${nome(j.a)} ${j.x} × ${j.y} ${nome(j.b)}`,pl=(v,s)=>v+" "+s+(v===1?"":"s");
+  const A=artilheiros(),art=A.length?A.filter(a=>a.g===A[0].g):[];
+  const cards=[["Jogos realizados",`${n} de ${S.jogos.length}`],["Gols marcados",tg],["Média de gols por jogo",f(tg/n)],["Empates",jg.filter(j=>+j.x===+j.y).length]];
+  const hl=[];
+  if(at[0].gp>0)hl.push(["Melhor ataque",`${nomes(at)} (${pl(at[0].gp,"gol")})`]);
+  hl.push(["Melhor defesa",`${nomes(df)} (${df[0].gc} sofrido${df[0].gc===1?"":"s"})`]);
+  if(gl(gj)>0)hl.push(["Jogo com mais gols",res(gj)]);
+  if(Math.abs(gd.x-gd.y)>0)hl.push(["Maior goleada",res(gd)]);
+  if(art.length)hl.push(["Artilharia",`${art.slice(0,3).map(a=>a.n).join(", ")} (${pl(art[0].g,"gol")})`]);
+  return {cards,hl,T2,mxg:Math.max(1,...T2.map(r=>r.gp))};
+}
+function renderStats(){
+  const D=dadosStats(),el=$("#stats");$("#shStats").hidden=!D||editor;
+  if(!D){el.innerHTML='<p class="vazio-msg">As estatísticas aparecem depois do primeiro jogo.</p>';return}
+  el.innerHTML=`<div class="kp">${D.cards.map(([l,v])=>`<div class="k"><b>${v}</b><span>${l}</span></div>`).join("")}</div>
+  <h3 class="sec">Destaques</h3>${D.hl.map(([l,v])=>`<div class="hl"><span>${l}</span><b>${esc(v)}</b></div>`).join("")}
+  <h3 class="sec">Gols por seleção</h3>${[...D.T2].sort((p,q)=>q.gp-p.gp).map(r=>`<div class="bar">${tb(r.c)}<div><i style="width:${Math.round(r.gp/D.mxg*100)}%"></i></div><em>${r.gp}</em></div>`).join("")}`;
+}
+function renderSel(){
+  const fm=S.fotosTimes||{},L=Object.keys(G).flatMap(g=>tabela(g).map((r,i)=>({c:r.c,g,pos:i+1})));
+  $("#selDica").textContent=editor?"Informe o arquivo da foto de cada seleção (coloque as fotos na pasta fotos/times/).":"Toque em uma seleção para ver pontos, jogos e artilheiros";
+  $("#sel").innerHTML=L.map(o=>{const f=fm[o.c];return `<div class="sc"><div class="ph" data-t="${o.c}" role="button" tabindex="0">${f?`<img src="${esc(f)}" alt="" onerror="this.src='flags/${o.c}.png';this.className='fl'">`:`<img class="fl" src="flags/${o.c}.png" alt="">`}</div><b>${nome(o.c)}</b><small>Grupo ${o.g} · ${o.pos}º</small>${editor?`<input class="tx" data-ft="${o.c}" value="${esc(f||"")}" placeholder="fotos/times/${esc(nome(o.c).toLowerCase())}.jpg">`:""}</div>`}).join("");
+}
+/* ===== imagem para compartilhar (WhatsApp) ===== */
+const IMG={},W=1080;
+const loadImg=src=>new Promise(r=>{if(!src)return r(null);const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src=src});
+async function carregar(){
+  if(IMG.ok)return;
+  if(!window.ASSETS)await new Promise(r=>{const e=document.createElement("script");e.src="assets.js";e.onload=e.onerror=r;document.head.appendChild(e)});
+  await Promise.all([document.fonts.load("40px Anton"),document.fonts.load("700 30px 'Barlow Condensed'")]);
+  const A=window.ASSETS||{},l={banner:A.banner||"img/copa.jpg",ts:A.ts||"img/logo.jpg",cp:A.cp||"img/compusist.png"};Object.keys(T).forEach(c=>l[c]=(A.flags&&A.flags[c])||"flags/"+c+".png");
+  await Promise.all(Object.entries(l).map(async([k,v])=>{IMG[k]=await loadImg(v)}));
+  IMG.ok=true;
+}
+function rr(x,X,Y,w,h,r){x.beginPath();x.moveTo(X+r,Y);x.arcTo(X+w,Y,X+w,Y+h,r);x.arcTo(X+w,Y+h,X,Y+h,r);x.arcTo(X,Y+h,X,Y,r);x.arcTo(X,Y,X+w,Y,r);x.closePath()}
+function txt(x,s,X,Y,o={}){x.font=o.f||"700 34px 'Barlow Condensed'";x.fillStyle=o.c||"#fff";x.textAlign=o.a||"left";x.textBaseline="middle";o.w?x.fillText(s,X,Y,o.w):x.fillText(s,X,Y)}
+function flagC(x,c,X,Y,w=62,h=40){const i=IMG[c];if(i){x.save();rr(x,X,Y,w,h,5);x.clip();x.drawImage(i,X,Y,w,h);x.restore()}}
+
+function cClass(x,y){
+  Object.keys(G).forEach((g,k)=>{
+    const h=112+5*64+16,gr=x.createLinearGradient(0,y,0,y+h);
+    gr.addColorStop(0,k%2?"#0c2150":"#08301a");gr.addColorStop(1,k%2?"#06112a":"#041a0d");
+    rr(x,30,y,1020,h,22);x.fillStyle=gr;x.fill();x.lineWidth=3;x.strokeStyle=k%2?"#2a56b8":"#1f8a3f";x.stroke();
+    txt(x,"GRUPO "+g,60,y+42,{f:"italic 46px Anton"});
+    const cx=[700,775,835,895,955,1010];
+    ["PTS","J","V","E","D","SG"].forEach((s,i)=>txt(x,s,cx[i],y+90,{f:"700 28px 'Barlow Condensed'",c:"#f5c518",a:"center"}));
+    tabela(g).forEach((r,i)=>{
+      const ry=y+112+i*64,m=ry+32;
+      x.fillStyle="rgba(245,197,24,.25)";x.fillRect(50,ry,980,1.5);
+      rr(x,60,ry+10,44,44,8);x.fillStyle=i>=4?"#e5202e":"#1fb84a";x.fill();
+      txt(x,String(i+1),82,m+1,{f:"26px Anton",a:"center"});
+      flagC(x,r.c,120,ry+12);
+      txt(x,nome(r.c).toUpperCase(),200,m,{f:"700 36px 'Barlow Condensed'",w:330});
+      const v=[r.pts,r.j,r.v,r.e,r.d,sg(r)];
+      v.forEach((n,k2)=>txt(x,String(n),cx[k2],m,{f:"700 38px 'Barlow Condensed'",c:k2===0?"#f5c518":"#fff",a:"center"}));
+    });
+    y+=h+22;
+  });
+  return y;
+}
+function cJogos(x,y,d){
+  const lista=S.jogos.filter(j=>j.d===d);
+  lista.forEach(j=>{
+    const sc=jogou(j)&&(j.g1||j.g2),h=sc?132:100,cy=y+50;
+    rr(x,30,y,1020,h,14);x.fillStyle="rgba(255,255,255,.1)";x.fill();
+    rr(x,30,y,8,h,4);x.fillStyle="#f5c518";x.fill();
+    flagC(x,j.a,60,cy-20);txt(x,nome(j.a).toUpperCase(),136,cy,{f:"700 36px 'Barlow Condensed'",w:270});
+    flagC(x,j.b,958,cy-20);txt(x,nome(j.b).toUpperCase(),946,cy,{f:"700 36px 'Barlow Condensed'",a:"right",w:270});
+    txt(x,jogou(j)?`${j.x} × ${j.y}`:"×",540,cy+2,{f:"54px Anton",a:"center",c:jogou(j)?"#fff":"#9fb3a3"});
+    if(sc){
+      if(j.g1)txt(x,"Gols: "+j.g1,136,y+104,{f:"600 26px 'Barlow Condensed'",c:"#cfe9d6",w:400});
+      if(j.g2)txt(x,"Gols: "+j.g2,946,y+104,{f:"600 26px 'Barlow Condensed'",c:"#cfe9d6",a:"right",w:400});
+    }
+    y+=h+12;
+  });
+  return y;
+}
+function cArt(x,y){
+  const full=artilheiros(),L=full.slice(0,5);
+  if(!L.length){txt(x,"Sem artilheiros ainda",540,y+50,{a:"center",c:"#9fb3a3"});return y+100}
+  L.forEach(a=>{
+    const r=full.findIndex(z=>z.g===a.g)+1,cy=y+48;
+    rr(x,30,y,1020,96,16);x.fillStyle=r===1?"rgba(245,197,24,.28)":"rgba(255,255,255,.09)";x.fill();
+    txt(x,r+"º",78,cy+1,{f:"34px Anton",c:"#f5c518",a:"center"});
+    x.save();x.beginPath();x.arc(170,cy,34,0,7);x.closePath();x.fillStyle="#12552a";x.fill();x.clip();
+    const f=IMG["f:"+a.n];if(f)x.drawImage(f,136,cy-34,68,68);else txt(x,ini(a.n),170,cy+1,{f:"28px Anton",a:"center"});
+    x.restore();x.beginPath();x.arc(170,cy,34,0,7);x.lineWidth=3;x.strokeStyle="#f5c518";x.stroke();
+    txt(x,a.n.toUpperCase(),226,cy-14,{f:"700 38px 'Barlow Condensed'",w:560});
+    flagC(x,a.t,226,cy+6,40,26);txt(x,nome(a.t).toUpperCase(),276,cy+19,{f:"600 26px 'Barlow Condensed'",c:"#9fb3a3"});
+    txt(x,String(a.g),980,cy-4,{f:"56px Anton",c:"#f5c518",a:"center"});
+    txt(x,a.g>1?"GOLS":"GOL",980,cy+30,{f:"700 20px 'Barlow Condensed'",c:"#9fb3a3",a:"center"});
+    y+=108;
+  });
+  if(full.length>5){txt(x,`+ ${full.length-5} jogadores na briga · veja todos no site`,540,y+22,{f:"600 28px 'Barlow Condensed'",c:"#cfe9d6",a:"center"});y+=50}
+  return y;
+}
+function cStats(x,y){
+  const D=dadosStats();if(!D){txt(x,"Sem jogos realizados ainda",540,y+50,{a:"center",c:"#9fb3a3"});return y+100}
+  D.cards.forEach(([l,v],i)=>{const cx=30+(i%2)*525,cy=y+Math.floor(i/2)*138;rr(x,cx,cy,495,120,16);x.fillStyle="rgba(255,255,255,.1)";x.fill();rr(x,cx,cy,8,120,4);x.fillStyle="#f5c518";x.fill();txt(x,String(v),cx+34,cy+48,{f:"56px Anton",c:"#f5c518",w:430});txt(x,l,cx+34,cy+93,{f:"600 28px 'Barlow Condensed'",c:"#9fb3a3",w:430})});
+  y+=Math.ceil(D.cards.length/2)*138+16;
+  txt(x,"DESTAQUES",40,y+26,{f:"36px Anton"});y+=58;
+  D.hl.slice(0,5).forEach(([l,v])=>{x.fillStyle="rgba(245,197,24,.25)";x.fillRect(40,y,1000,1.5);txt(x,l,50,y+34,{f:"600 30px 'Barlow Condensed'",c:"#9fb3a3"});txt(x,v,1030,y+34,{f:"700 32px 'Barlow Condensed'",a:"right",w:620});y+=68});
+  y+=14;txt(x,"GOLS POR SELEÇÃO",40,y+26,{f:"36px Anton"});y+=58;
+  [...D.T2].sort((p,q)=>q.gp-p.gp).slice(0,5).forEach(r=>{flagC(x,r.c,50,y+4,56,36);txt(x,nome(r.c).toUpperCase(),122,y+23,{f:"700 32px 'Barlow Condensed'",w:240});const bw=Math.max(8,Math.round(r.gp/D.mxg*520));rr(x,380,y+8,bw,28,6);x.fillStyle="#1fb84a";x.fill();txt(x,String(r.gp),380+bw+16,y+23,{f:"32px Anton",c:"#f5c518"});y+=56});
+  return y+10;
+}
+async function montar(tipo,d,semFotos){
+  await carregar();
+  let titulo,corpo;
+  if(tipo==="class"){titulo="CLASSIFICAÇÃO";corpo=cClass}
+  else if(tipo==="jogos"){const l=S.jogos.filter(j=>j.d===d);titulo=(l.length&&l.every(jogou)?"RESULTADOS":"JOGOS")+" · "+d;corpo=(x,y)=>cJogos(x,y,d)}
+  else if(tipo==="stats"){titulo="ESTATÍSTICAS";corpo=cStats}
+  else{titulo="ARTILHEIROS";await Promise.all(artilheiros().slice(0,5).map(async a=>{IMG["f:"+a.n]=await loadImg(semFotos?null:S.fotos[a.n])}));corpo=cArt}
+  const top=420,link=linkSite(),extra=link?80:0,sc=document.createElement("canvas");sc.width=W;sc.height=4000;
+  const fim=corpo(sc.getContext("2d"),top),H=fim+224+extra;
+  const cv=document.createElement("canvas");cv.width=W;cv.height=H;const x=cv.getContext("2d");
+  const bg=x.createLinearGradient(0,0,0,H);bg.addColorStop(0,"#0a3a1c");bg.addColorStop(.5,"#04130a");bg.addColorStop(1,"#07163a");x.fillStyle=bg;x.fillRect(0,0,W,H);
+  if(IMG.banner)x.drawImage(IMG.banner,0,0,1024,340,0,0,W,359);
+  x.save();x.translate(0,296);x.beginPath();x.moveTo(228,8);x.lineTo(1055,0);x.lineTo(1040,86);x.lineTo(214,92);x.closePath();
+  const gg=x.createLinearGradient(0,0,W,0);gg.addColorStop(0,"#c99a0a");gg.addColorStop(.4,"#f5c518");gg.addColorStop(1,"#c99a0a");x.fillStyle=gg;x.fill();x.restore();
+  txt(x,titulo,640,296+50,{f:"58px Anton",c:"#06240f",a:"center",w:760});
+  corpo(x,top);
+  const fy=fim+24;
+  x.fillStyle="rgba(245,197,24,.5)";x.fillRect(40,fy,1000,2);
+  if(IMG.ts){x.save();rr(x,40,fy+24,110,106,14);x.clip();x.drawImage(IMG.ts,40,fy+24,110,106);x.restore()}
+  txt(x,"TS FUTEBOL FUNCIONAL",168,fy+62,{f:"32px Anton"});
+  txt(x,"Copa do Mundo · Casa Esportiva",168,fy+100,{f:"600 26px 'Barlow Condensed'",c:"#9fb3a3"});
+  txt(x,"Desenvolvido por",900,fy+26,{f:"600 22px 'Barlow Condensed'",c:"#9fb3a3",a:"center"});
+  rr(x,780,fy+40,240,108,12);x.fillStyle="#fff";x.fill();
+  if(IMG.cp)x.drawImage(IMG.cp,786,fy+44,228,100);
+  txt(x,"@compusist.fsa · (75) 99821-9842",900,fy+168,{f:"600 24px 'Barlow Condensed'",c:"#cfe9d6",a:"center",w:330});
+  if(link){const lg=x.createLinearGradient(0,0,W,0);lg.addColorStop(0,"#c99a0a");lg.addColorStop(.5,"#f5c518");lg.addColorStop(1,"#c99a0a");rr(x,40,fy+196,1000,64,14);x.fillStyle=lg;x.fill();txt(x,"ACOMPANHE A COPA: "+link,540,fy+229,{f:"34px Anton",c:"#06240f",a:"center",w:940})}
+  return cv;
+}
+const linkSite=()=>location.protocol.startsWith("http")?(location.host+location.pathname).replace(/index\.html$/,"").replace(/\/$/,""):"";
+function textoShare(tipo,d){
+  const link=location.protocol.startsWith("http")?(location.origin+location.pathname).replace(/index\.html$/,""):"";
+  let g;
+  if(tipo==="art")g="👟 Acompanhe aqui a artilharia da Copa do Mundo TS Futebol Funcional! Quem vai ser o artilheiro?";
+  else if(tipo==="jogos"){const l=S.jogos.filter(j=>j.d===d);g=l.length&&l.every(jogou)?`🏆 Resultados de ${d} na Copa do Mundo TS Futebol Funcional! Veja como foram os jogos:`:`⚽ Tem jogo da Copa do Mundo TS Futebol Funcional em ${d}! Veja os confrontos e acompanhe:`}
+  else if(tipo==="stats")g="📈 Os números da Copa do Mundo TS Futebol Funcional: gols, médias e destaques! Acompanhe aqui:";
+  else g="📊 Classificação atualizada da Copa do Mundo TS Futebol Funcional! Quem vai avançar? Acompanhe aqui:";
+  return g+(link?"\n"+link:"")+"\n\nSite desenvolvido pela Compusist – Reparo de Notebook 💻 @compusist.fsa";
+}
+async function compartilhar(tipo,d){
+  $("#sheet").innerHTML='<p class="vazio-msg">Gerando imagem…</p>';$("#modal").hidden=false;
+  let blob=null;
+  for(const sem of [false,true]){
+    try{const cv=await montar(tipo,d,sem);blob=await new Promise((res,rej)=>cv.toBlob(b=>b?res(b):rej(new Error("vazio")),"image/png"));break}catch(e){blob=null}
+  }
+  if(!blob){$("#sheet").innerHTML='<p class="vazio-msg">Não foi possível gerar a imagem neste navegador. Tente abrir o site publicado (endereço https://).</p><div class="acoes"><button id="fechar">Fechar</button></div>';return}
+  const url=URL.createObjectURL(blob),nomeArq="copa-"+tipo+(d?"-"+d.replace("/","-"):"")+".png",file=new File([blob],nomeArq,{type:"image/png"}),texto=textoShare(tipo,d);
+  const pode=!!(navigator.canShare&&navigator.canShare({files:[file]}));
+  $("#sheet").innerHTML=`<div class="acoes">${pode?'<button id="bShare">Compartilhar</button>':'<button id="bWpp">Abrir WhatsApp</button>'}<button class="b2" id="bDown">Baixar imagem</button><button class="b2" id="fechar">Fechar</button></div>${pode?"":'<p class="dica">No computador: baixe a imagem, abra o WhatsApp e anexe junto com o texto (botão abaixo copia).</p><div class="acoes"><button class="b2" id="bCopia">Copiar texto e link</button></div>'}<img src="${url}" alt="Imagem para compartilhar" style="width:100%;border-radius:10px;border:2px solid var(--ouro)">`;
+  const baixarImg=()=>{const a=document.createElement("a");a.href=url;a.download=nomeArq;a.click()};
+  $("#bDown").onclick=baixarImg;
+  if(pode)$("#bShare").onclick=async()=>{try{await navigator.share({files:[file],title:"Copa do Mundo – Casa Esportiva",text:texto})}catch(e){}};
+  else{
+    $("#bWpp").onclick=()=>window.open("https://wa.me/?text="+encodeURIComponent(texto),"_blank");
+    $("#bCopia").onclick=async()=>{try{await navigator.clipboard.writeText(texto);$("#bCopia").textContent="Copiado!"}catch(e){}};
+  }
+}
+renderTabs();renderGrupos();renderJogos();renderArt();renderStats();renderSel();
 </script>
 </body>
 </html>

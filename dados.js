@@ -50,5 +50,8 @@ window.COPA = {
     ["28/11","MEX","NIG"]
   ],
   // FOTOS dos artilheiros (opcional): "Nome": "fotos/arquivo.jpg"
-  fotos: {}
+  fotos: {
+     "Reni-10": "fotos/reni-10.png",
+	  "Nuno": "fotos/nuno.png"
+  }
 };

@@ -52,6 +52,7 @@ window.COPA = {
   // FOTOS dos artilheiros (opcional): "Nome": "fotos/arquivo.jpg"
   fotos: {
      "Reni-10": "fotos/reni-10.png",
-	  "Nuno": "fotos/nuno.png"
+	  "Nuno": "fotos/nuno.png",
+	  "Luiz": "foto/luiz-Jamaica.png"
   }
 };

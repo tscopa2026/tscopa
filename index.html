@@ -14,8 +14,8 @@ body{font-family:'Barlow Condensed',system-ui,sans-serif;font-weight:600;color:v
 body.editor{padding-bottom:90px}
 .wrap{max-width:760px;margin:0 auto}
 .topo{width:100%;display:block;border-radius:14px;margin-bottom:10px;border:2px solid var(--ouro)}
-.tabs{flex-wrap:wrap;position:sticky;top:0;z-index:5;display:flex;gap:6px;background:rgba(4,19,10,.94);padding:8px 0;margin-bottom:8px}
-.tabs button{flex:1 0 auto;white-space:nowrap;font:400 17px Anton;text-transform:uppercase;background:#0c2a18;color:var(--mut);border:2px solid #1f8a3f;padding:8px 10px}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);position:sticky;top:0;z-index:5;gap:5px;background:rgba(4,19,10,.94);padding:8px 0;margin-bottom:8px}
+.tabs button{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:40px;font:400 13.5px Anton;text-transform:uppercase;background:#0c2a18;color:var(--mut);border:2px solid #1f8a3f;padding:8px 1px}
 .tabs button.on{background:var(--ouro);color:var(--verde-esc);border-color:var(--ouro)}
 button{font:700 18px 'Barlow Condensed';text-transform:uppercase;background:var(--ouro);color:var(--verde-esc);border:0;border-radius:8px;padding:10px 16px;cursor:pointer;min-height:44px}
 button:focus-visible,input:focus-visible,select:focus-visible,[data-t]:focus-visible{outline:3px solid #fff}
@@ -106,6 +106,25 @@ input.tx{flex:1;min-width:0}.jr>input.tx{width:100%}.chk{color:#ffe9a0;font-size
 .lg{font-size:16px;color:#cfe9d6;padding:0 0 8px 54px;margin-top:-4px}
 .fotoT{width:100%;max-height:200px;object-fit:cover;border-radius:12px;margin-bottom:10px}
 .cta{display:block;margin:22px 0 0;padding:14px 16px;border-radius:14px;background:linear-gradient(135deg,#00433a,#0a6a55);border:2px solid #00bf97;color:#fff;text-decoration:none;text-align:center}.cta b{display:block;font:400 24px Anton;text-transform:uppercase}.cta span{font-size:17px;color:#cfeee6}
+.jogo .tag{grid-column:1/-1;font-size:15px;color:var(--mut);text-align:center;margin-top:-2px}
+.slot{color:var(--mut);font-size:17px;font-weight:600;line-height:1.1}.eq.b .slot{text-align:right}
+.cd{margin:2px 0}.cd summary{cursor:pointer;color:var(--ouro);font-size:17px;padding:4px 0}.cd input.tx{margin-top:6px;width:100%}
+.lab{flex:1;font-size:15px;color:var(--mut);min-width:0;line-height:1.1}.lab.r{text-align:right}
+.cr{display:flex;align-items:center;gap:6px;padding:7px 0;border-top:1px solid rgba(255,255,255,.12)}.cr.hd{color:var(--ouro);font-size:15px}
+.cp{flex:1;display:flex;align-items:center;gap:8px;min-width:0;cursor:pointer}.cp img{width:30px;height:20px;object-fit:cover;border-radius:2px;flex:none}.cp b{font-size:19px;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cp small{color:var(--mut);font-size:14px;white-space:nowrap}
+.cy,.cv{width:32px;line-height:30px;text-align:center;font:400 19px Anton;border-radius:4px;display:inline-block}.cy{background:#f5c518;color:#06240f}.cv{background:#e5202e;color:#fff}
+.cs{min-width:54px;text-align:center;font:700 14px 'Barlow Condensed'}.cs.S{color:#ff9aa2}.cs.P{color:#f5c518}
+.lj[data-jog]{cursor:pointer}.lj[data-jog]::after{content:"›";color:var(--ouro);font-size:24px;margin-left:6px}
+.art.flash{outline:3px solid var(--ouro);animation:fl .6s 3}@keyframes fl{50%{background:rgba(245,197,24,.45)}}
+.pf .dica{margin:0 0 8px}.pj{background:rgba(255,255,255,.08);border-radius:10px;padding:8px;margin-bottom:8px}.pj-t{display:flex;align-items:center;gap:8px;justify-content:center;font-size:20px;text-transform:uppercase}.pj-t img{width:30px;height:20px;object-fit:cover;border-radius:2px}
+.pj-b{display:flex;gap:6px;margin:8px 0}.pj-b button{flex:1;background:#0c2a18;color:#fff;border:2px solid #1f8a3f;padding:6px 2px;font-size:16px;min-height:42px}.pj-b button.on{background:var(--ouro);color:var(--verde-esc);border-color:var(--ouro)}
+.pj-x{font-size:15px;color:var(--mut);display:flex;align-items:center;gap:6px;justify-content:center}.pj-x input.n{height:36px;width:42px}
+.pf .pNome{width:100%;margin:4px 0}.ck{display:flex;gap:8px;align-items:flex-start;font-size:15px;color:var(--mut);margin:6px 0}.ck input{width:20px;height:20px;flex:none}
+.pMsg{text-align:center;color:#ffe9a0}
+#popPal{position:fixed;inset:0;z-index:25;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;padding:12px}#popPal[hidden]{display:none}
+.pop{position:relative;background:linear-gradient(#0a2a16,#06112a);border:2px solid var(--ouro);border-radius:16px;width:100%;max-width:520px;max-height:92vh;overflow:auto;padding:16px 14px}.pop h4{font:400 30px Anton;text-transform:uppercase;margin-bottom:4px;padding-right:40px}.pop-x{position:absolute;right:10px;top:10px;padding:2px 12px;font-size:26px;min-height:38px;background:#fff}
+.tor,.ac{background:rgba(255,255,255,.07);border-radius:10px;padding:8px 10px;margin-bottom:6px}.tn,.ac-t{font-size:18px;text-transform:uppercase;font-weight:700}.tb{display:flex;height:14px;border-radius:7px;overflow:hidden;margin:6px 0;background:#222}.tb i{display:block}.t1{background:#1fb84a}.tX{background:#9fb3a3}.t2{background:#f5c518}.tl{display:flex;justify-content:space-between;font-size:14px;color:var(--mut)}.ac div+div{font-size:16px;color:#cfe9d6}
+.rk{display:flex;gap:10px;padding:7px 0;border-top:1px solid rgba(255,255,255,.12);font-size:19px}.rk b{flex:1}.rk em{font:400 20px Anton;font-style:normal;color:var(--ouro)}
 footer{text-align:center;color:var(--mut);font-size:15px;margin-top:24px}
 @media(max-width:420px){.jogo .eq{font-size:17px}.eq-t img{width:26px;height:18px;margin-right:5px}td{font-size:18px}.stats div{font-size:18px}}
 </style>
@@ -126,8 +145,15 @@ footer{text-align:center;color:var(--mut);font-size:15px;margin-top:24px}
   <div id="painel"></div>
   <div class="chips" id="chips"></div>
   <div id="jogos"></div>
+  <div id="jogosMM"></div>
   <button class="add" id="addJogo" hidden>+ Adicionar jogo</button>
 </section>
+
+<section id="s-pal" hidden><div id="pal"></div></section>
+
+<section id="s-mm" hidden><button class="add" id="shMM" data-sh="mm">Compartilhar mata-mata</button><div id="mm"></div></section>
+
+<section id="s-cart" hidden><button class="add" id="shCart" data-sh="cart">Compartilhar cartões</button><div id="cart"></div></section>
 
 <section id="s-art" hidden>
   <button class="add" id="shArt" data-sh="art">Compartilhar artilheiros</button>
@@ -138,23 +164,40 @@ footer{text-align:center;color:var(--mut);font-size:15px;margin-top:24px}
 
 <section id="s-sel" hidden><p class="dica" id="selDica"></p><div id="sel" class="sel"></div></section>
 
-<a class="cta" href="tel:+557536260318"><b>Notebook com problema?</b><span>A Compusist conserta. Ligue e peça seu orçamento: (75) 3626-0318</span></a>
-<footer>Desempate: pontos, saldo de gols, gols pró, vitórias. <small style="opacity:.55">v1.8</small>
-<div class="dev"><small>Desenvolvido por</small><a href="https://www.compusist.com.br" target="_blank" rel="noopener"><img src="img/compusist.png" alt="Compusist – Reparo de Notebook"></a><a href="https://instagram.com/compusist.fsa" target="_blank" rel="noopener">@compusist.fsa</a> · <a href="tel:+557536260318">(75) 3626-0318</a> · <a href="tel:+5575998219842">(75) 99821-9842</a></div></footer>
+<a class="cta" href="https://wa.me/557536260318?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Copa%20TS%20e%20quero%20um%20or%C3%A7amento%20de%20reparo%20de%20notebook." target="_blank" rel="noopener"><b>Notebook com problema?</b><span>A Compusist conserta. Peça seu orçamento pelo WhatsApp: (75) 3626-0318</span></a>
+<footer>Desempate: pontos, saldo de gols, gols marcados, confronto direto, sorteio. <small style="opacity:.55">v2.0.1</small>
+<div class="dev"><small>Desenvolvido por</small><a href="https://www.compusist.com.br" target="_blank" rel="noopener"><img src="img/compusist.png" alt="Compusist – Reparo de Notebook"></a><a href="https://instagram.com/compusist.fsa" target="_blank" rel="noopener">@compusist.fsa</a> · <a href="https://wa.me/557536260318" target="_blank" rel="noopener">WhatsApp (75) 3626-0318</a> · <a href="https://wa.me/5575998219842" target="_blank" rel="noopener">(75) 99821-9842</a></div></footer>
 </div>
 
 <div id="modal" hidden><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
 <div class="barra" id="barra" hidden>
   <button id="bCopiar">Copiar dados.js</button><button id="bBaixar">Baixar</button><button id="bDescartar" style="background:#fff">Descartar rascunho</button>
 </div>
+<div id="popPal" hidden><div class="pop" id="popBox"></div></div>
 <div id="toast"></div>
 <script>document.write('<script src="dados.js?v='+Date.now()+'"><\/script>')</script>
 <script>if(!window.COPA){document.body.insertAdjacentHTML("afterbegin",'<div style="background:#e5202e;color:#fff;padding:14px;margin:10px;border-radius:8px;font-size:18px">Erro no arquivo <b>dados.js</b>. Confira se cada linha de jogo tem aspas nos textos, colchetes [ ] e vírgula no fim.</div>');throw new Error("dados.js inválido")}</script>
 <script>
 const C=window.COPA,T=C.times,G=C.grupos,editor=location.hash==="#editor";
-let S={jogos:C.jogos.map(([d,a,b,x,y,g1,g2])=>({d,a,b,x:x??null,y:y??null,g1:g1||"",g2:g2||""})),fotos:{...(C.fotos||{})},fotosTimes:{...(C.fotosTimes||{})},mostrar:!!C.artilheiros};
+const CFG=Object.assign({amarelos:3,vermelhoSuspende:true},C.cartoes||{});
+const MM0=[
+ {id:"J1",fase:"Quartas de final",d:"05/12",h:"09h00",a:"1A",b:"4B"},
+ {id:"J2",fase:"Quartas de final",d:"05/12",h:"10h30",a:"2A",b:"3B"},
+ {id:"J3",fase:"Quartas de final",d:"05/12",h:"14h30",a:"1B",b:"4A"},
+ {id:"J4",fase:"Quartas de final",d:"05/12",h:"16h00",a:"2B",b:"3A"},
+ {id:"SF1",fase:"Semifinais",d:"12/12",h:"",a:"VJ1",b:"VJ2"},
+ {id:"SF2",fase:"Semifinais",d:"12/12",h:"",a:"VJ3",b:"VJ4"},
+ {id:"TER",fase:"Disputa de 3º lugar",d:"19/12",h:"",a:"PSF1",b:"PSF2"},
+ {id:"FIN",fase:"Grande Final",d:"19/12",h:"",a:"VSF1",b:"VSF2"}];
+let PLAN=[],PLANWARN=[],PLANERR=false;
+const p2=n=>String(n).padStart(2,"0"),nz=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();
+const num=v=>v==null||v===""?null:+v;
+const pickC=c=>({am1:(c&&c.am1)||"",am2:(c&&c.am2)||"",vm1:(c&&c.vm1)||"",vm2:(c&&c.vm2)||""});
+const normG=([d,a,b,x,y,g1,g2,c])=>({d,a,b,x:x??null,y:y??null,g1:g1||"",g2:g2||"",...pickC(c)});
+const normM=m=>({id:m.id,fase:m.fase||"",d:m.d||"",h:m.h||"",a:m.a||"",b:m.b||"",x:num(m.x),y:num(m.y),p1:num(m.p1),p2:num(m.p2),g1:m.g1||"",g2:m.g2||"",...pickC(m)});
+let S={jogos:C.jogos.map(normG),mm:(C.matamata||MM0).map(normM),fotos:{...(C.fotos||{})},fotosTimes:{...(C.fotosTimes||{})},mostrar:!!C.artilheiros};
 let rasc=false;
-if(editor){try{const r=JSON.parse(localStorage.getItem("copa-rascunho")||"null");if(r&&r.jogos){S=r;S.fotos=S.fotos||{};S.fotosTimes=S.fotosTimes||{};rasc=true}}catch(e){}document.body.classList.add("editor");$("#barra").hidden=false}
+if(editor){try{const r=JSON.parse(localStorage.getItem("copa-rascunho")||"null");if(r&&r.jogos){S=r;S.fotos=S.fotos||{};S.fotosTimes=S.fotosTimes||{};S.mm=S.mm||(C.matamata||MM0).map(normM);rasc=true}}catch(e){}document.body.classList.add("editor");$("#barra").hidden=false}
 function $(s){return document.querySelector(s)}
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const salvar=()=>{if(editor)try{localStorage.setItem("copa-rascunho",JSON.stringify(S))}catch(e){}};
@@ -163,11 +206,17 @@ const nome=c=>T[c][0];
 const jogou=j=>j.x!=null&&j.y!=null;
 const ord=j=>{const[d,m]=(j.d||"0/0").split("/");return m*100+ +d};
 const tb=c=>`<span class="eq-t" data-t="${c}" role="button" tabindex="0">${flag(c)}<b>${nome(c)}</b></span>`;
+const ladoHTML=(j,l)=>j[l]?tb(j[l]):`<span class="eq-t slot">${esc(j["l"+l])}</span>`;
 function parseG(s){return String(s||"").split(",").map(p=>p.trim()).filter(Boolean).map(p=>{const m=p.match(/^(.*?)(?:\s*[x×]?\s*(\d+))?$/);return{n:m[1].trim(),g:m[2]?+m[2]:1}}).filter(o=>o.n)}
-function artilheiros(){const m={};S.jogos.forEach(j=>[[j.g1,j.a],[j.g2,j.b]].forEach(([s,t])=>parseG(s).forEach(o=>{const k=o.n.toLowerCase()+"|"+t;(m[k]=m[k]||{n:o.n,t,g:0}).g+=o.g})));return Object.values(m).sort((p,q)=>q.g-p.g||p.n.localeCompare(q.n))}
-const chk=j=>{if(!jogou(j))return"Informe o placar para conferir os gols";const f=(s,x)=>{const t=parseG(s).reduce((a,o)=>a+o.g,0);return t===+x?"✓":t+" de "+x};const a=f(j.g1,j.x),b=f(j.g2,j.y);return a==="✓"&&b==="✓"?"✓ Gols conferem com o placar":`Gols informados — casa: ${a} · fora: ${b} (gol contra não precisa lançar)`};
 const grupoDe=c=>Object.keys(G).find(g=>G[g].includes(c));
 
+/* ---------- classificação (desempate: pontos, saldo, gols marcados, confronto direto, sorteio) ---------- */
+function desempate(grp){
+  const cs=grp.map(x=>x.c),M={};cs.forEach(c=>M[c]={pts:0,gp:0,gc:0});
+  S.jogos.forEach(j=>{if(!jogou(j)||!cs.includes(j.a)||!cs.includes(j.b))return;const x=+j.x,y=+j.y;M[j.a].gp+=x;M[j.a].gc+=y;M[j.b].gp+=y;M[j.b].gc+=x;if(x>y)M[j.a].pts+=3;else if(x<y)M[j.b].pts+=3;else{M[j.a].pts++;M[j.b].pts++}});
+  const so=C.sorteio||[],sp=c=>{const i=so.indexOf(c);return i<0?99:i};
+  return [...grp].sort((p,q)=>M[q.c].pts-M[p.c].pts||(M[q.c].gp-M[q.c].gc)-(M[p.c].gp-M[p.c].gc)||M[q.c].gp-M[p.c].gp||sp(p.c)-sp(q.c)||nome(p.c).localeCompare(nome(q.c)));
+}
 function tabela(g){
   const L=G[g].map(c=>({c,pts:(C.ajustes||{})[c]||0,j:0,v:0,e:0,d:0,gp:0,gc:0})),get=c=>L.find(x=>x.c===c);
   S.jogos.forEach(j=>{
@@ -176,39 +225,172 @@ function tabela(g){
     A.j++;B.j++;A.gp+=x;A.gc+=y;B.gp+=y;B.gc+=x;
     if(x>y){A.v++;A.pts+=3;B.d++}else if(x<y){B.v++;B.pts+=3;A.d++}else{A.e++;B.e++;A.pts++;B.pts++}
   });
-  return L.sort((p,q)=>q.pts-p.pts||(q.gp-q.gc)-(p.gp-p.gc)||q.gp-p.gp||q.v-p.v);
+  const base=(p,q)=>q.pts-p.pts||(q.gp-q.gc)-(p.gp-p.gc)||q.gp-p.gp;
+  L.sort(base);const out=[];let i=0;
+  while(i<L.length){let k=i+1;while(k<L.length&&base(L[i],L[k])===0)k++;const grp=L.slice(i,k);out.push(...(grp.length>1?desempate(grp):grp));i=k}
+  return out;
 }
-const sg=x=>{const s=x.gp-x.gc;return(s>0?"+":"")+s};
 
+/* ---------- mata-mata: times definidos automaticamente ---------- */
+const fimGrupos=()=>S.jogos.every(jogou);
+function venc(r){if(!r.a||!r.b||!jogou(r))return null;const x=+r.x,y=+r.y;if(x!==y)return x>y?r.a:r.b;return(r.p1!=null&&r.p2!=null&&r.p1!==r.p2)?(r.p1>r.p2?r.a:r.b):null}
+function slot(cod,d=0){
+  cod=String(cod||"").trim();
+  if(!cod||d>6)return{c:null,label:"A definir"};
+  if(T[cod])return{c:cod,label:nome(cod)};
+  let m=/^(\d)([A-Za-z])$/.exec(cod);
+  if(m){const g=m[2].toUpperCase(),lab=m[1]+"º Grupo "+g;return{c:(G[g]&&fimGrupos())?tabela(g)[m[1]-1].c:null,label:lab}}
+  m=/^([VP])(.+)$/i.exec(cod);
+  if(m){const id=m[2],tp=m[1].toUpperCase(),j=S.mm.find(z=>z.id===id),lab=(tp==="V"?"Vencedor ":"Perdedor ")+id;
+    if(j){const r=resMM(j,d+1),w=venc(r);if(w)return{c:tp==="V"?w:(w===r.a?r.b:r.a),label:lab}}
+    return{c:null,label:lab}}
+  return{c:null,label:cod};
+}
+function resMM(m,d=0){const A=slot(m.a,d),B=slot(m.b,d);return{...m,k:"m",a:A.c,b:B.c,la:A.label,lb:B.label}}
+function todos(){
+  const g=S.jogos.map((j,i)=>({...j,k:"g",i,id:"",h:"",fase:"Fase de grupos",la:nome(j.a),lb:nome(j.b)}));
+  const m=S.mm.map((j,i)=>({...resMM(j),i}));
+  return [...g,...m].map((j,n)=>({...j,n})).sort((p,q)=>ord(p)-ord(q)||String(p.h).localeCompare(String(q.h))||p.n-q.n);
+}
+function artilheiros(){const m={};todos().forEach(j=>{if(!j.a||!j.b)return;[[j.g1,j.a],[j.g2,j.b]].forEach(([s,t])=>parseG(s).forEach(o=>{const k=o.n.toLowerCase()+"|"+t;(m[k]=m[k]||{n:o.n,t,g:0}).g+=o.g}))});return Object.values(m).sort((p,q)=>q.g-p.g||p.n.localeCompare(q.n))}
+const chk=j=>{if(!jogou(j))return"Informe o placar para conferir os gols";const f=(s,x)=>{const t=parseG(s).reduce((a,o)=>a+o.g,0);return t===+x?"✓":t+" de "+x};const a=f(j.g1,j.x),b=f(j.g2,j.y);return a==="✓"&&b==="✓"?"✓ Gols conferem com o placar":`Gols informados — casa: ${a} · fora: ${b} (gol contra não precisa lançar)`};
+
+/* ---------- cartões: 3 amarelos = 1 jogo de suspensão; zera no mata-mata ---------- */
+function cartoesInfo(){
+  const fases={},susp={},prox={};
+  todos().forEach(j=>{
+    if(!j.a||!j.b)return;
+    if(!jogou(j)){[j.a,j.b].forEach(t=>{if(prox[t]==null)prox[t]=j.n});return}
+    const ph=j.k==="g"?"g":"m",trig={},cj=cartoesJogo(j);
+    const P=(n,t)=>{const k=ph+"|"+n.toLowerCase()+"|"+t;return fases[k]=fases[k]||{n,t,f:ph,y:0,r:0}};
+    [[cj.am1,j.a],[cj.am2,j.b]].forEach(([s,t])=>parseG(s).forEach(o=>{const p=P(o.n,t),a0=Math.floor(p.y/CFG.amarelos);p.y+=o.g;if(Math.floor(p.y/CFG.amarelos)>a0)(trig[t]=trig[t]||[]).push(p.n)}));
+    [[cj.vm1,j.a],[cj.vm2,j.b]].forEach(([s,t])=>parseG(s).forEach(o=>{const p=P(o.n,t);p.r+=o.g;if(CFG.vermelhoSuspende)(trig[t]=trig[t]||[]).push(p.n)}));
+    susp[j.a]=[...new Set(trig[j.a]||[])];susp[j.b]=[...new Set(trig[j.b]||[])];
+  });
+  return{jog:Object.values(fases),susp,prox};
+}
+const faseCart=()=>fCart||(todos().some(j=>j.k==="m"&&jogou(j))?"m":"g");
+function stCart(CI,p){if(CI.prox[p.t]==null)return"";if((CI.susp[p.t]||[]).includes(p.n))return"S";if(CFG.amarelos>1&&p.y>0&&p.y%CFG.amarelos===CFG.amarelos-1)return"P";return""}
+function listasCart(CI,fs){
+  const lista=CI.jog.filter(p=>p.f===fs).sort((a,b)=>b.y-a.y||b.r-a.r||a.n.localeCompare(b.n));
+  const sus=[];Object.keys(CI.susp).forEach(t=>{if(CI.prox[t]!=null)CI.susp[t].forEach(n=>sus.push({n,t}))});
+  return{lista,sus,pend:lista.filter(p=>stCart(CI,p)==="P")};
+}
+function proxTxt(CI,t){const j=todos().find(z=>z.n===CI.prox[t]);if(!j)return"";const op=j.a===t?(j.b?nome(j.b):j.lb):(j.a?nome(j.a):j.la);return`${j.d} × ${op}`}
+
+/* ---------- planilha de cartões (Google Sheets publicada como CSV) ---------- */
+function parseCSV(t){const rows=[];let r=[],c="",q=false;for(let i=0;i<t.length;i++){const ch=t[i];if(q){if(ch==='"'){if(t[i+1]==='"'){c+='"';i++}else q=false}else c+=ch}else if(ch==='"')q=true;else if(ch===","||ch===";"){r.push(c);c=""}else if(ch==="\n"||ch==="\r"){if(ch==="\r"&&t[i+1]==="\n")i++;r.push(c);c="";rows.push(r);r=[]}else c+=ch}if(c!==""||r.length){r.push(c);rows.push(r)}return rows.filter(r=>r.some(x=>x.trim()))}
+function dataDM(v){v=String(v||"").trim();let m=/^(\d{4})-(\d{1,2})-(\d{1,2})/.exec(v);if(m)return p2(m[3])+"/"+p2(m[2]);m=/^(\d{1,2})[\/.-](\d{1,2})/.exec(v);if(!m)return"";let dia=+m[1],mes=+m[2];if(mes>12&&dia<=12)[dia,mes]=[mes,dia];return p2(dia)+"/"+p2(mes)}
+const codTime=s=>{const k=nz(s);return Object.keys(T).find(c=>nz(c)===k||nz(nome(c))===k)||""};
+function urlsPlanilha(u){
+  u=String(u||"").trim();if(!u)return[];
+  if(/output=csv|format=csv|tqx=out:csv/.test(u))return[u];
+  const m=/\/spreadsheets\/d\/(e\/)?([\w-]+)/.exec(u);if(!m)return[u];
+  const id=m[2],g=/[?#&]gid=(\d+)/.exec(u),gid=g?"&gid="+g[1]:"";
+  if(m[1])return[`https://docs.google.com/spreadsheets/d/e/${id}/pub?output=csv${gid}`];
+  return[`https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv${gid}`,`https://docs.google.com/spreadsheets/d/${id}/export?format=csv${gid}`];
+}
+function lerPlanilha(txt){
+  const R=parseCSV(txt),rows=[],warn=[];if(!R.length)return{rows,warn};
+  const H=R[0].map(nz),ix=n=>H.findIndex(h=>n.includes(h));
+  const cD=ix(["data"]),cT=ix(["time","selecao"]),cJ=ix(["jogador","nome","atleta"]),cN=ix(["numero camisa","numero da camisa","n camisa","n da camisa","no camisa","camisa"]);
+  const cC=ix(["cartao","tipo","cor"]),cQ=cN>=0?ix(["qtd","qtde","quantidade"]):ix(["qtd","qtde","quantidade","numero","n"]),cA=ix(["amarelo","amarelos"]),cV=ix(["vermelho","vermelhos"]);
+  const cab=cD>=0&&cT>=0&&(cJ>=0||cN>=0),I=cab?{d:cD,t:cT,j:cJ,n:cN,c:cC,q:cQ,a:cA,v:cV}:{d:0,t:1,j:2,n:-1,c:3,q:4,a:-1,v:-1};
+  const L=cab?R.slice(1):R,g=(r,i)=>i>=0?String(r[i]||"").trim():"",alias={};
+  L.forEach(r=>{const t=codTime(g(r,I.t)),nm=g(r,I.j),nu=g(r,I.n);if(t&&nm&&nu)alias[t+"|"+nu]=nm});   // linha com nome e número ensina o nome do número
+  L.forEach((r,i)=>{
+    const lin=i+(cab?2:1),d=dataDM(g(r,I.d)),t=codTime(g(r,I.t)),nu=g(r,I.n);
+    const n=g(r,I.j)||(nu?(alias[t+"|"+nu]||"Nº "+nu):"");
+    if(!d||!t||!n){warn.push(`Linha ${lin}: data, time ou jogador/número não reconhecido`);return}
+    const add=(c,q)=>{if(q>0)rows.push({d,t,n,c,q})};
+    if(I.a>=0||I.v>=0){add("A",parseInt(g(r,I.a))||0);add("V",parseInt(g(r,I.v))||0);return}
+    const tp=nz(g(r,I.c)),q=Math.max(1,parseInt(g(r,I.q))||1);
+    if(/^(v|r)/.test(tp))add("V",q);else if(/^(a|y)/.test(tp)||I.c<0)add("A",q);else warn.push(`Linha ${lin}: cartão "${g(r,I.c)}" não reconhecido (use amarelo ou vermelho)`);
+  });
+  return{rows,warn};
+}
+async function carregarPlanilha(){
+  const us=urlsPlanilha(C.planilhaCartoes);if(!us.length)return;
+  let ok=false;
+  for(const u of us){
+    try{const r=await fetch(u+(u.includes("?")?"&":"?")+"_="+Date.now());if(!r.ok)continue;const t=await r.text();if(/^\s*</.test(t))continue;const o=lerPlanilha(t);PLAN=o.rows;PLANWARN=o.warn;ok=true;break}catch(e){}
+  }
+  PLANERR=!ok;renderTudo();
+}
+function cartoesJogo(j){
+  const o={am1:j.am1||"",am2:j.am2||"",vm1:j.vm1||"",vm2:j.vm2||""};
+  PLAN.forEach(r=>{if(r.d!==j.d)return;const l=r.t===j.a?1:r.t===j.b?2:0;if(!l)return;const k=(r.c==="V"?"vm":"am")+l;o[k]+=(o[k]?", ":"")+r.n+" "+r.q});
+  return o;
+}
 function renderGrupos(){
   $("#grupos").innerHTML=Object.keys(G).map((g,k)=>{
     const lin=tabela(g).map((x,i)=>`<tr class="${i>=4?"elim":""}"><td class="pos"><span>${i+1}</span></td><td class="t" data-t="${x.c}" role="button" tabindex="0">${flag(x.c)}${nome(x.c)}</td><td class="pts">${x.pts}</td><td>${x.j}</td><td>${x.v}</td><td>${x.e}</td><td>${x.d}</td><td>${sg(x)}</td></tr>`).join("");
     return `<section class="grupo ${k%2?"b":"a"}"><h2>Grupo ${g}</h2><div class="scroll"><table><tr><th></th><th></th><th>PTS</th><th>J</th><th>V</th><th>E</th><th>D</th><th>SG</th></tr>${lin}</table></div></section>`;
   }).join("");
 }
+const sg=x=>{const s=x.gp-x.gc;return(s>0?"+":"")+s};
 
-let filtro="todos";
+let filtro="todos",fCart=null;
 const opt=s=>Object.keys(T).map(k=>`<option value="${k}"${k===s?" selected":""}>${nome(k)}</option>`).join("");
+const cardsEd=j=>`<details class="cd"><summary>Cartões${(j.am1||j.am2||j.vm1||j.vm2)?" ●":""}</summary><input class="tx" data-f="am1" value="${esc(j.am1||"")}" placeholder="Amarelos do time da casa. Ex.: Reni, Nuno"><input class="tx" data-f="am2" value="${esc(j.am2||"")}" placeholder="Amarelos do time de fora"><input class="tx" data-f="vm1" value="${esc(j.vm1||"")}" placeholder="Vermelhos do time da casa"><input class="tx" data-f="vm2" value="${esc(j.vm2||"")}" placeholder="Vermelhos do time de fora"></details>`;
+const ni=(f,v)=>`<input class="n" data-f="${f}" type="number" min="0" inputmode="numeric" value="${v??""}">`;
+const golsEd=j=>`<input class="tx" data-f="g1" value="${esc(j.g1||"")}" placeholder="Gols do time da casa. Ex.: Neto 2, Maria"><input class="tx" data-f="g2" value="${esc(j.g2||"")}" placeholder="Gols do time de fora. Ex.: Pedro">`;
+const edGrupo=(j,i)=>`<div class="jr" data-i="${i}"><div class="l1"><input class="dt" data-f="d" value="${esc(j.d)}" placeholder="dd/mm" inputmode="numeric" maxlength="5"><button class="x" data-del="${i}" aria-label="Excluir jogo">Excluir</button></div><div class="l2"><select data-f="a">${opt(j.a)}</select>${ni("x",j.x)}<span>×</span>${ni("y",j.y)}<select data-f="b">${opt(j.b)}</select></div>${golsEd(j)}${cardsEd(j)}<small class="chk" data-chk>${chk(j)}</small></div>`;
+const edMM=(m,i)=>{const r=resMM(m);return `<div class="jr" data-mi="${i}"><div class="l1"><b>${esc(m.id)} · ${esc(m.fase)}</b><input class="dt" data-f="d" value="${esc(m.d)}" placeholder="dd/mm" maxlength="5" style="margin-left:auto"><input class="dt" data-f="h" value="${esc(m.h)}" placeholder="09h00"></div><div class="l1"><input class="tx" data-f="a" value="${esc(m.a)}" placeholder="1A, VJ1 ou BRA"><input class="tx" data-f="b" value="${esc(m.b)}" placeholder="4B, VJ2 ou ARG"></div><div class="l2"><span class="lab">${esc(r.a?nome(r.a):r.la)}</span>${ni("x",m.x)}<span>×</span>${ni("y",m.y)}<span class="lab r">${esc(r.b?nome(r.b):r.lb)}</span></div><div class="l1"><small class="chk">Pênaltis (se empatar):</small>${ni("p1",m.p1)}<span>×</span>${ni("p2",m.p2)}</div>${golsEd(m)}${cardsEd(m)}<small class="chk" data-chk>${chk(m)}</small></div>`};
+
+function suspLinha(j,CI){
+  if(jogou(j)||!j.a||!j.b)return"";
+  const o=[];[j.a,j.b].forEach(t=>{if(CI.prox[t]===j.n)(CI.susp[t]||[]).forEach(n=>o.push(`${n} (${nome(t)})`))});
+  return o.length?"Suspensos: "+o.join(", "):"";
+}
+function linhaJogo(j,CI){
+  const tags=[];
+  if(j.k==="m")tags.push(esc(j.id+(j.h?" · "+j.h:"")));
+  if(jogou(j)&&j.p1!=null&&j.p2!=null&&+j.x===+j.y)tags.push(`Pênaltis: ${j.p1} × ${j.p2}`);
+  const s=suspLinha(j,CI);if(s)tags.push(esc(s));
+  return `<div class="jogo"><div class="eq">${ladoHTML(j,"a")}</div>${jogou(j)?`<div class="placar">${j.x} × ${j.y}</div>`:`<div class="placar vazio">×</div>`}<div class="eq b">${ladoHTML(j,"b")}</div>${tags.length?`<div class="tag">${tags.join(" · ")}</div>`:""}</div>`;
+}
 function renderJogos(){
   if(editor){
-    $("#painel").innerHTML=`<div class="painel"><b>Modo editor.</b> Altere data, times e placares. Em cada jogo, escreva quem fez os gols (ex.: <b>Neto 2, Maria</b>) e os artilheiros são somados sozinhos. Tudo é guardado neste aparelho como rascunho. Quando terminar, toque em <b>Copiar dados.js</b> e cole no arquivo <code>dados.js</code> do GitHub.${rasc?'<br><small>Rascunho carregado deste aparelho.</small>':''}</div>`;
+    $("#painel").innerHTML=`<div class="painel"><b>Modo editor.</b> Altere data, times e placares. Em cada jogo, escreva quem fez os gols (ex.: <b>Neto 2, Maria</b>) e, em <b>Cartões</b>, quem levou amarelo ou vermelho. Artilheiros e suspensões são calculados sozinhos. Tudo é guardado neste aparelho como rascunho. Quando terminar, toque em <b>Copiar dados.js</b> e cole no arquivo <code>dados.js</code> do GitHub.${rasc?'<br><small>Rascunho carregado deste aparelho.</small>':''}</div>`;
     $("#chips").innerHTML="";$("#addJogo").hidden=false;
-    $("#jogos").innerHTML=S.jogos.map((j,i)=>`<div class="jr" data-i="${i}"><div class="l1"><input class="dt" data-f="d" value="${esc(j.d)}" placeholder="dd/mm" inputmode="numeric" maxlength="5"><button class="x" data-del="${i}" aria-label="Excluir jogo">Excluir</button></div><div class="l2"><select data-f="a">${opt(j.a)}</select><input class="n" data-f="x" type="number" min="0" inputmode="numeric" value="${j.x??""}"><span>×</span><input class="n" data-f="y" type="number" min="0" inputmode="numeric" value="${j.y??""}"><select data-f="b">${opt(j.b)}</select></div><input class="tx" data-f="g1" value="${esc(j.g1||"")}" placeholder="Gols do time da casa. Ex.: Neto 2, Maria"><input class="tx" data-f="g2" value="${esc(j.g2||"")}" placeholder="Gols do time de fora. Ex.: Pedro"><small class="chk" data-chk>${chk(j)}</small></div>`).join("");
+    $("#jogos").innerHTML=S.jogos.map(edGrupo).join("");
+    $("#jogosMM").innerHTML=`<h3 class="sec">Mata-mata</h3><p class="dica">Os times entram sozinhos quando a fase anterior terminar. Para trocar na mão, escreva 1A, 4B, VJ1 (vencedor do J1), PSF1 (perdedor da SF1) ou o código do time.</p>`+S.mm.map(edMM).join("");
     return;
   }
+  $("#jogosMM").innerHTML="";
   $("#chips").innerHTML=[["todos","Todos"],["prox","Próximos"],["res","Resultados"]].map(([k,t])=>`<button data-fl="${k}" class="${filtro===k?"on":""}">${t}</button>`).join("");
-  const hj=new Date(),hs=String(hj.getDate()).padStart(2,"0")+"/"+String(hj.getMonth()+1).padStart(2,"0");
-  const lista=[...S.jogos].sort((p,q)=>ord(p)-ord(q)).filter(j=>filtro==="todos"||(filtro==="res")===jogou(j));
+  const hj=new Date(),hs=String(hj.getDate()).padStart(2,"0")+"/"+String(hj.getMonth()+1).padStart(2,"0"),CI=cartoesInfo();
+  const lista=todos().filter(j=>filtro==="todos"||(filtro==="res")===jogou(j));
   let h="",ult="";
   lista.forEach(j=>{
     if(j.d!==ult){h+=`<div class="dh"><div class="data ${j.d===hs?"hoje":""}">${esc(j.d)}${j.d===hs?" · hoje":""}</div><button class="sh" data-sh="jogos" data-d="${esc(j.d)}">Compartilhar</button></div>`;ult=j.d}
-    h+=`<div class="jogo"><div class="eq">${tb(j.a)}</div>${jogou(j)?`<div class="placar">${j.x} × ${j.y}</div>`:`<div class="placar vazio">×</div>`}<div class="eq b">${tb(j.b)}</div></div>`;
+    h+=linhaJogo(j,CI);
   });
   $("#jogos").innerHTML=h||'<p class="vazio-msg">Nenhum jogo aqui ainda.</p>';
 }
+function renderMM(){
+  const L=todos().filter(j=>j.k==="m"),CI=cartoesInfo(),falta=S.jogos.filter(x=>!jogou(x)).length;
+  let h=falta?`<p class="dica">Os confrontos das quartas são definidos quando a fase de grupos terminar (faltam ${falta} jogo${falta>1?"s":""}).</p>`:"";
+  [...new Set(L.map(j=>j.fase))].forEach(f=>{const jj=L.filter(j=>j.fase===f);h+=`<h3 class="sec">${esc(f)} · ${esc(jj[0].d)}</h3>`+jj.map(j=>linhaJogo(j,CI)).join("")});
+  $("#mm").innerHTML=h;
+}
+function renderCart(){
+  const CI=cartoesInfo(),fs=faseCart(),{lista,sus,pend}=listasCart(CI,fs),N=CFG.amarelos;
+  $("#shCart").hidden=editor||!CI.jog.length;
+  const row=(p,tag)=>`<div class="cr"><div class="cp" data-t="${p.t}" role="button" tabindex="0">${flag(p.t)}<b>${esc(p.n)}</b><small>${nome(p.t)}</small></div>${tag}</div>`;
+  const stat=p=>{const s=stCart(CI,p);return `<span class="cy">${p.y}</span><span class="cv">${p.r}</span><span class="cs ${s}">${s==="S"?"SUSP.":s==="P"?"PEND.":""}</span>`};
+  const avisos=editor?[...(PLANERR?["Não foi possível ler a planilha de cartões. Confira se ela está compartilhada como 'Qualquer pessoa com o link' (leitor) e se o link em dados.js está certo."]:[]),...PLANWARN,...PLAN.filter(r=>!todos().some(j=>j.d===r.d&&(j.a===r.t||j.b===r.t))).map(r=>`${r.d} · ${nome(r.t)} · ${r.n}: não há jogo desse time nessa data`)]:[];
+  $("#cart").innerHTML=`${PLANERR&&!editor?'<p class="dica">Os cartões da planilha estão indisponíveis agora.</p>':""}${avisos.length?`<div class="painel">${avisos.slice(0,6).map(esc).join("<br>")}</div>`:""}<p class="dica">${N} amarelos = 1 jogo de suspensão${CFG.vermelhoSuspende?" · vermelho também suspende":""} · os cartões zeram no mata-mata</p>
+  <div class="chips">${[["g","Fase de grupos"],["m","Mata-mata"]].map(([k,t])=>`<button data-fc="${k}" class="${fs===k?"on":""}">${t}</button>`).join("")}</div>
+  ${sus.length?`<h3 class="sec">Suspensos no próximo jogo</h3>${sus.map(s=>row(s,`<span class="cs S" style="flex:1;text-align:right">${esc(proxTxt(CI,s.t))}</span>`)).join("")}`:""}
+  ${pend.length?`<h3 class="sec">Pendurados (próximo amarelo suspende)</h3>${pend.map(p=>row(p,`<span class="cy">${p.y}</span>`)).join("")}`:""}
+  <h3 class="sec">Cartões · ${fs==="g"?"fase de grupos":"mata-mata"}</h3>
+  ${lista.length?`<div class="cr hd"><span style="flex:1">Jogador</span><span class="cy">A</span><span class="cv">V</span><span class="cs"></span></div>`+lista.map(p=>row(p,stat(p))).join(""):'<p class="vazio-msg">Nenhum cartão lançado nesta fase.</p>'}`;
+}
 
 const ini=n=>n.trim().split(/\s+/).slice(0,2).map(p=>p[0]).join("").toUpperCase();
-const cardsArt=(sub,full)=>sub.map(a=>{const f=S.fotos[a.n]||"",r=full.findIndex(x=>x.g===a.g)+1;return `<div class="art${r===1?" top":""}"><div class="r">${r}º</div><div class="ft">${f?`<img src="${esc(f)}" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.textContent='${esc(ini(a.n))}'">`:esc(ini(a.n))}</div><div class="nm">${esc(a.n)}<br>${tb(a.t)}</div><div class="g">${a.g}<small>${a.g>1?"GOLS":"GOL"}</small></div></div>`}).join("");
+const cardsArt=(sub,full)=>sub.map(a=>{const f=S.fotos[a.n]||"",r=full.findIndex(x=>x.g===a.g)+1;return `<div class="art${r===1?" top":""}" data-pn="${esc(a.n)}" data-pt="${a.t}"><div class="r">${r}º</div><div class="ft">${f?`<img src="${esc(f)}" alt="" style="width:100%;height:100%;object-fit:cover" onerror="this.parentNode.textContent='${esc(ini(a.n))}'">`:esc(ini(a.n))}</div><div class="nm">${esc(a.n)}<br>${tb(a.t)}</div><div class="g">${a.g}<small>${a.g>1?"GOLS":"GOL"}</small></div></div>`}).join("");
 function renderTop5(L){
   $("#top5").innerHTML=L.length?`<h3 class="sec">Artilharia · quem está na briga</h3>${cardsArt(L.slice(0,5),L)}<button class="add" data-aba="art">Ver todos os artilheiros</button>`:"";
 }
@@ -225,54 +407,75 @@ function renderArt(){
 /* abas */
 let aba="class";
 function renderTabs(){
-  const ab=[["class","Classificação"],["jogos","Jogos"]];ab.push(["art","Artilheiros"]);ab.push(["stats","Estatísticas"]);if(editor)ab.push(["sel","Seleções"]);
-  if(aba==="art"&&!ab.some(a=>a[0]==="art"))aba="class";
+  const ab=[["class","Classificação"],["jogos","Jogos"],["mm","Mata-mata"],["art","Artilheiros"],["cart","Cartões"],["stats","Estatísticas"]];if(PAL)ab.unshift(["pal","Palpites"]);if(editor)ab.push(["sel","Seleções"]);
   $("#tabs").innerHTML=ab.map(([k,t])=>`<button data-aba="${k}" class="${aba===k?"on":""}">${t}</button>`).join("");
-  ["class","jogos","art","stats","sel"].forEach(k=>$("#s-"+k).hidden=k!==aba);
+  ["pal","class","jogos","mm","art","cart","stats","sel"].forEach(k=>$("#s-"+k).hidden=k!==aba);
 }
+function renderTudo(){renderTabs();renderPal();renderGrupos();renderJogos();renderMM();renderArt();renderCart();renderStats();renderSel()}
 
 /* modal do time */
+function blocoCart(c,CI){
+  const fs=faseCart(),ps=CI.jog.filter(p=>p.t===c&&p.f===fs).sort((a,b)=>b.y-a.y||b.r-a.r),sus=CI.prox[c]!=null?(CI.susp[c]||[]):[];
+  if(!ps.length&&!sus.length)return"";
+  return `<h5>Cartões</h5>${sus.length?`<div class="lg" style="padding-left:0;color:#ff9aa2">Suspensos no próximo jogo: ${esc(sus.join(", "))}</div>`:""}${ps.map(p=>`<div class="lj"><span style="flex:1">${esc(p.n)}</span><span class="cy">${p.y}</span><span class="cv">${p.r}</span></div>`).join("")}`;
+}
 function abrir(c){
-  const g=grupoDe(c),L=tabela(g),i=L.findIndex(x=>x.c===c),x=L[i];
-  const meus=[...S.jogos].filter(j=>j.a===c||j.b===c).sort((p,q)=>ord(p)-ord(q));
+  const g=grupoDe(c),L=tabela(g),i=L.findIndex(x=>x.c===c),x=L[i],CI=cartoesInfo();
+  const meus=todos().filter(j=>j.a===c||j.b===c);
   const jl=meus.map(j=>{
-    const casa=j.a===c,op=casa?j.b:j.a,sm=casa?j.g1:j.g2,so=casa?j.g2:j.g1,ls=[sm&&nome(c)+": "+sm,so&&nome(op)+": "+so].filter(Boolean).join(" · "),lg=jogou(j)&&ls?`<div class="lg">Gols — ${esc(ls)}</div>`:"";let pl="×",b='<span class="bd n">–</span>';
-    if(jogou(j)){const m=casa?j.x:j.y,s=casa?j.y:j.x;pl=`${j.x} × ${j.y}`;const r=m>s?"V":m<s?"D":"E";b=`<span class="bd ${r}">${r}</span>`}
-    return `<div class="lj"><span class="d">${esc(j.d)}</span>${tb(op)}<span class="pl">${pl}</span>${b}</div>${lg}`;
+    const casa=j.a===c,op=casa?j.b:j.a,sm=casa?j.g1:j.g2,so=casa?j.g2:j.g1;
+    const opN=op?nome(op):(casa?j.lb:j.la),ls=[sm&&nome(c)+": "+sm,so&&op&&nome(op)+": "+so].filter(Boolean).join(" · "),lg=jogou(j)&&ls?`<div class="lg">Gols — ${esc(ls)}</div>`:"";
+    let pl="×",b='<span class="bd n">–</span>';
+    if(jogou(j)){const m=casa?j.x:j.y,s=casa?j.y:j.x;pl=`${j.x} × ${j.y}`;let r=m>s?"V":m<s?"D":"E";if(r==="E"&&j.p1!=null&&j.p2!=null&&j.p1!==j.p2){const mp=casa?j.p1:j.p2,sp=casa?j.p2:j.p1;r=mp>sp?"V":"D";pl+=` (${j.p1}×${j.p2})`}b=`<span class="bd ${r}">${r}</span>`}
+    return `<div class="lj"><span class="d">${esc(j.d)}</span>${op?tb(op):`<span class="eq-t slot">${esc(opN)}</span>`}<span class="pl">${pl}</span>${b}</div>${lg}`;
   }).join("");
   const as=artilheiros().filter(a=>a.t===c);
   $("#sheet").innerHTML=`${(S.fotosTimes||{})[c]?`<img class="fotoT" src="${esc(S.fotosTimes[c])}" alt="" onerror="this.remove()">`:""}<div class="sh-top">${flag(c)}<div><h4>${nome(c)}</h4><small>Grupo ${g} · ${i+1}º lugar</small></div><button id="fechar">Fechar</button></div>
   <div class="stats">${[["PTS",x.pts],["J",x.j],["V",x.v],["E",x.e],["D",x.d],["GP",x.gp],["GC",x.gc],["SG",sg(x)]].map(([k,v])=>`<div><small>${k}</small>${v}</div>`).join("")}</div>
+  <button class="add" data-sh="time" data-d="${c}">Compartilhar tela do time</button>
   <h5>Jogos</h5>${jl||'<p class="vazio-msg">Sem jogos.</p>'}
-  ${as.length?`<h5>Artilheiros</h5>${as.map(a=>`<div class="lj"><span style="flex:1">${esc(a.n)}</span><span class="pl">${a.g} gol${a.g>1?"s":""}</span></div>`).join("")}`:""}`;
+  ${as.length?`<h5>Artilheiros</h5>${as.map(a=>`<div class="lj" data-jog="${esc(a.n)}" data-jt="${a.t}" role="button" tabindex="0"><span style="flex:1">${esc(a.n)}</span><span class="pl">${a.g} gol${a.g>1?"s":""}</span></div>`).join("")}`:""}
+  ${blocoCart(c,CI)}`;
   $("#modal").hidden=false;
 }
 const fechar=()=>$("#modal").hidden=true;
+function irJogador(n,t){fechar();aba="art";renderTudo();scrollTo(0,0);setTimeout(()=>{const el=[...document.querySelectorAll("#art .art")].find(e=>e.dataset.pn===n&&e.dataset.pt===t);if(el){el.scrollIntoView({block:"center",behavior:"smooth"});el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),2500)}},80)}
 
 /* eventos */
 document.addEventListener("click",e=>{
   const sh=e.target.closest("[data-sh]");if(sh){compartilhar(sh.dataset.sh,sh.dataset.d);return}
+  const pj=e.target.closest("[data-jog]");if(pj){irJogador(pj.dataset.jog,pj.dataset.jt);return}
+  if(e.target.id==="popX"||e.target.id==="popPal"){dispensaPop();return}
+  const cv=e.target.closest("[data-conv]");if(cv){window.open("https://wa.me/?text="+encodeURIComponent(textoConvite()),"_blank");return}
   const t=e.target.closest("[data-t]");if(t){abrir(t.dataset.t);return}
   if(e.target.id==="modal"||e.target.id==="fechar")return fechar();
-  const ab=e.target.closest("[data-aba]");if(ab){aba=ab.dataset.aba;renderTabs();renderArt();renderStats();renderSel();scrollTo(0,0);return}
+  const ab=e.target.closest("[data-aba]");if(ab){aba=ab.dataset.aba;renderTudo();scrollTo(0,0);return}
   const fl=e.target.closest("[data-fl]");if(fl){filtro=fl.dataset.fl;renderJogos();return}
+  const fc=e.target.closest("[data-fc]");if(fc){fCart=fc.dataset.fc;renderCart();return}
   const dj=e.target.closest("[data-del]");if(dj){S.jogos.splice(+dj.dataset.del,1);salvar();renderJogos();renderGrupos();return}
-  });
+});
 document.addEventListener("keydown",e=>{
   if(e.key==="Escape")fechar();
   if(e.key==="Enter"&&e.target.dataset&&e.target.dataset.t)abrir(e.target.dataset.t);
+  if(e.key==="Enter"&&e.target.dataset&&e.target.dataset.jog)irJogador(e.target.dataset.jog,e.target.dataset.jt);
 });
+const NUMF=["x","y","p1","p2"],setF=(j,f,v)=>{j[f]=NUMF.includes(f)?(v===""?null:+v):v};
 if(editor){
   $("#jogos").addEventListener("input",e=>{
     const r=e.target.closest("[data-i]"),f=e.target.dataset.f;if(!r||!f)return;
-    const j=S.jogos[+r.dataset.i];
-    j[f]=(f==="x"||f==="y")?(e.target.value===""?null:+e.target.value):e.target.value;
+    const j=S.jogos[+r.dataset.i];setF(j,f,e.target.value);
     const cc=r.querySelector("[data-chk]");if(cc)cc.textContent=chk(j);
     salvar();renderGrupos();
   });
+  $("#jogosMM").addEventListener("input",e=>{
+    const r=e.target.closest("[data-mi]"),f=e.target.dataset.f;if(!r||!f)return;
+    const j=S.mm[+r.dataset.mi];setF(j,f,e.target.value);
+    const cc=r.querySelector("[data-chk]");if(cc)cc.textContent=chk(j);
+    salvar();
+  });
   $("#art").addEventListener("input",e=>{const n=e.target.dataset.foto;if(n===undefined)return;S.fotos[n]=e.target.value.trim();salvar()});
   $("#sel").addEventListener("input",e=>{const c=e.target.dataset.ft;if(c===undefined)return;S.fotosTimes[c]=e.target.value.trim();salvar()});
-  $("#addJogo").onclick=()=>{const u=S.jogos[S.jogos.length-1]||{};S.jogos.push({d:u.d||"",a:Object.keys(T)[0],b:Object.keys(T)[1],x:null,y:null});salvar();renderJogos();scrollTo(0,document.body.scrollHeight)};
+  $("#addJogo").onclick=()=>{const u=S.jogos[S.jogos.length-1]||{};S.jogos.push(normG([u.d||"",Object.keys(T)[0],Object.keys(T)[1]]));salvar();renderJogos();scrollTo(0,document.body.scrollHeight)};
   $("#bCopiar").onclick=async()=>{try{await navigator.clipboard.writeText(gerar());aviso("dados.js copiado!")}catch(e){baixar()}};
   $("#bBaixar").onclick=baixar;
   $("#bDescartar").onclick=()=>{if(confirm("Descartar o rascunho deste aparelho e voltar ao dados.js publicado?")){localStorage.removeItem("copa-rascunho");location.reload()}};
@@ -281,22 +484,26 @@ function aviso(t){const x=$("#toast");x.textContent=t;x.style.display="block";se
 function baixar(){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([gerar()],{type:"text/javascript"}));a.download="dados.js";a.click();aviso("Arquivo dados.js baixado")}
 function gerar(){
   const L=o=>Object.entries(o).map(([k,v])=>`    ${k}: ${JSON.stringify(v)}`).join(",\n");
-  const jg=[...S.jogos].sort((p,q)=>ord(p)-ord(q)).map(j=>"    "+JSON.stringify([j.d,j.a,j.b,...(jogou(j)?[+j.x,+j.y,...(j.g1||j.g2?[j.g1||"",j.g2||""]:[])]:[])])).join(",\n");
-  return `/* DADOS DA COPA - gerado pelo modo editor. Jogo sem placar = ["data","CASA","FORA"]; com placar = [...,gols,gols]; com autores = [...,gols,gols,"Neto 2, Ana","Pedro"] */\nwindow.COPA = {\n  ano: ${C.ano},\n  artilheiros: ${S.mostrar},\n  ajustes: ${JSON.stringify(C.ajustes||{})},\n  times: {\n${L(C.times)}\n  },\n  grupos: {\n${L(C.grupos)}\n  },\n  jogos: [\n${jg}\n  ],\n  fotos: ${JSON.stringify(S.fotos)},\n  fotosTimes: ${JSON.stringify(S.fotosTimes)}\n};\n`;
+  const cj=j=>{const c={};["am1","am2","vm1","vm2"].forEach(k=>{if(j[k])c[k]=j[k]});return c};
+  const jg=[...S.jogos].sort((p,q)=>ord(p)-ord(q)).map(j=>{const c=cj(j),tc=Object.keys(c).length,a=[j.d,j.a,j.b];if(jogou(j)){a.push(+j.x,+j.y);if(j.g1||j.g2||tc)a.push(j.g1||"",j.g2||"");if(tc)a.push(c)}return "    "+JSON.stringify(a)}).join(",\n");
+  const mm=S.mm.map(m=>{const o={id:m.id,fase:m.fase,d:m.d,h:m.h,a:m.a,b:m.b};["x","y","p1","p2"].forEach(k=>{if(m[k]!=null)o[k]=+m[k]});["g1","g2","am1","am2","vm1","vm2"].forEach(k=>{if(m[k])o[k]=m[k]});return "    "+JSON.stringify(o)}).join(",\n");
+  return `/* DADOS DA COPA - gerado pelo modo editor.
+   Jogo da fase de grupos: ["data","CASA","FORA",gols,gols,"autores casa","autores fora",{am1:"amarelos casa",am2:"amarelos fora",vm1:"vermelhos casa",vm2:"vermelhos fora"}]
+   Mata-mata: objetos em "matamata" (id, fase, d, h, a, b, x, y, p1, p2, g1, g2, am1, am2, vm1, vm2). */\nwindow.COPA = {\n  ano: ${C.ano},\n  artilheiros: ${S.mostrar},\n  ajustes: ${JSON.stringify(C.ajustes||{})},\n  cartoes: ${JSON.stringify(CFG)},\n  sorteio: ${JSON.stringify(C.sorteio||[])},\n  planilhaCartoes: ${JSON.stringify(C.planilhaCartoes||"")},\n  palpites: ${JSON.stringify(C.palpites||{url:"",ativo:true})},\n  analytics: ${JSON.stringify(C.analytics||"")},\n  times: {\n${L(C.times)}\n  },\n  grupos: {\n${L(C.grupos)}\n  },\n  jogos: [\n${jg}\n  ],\n  matamata: [\n${mm}\n  ],\n  fotos: ${JSON.stringify(S.fotos)},\n  fotosTimes: ${JSON.stringify(S.fotosTimes)}\n};\n`;
 }
 
-
+function acum(jg){const m={};Object.keys(T).forEach(c=>m[c]={c,gp:0,gc:0,j:0});jg.forEach(j=>{const A=m[j.a],B=m[j.b];A.j++;B.j++;A.gp+=+j.x;A.gc+=+j.y;B.gp+=+j.y;B.gc+=+j.x});return Object.values(m)}
 function dadosStats(){
-  const jg=S.jogos.filter(jogou),n=jg.length;if(!n)return null;
+  const all=todos(),jg=all.filter(j=>j.a&&j.b&&jogou(j)),n=jg.length;if(!n)return null;
   const f=v=>String(Math.round(v*100)/100).replace(".",","),gl=j=>+j.x+ +j.y;
-  const tg=jg.reduce((a,j)=>a+gl(j),0),T2=Object.keys(G).flatMap(g=>tabela(g));
+  const tg=jg.reduce((a,j)=>a+gl(j),0),T2=acum(jg);
   const top=(arr,fn,best)=>{const m=best(...arr.map(fn));return arr.filter(a=>fn(a)===m)};
   const nomes=a=>a.slice(0,4).map(r=>nome(r.c)).join(", ")+(a.length>4?"…":"");
   const at=top(T2,r=>r.gp,Math.max),df=top(T2.filter(r=>r.j>0),r=>r.gc,Math.min);
   const gj=top(jg,gl,Math.max)[0],gd=top(jg,j=>Math.abs(j.x-j.y),Math.max)[0];
   const res=j=>`${nome(j.a)} ${j.x} × ${j.y} ${nome(j.b)}`,pl=(v,s)=>v+" "+s+(v===1?"":"s");
   const A=artilheiros(),art=A.length?A.filter(a=>a.g===A[0].g):[];
-  const cards=[["Jogos realizados",`${n} de ${S.jogos.length}`],["Gols marcados",tg],["Média de gols por jogo",f(tg/n)],["Empates",jg.filter(j=>+j.x===+j.y).length]];
+  const cards=[["Jogos realizados",`${n} de ${all.length}`],["Gols marcados",tg],["Média de gols por jogo",f(tg/n)],["Empates",jg.filter(j=>+j.x===+j.y).length]];
   const hl=[];
   if(at[0].gp>0)hl.push(["Melhor ataque",`${nomes(at)} (${pl(at[0].gp,"gol")})`]);
   hl.push(["Melhor defesa",`${nomes(df)} (${df[0].gc} sofrido${df[0].gc===1?"":"s"})`]);
@@ -354,21 +561,57 @@ function cClass(x,y){
   });
   return y;
 }
-function cJogos(x,y,d){
-  const lista=S.jogos.filter(j=>j.d===d);
+function linhasJogos(x,y,lista){
+  const CI=cartoesInfo();
   lista.forEach(j=>{
-    const sc=jogou(j)&&(j.g1||j.g2),h=sc?132:100,cy=y+50;
+    const sus=suspLinha(j,CI),sc=jogou(j)&&(j.g1||j.g2),h=(sc||sus)?132:100,cy=y+50;
     rr(x,30,y,1020,h,14);x.fillStyle="rgba(255,255,255,.1)";x.fill();
     rr(x,30,y,8,h,4);x.fillStyle="#f5c518";x.fill();
-    flagC(x,j.a,60,cy-20);txt(x,nome(j.a).toUpperCase(),136,cy,{f:"700 36px 'Barlow Condensed'",w:270});
-    flagC(x,j.b,958,cy-20);txt(x,nome(j.b).toUpperCase(),946,cy,{f:"700 36px 'Barlow Condensed'",a:"right",w:270});
-    txt(x,jogou(j)?`${j.x} × ${j.y}`:"×",540,cy+2,{f:"54px Anton",a:"center",c:jogou(j)?"#fff":"#9fb3a3"});
+    if(j.a){flagC(x,j.a,60,cy-20);txt(x,nome(j.a).toUpperCase(),136,cy,{f:"700 36px 'Barlow Condensed'",w:270})}
+    else txt(x,j.la,60,cy,{f:"600 30px 'Barlow Condensed'",c:"#9fb3a3",w:340});
+    if(j.b){flagC(x,j.b,958,cy-20);txt(x,nome(j.b).toUpperCase(),946,cy,{f:"700 36px 'Barlow Condensed'",a:"right",w:270})}
+    else txt(x,j.lb,1020,cy,{f:"600 30px 'Barlow Condensed'",c:"#9fb3a3",a:"right",w:340});
+    const pen=jogou(j)&&j.p1!=null&&j.p2!=null&&+j.x===+j.y?`pên. ${j.p1} × ${j.p2}`:"",tag=[j.k==="m"?j.id:"",j.k==="m"?j.h:"",pen].filter(Boolean).join(" · ");
+    txt(x,jogou(j)?`${j.x} × ${j.y}`:"×",540,cy-(tag?8:0),{f:"54px Anton",a:"center",c:jogou(j)?"#fff":"#9fb3a3"});
+    if(tag)txt(x,tag,540,cy+36,{f:"600 22px 'Barlow Condensed'",c:"#f5c518",a:"center",w:240});
     if(sc){
       if(j.g1)txt(x,"Gols: "+j.g1,136,y+104,{f:"600 26px 'Barlow Condensed'",c:"#cfe9d6",w:400});
       if(j.g2)txt(x,"Gols: "+j.g2,946,y+104,{f:"600 26px 'Barlow Condensed'",c:"#cfe9d6",a:"right",w:400});
     }
+    if(sus)txt(x,sus,540,y+104,{f:"600 24px 'Barlow Condensed'",c:"#ff9aa2",a:"center",w:980});
     y+=h+12;
   });
+  return y;
+}
+const cJogos=(x,y,d)=>linhasJogos(x,y,todos().filter(j=>j.d===d));
+function cMM(x,y){
+  const L=todos().filter(j=>j.k==="m");
+  [...new Set(L.map(j=>j.fase))].forEach(f=>{const jj=L.filter(j=>j.fase===f);txt(x,f.toUpperCase()+" · "+jj[0].d,40,y+22,{f:"34px Anton",c:"#f5c518",w:1000});y=linhasJogos(x,y+54,jj)+8});
+  return y;
+}
+function cTime(x,y,c){
+  const g=grupoDe(c),L=tabela(g),i=L.findIndex(r=>r.c===c),r=L[i],CI=cartoesInfo();
+  flagC(x,c,40,y+2,120,78);
+  txt(x,nome(c).toUpperCase(),184,y+26,{f:"56px Anton",w:760});
+  txt(x,`Grupo ${g} · ${i+1}º lugar`,184,y+68,{f:"600 30px 'Barlow Condensed'",c:"#9fb3a3"});
+  y+=104;
+  [["PTS",r.pts],["J",r.j],["V",r.v],["E",r.e],["D",r.d],["GP",r.gp],["GC",r.gc],["SG",sg(r)]].forEach(([k,v],n)=>{const bx=40+n*126;rr(x,bx,y,118,104,12);x.fillStyle="rgba(255,255,255,.1)";x.fill();txt(x,k,bx+59,y+24,{f:"700 22px 'Barlow Condensed'",c:"#f5c518",a:"center"});txt(x,String(v),bx+59,y+68,{f:"44px Anton",a:"center"})});
+  y+=128;
+  txt(x,"JOGOS",40,y+20,{f:"34px Anton",c:"#f5c518"});y=linhasJogos(x,y+50,todos().filter(j=>j.a===c||j.b===c));
+  const as=artilheiros().filter(a=>a.t===c).slice(0,5);
+  if(as.length){y+=6;txt(x,"ARTILHEIROS",40,y+20,{f:"34px Anton",c:"#f5c518"});y+=52;as.forEach(a=>{rr(x,30,y,1020,60,12);x.fillStyle="rgba(255,255,255,.09)";x.fill();txt(x,a.n.toUpperCase(),60,y+31,{f:"700 34px 'Barlow Condensed'",w:700});txt(x,a.g+(a.g>1?" GOLS":" GOL"),1030,y+31,{f:"32px Anton",c:"#f5c518",a:"right"});y+=68})}
+  const sus=CI.prox[c]!=null?(CI.susp[c]||[]):[];
+  if(sus.length){y+=4;txt(x,"Suspensos no próximo jogo: "+sus.join(", "),540,y+24,{f:"600 28px 'Barlow Condensed'",c:"#ff9aa2",a:"center",w:1000});y+=50}
+  return y;
+}
+function cbox(x,X,Y,cor,tc,n){rr(x,X,Y,44,44,8);x.fillStyle=cor;x.fill();txt(x,String(n),X+22,Y+24,{f:"26px Anton",c:tc,a:"center"})}
+function cCart(x,y){
+  const CI=cartoesInfo(),fs=faseCart(),{lista,sus,pend}=listasCart(CI,fs);
+  if(!CI.jog.length){txt(x,"Sem cartões lançados ainda",540,y+50,{a:"center",c:"#9fb3a3"});return y+100}
+  const sec=(t,arr,fn)=>{if(!arr.length)return;txt(x,t,40,y+24,{f:"34px Anton",c:"#f5c518",w:1000});y+=60;arr.forEach(p=>{rr(x,30,y,1020,76,14);x.fillStyle="rgba(255,255,255,.09)";x.fill();flagC(x,p.t,56,y+19,56,38);txt(x,p.n.toUpperCase(),128,y+28,{f:"700 34px 'Barlow Condensed'",w:520});txt(x,nome(p.t).toUpperCase(),128,y+57,{f:"600 22px 'Barlow Condensed'",c:"#9fb3a3"});fn(p);y+=86});y+=10};
+  sec("SUSPENSOS NO PRÓXIMO JOGO",sus.slice(0,6),p=>txt(x,proxTxt(CI,p.t),1030,y+38,{f:"600 26px 'Barlow Condensed'",c:"#ff9aa2",a:"right",w:380}));
+  sec("PENDURADOS · PRÓXIMO AMARELO SUSPENDE",pend.slice(0,6),p=>cbox(x,982,y+16,"#f5c518","#06240f",p.y));
+  sec("MAIS CARTÕES",lista.slice(0,5),p=>{cbox(x,982,y+16,"#e5202e","#fff",p.r);cbox(x,930,y+16,"#f5c518","#06240f",p.y)});
   return y;
 }
 function cArt(x,y){
@@ -404,8 +647,11 @@ async function montar(tipo,d,semFotos){
   await carregar();
   let titulo,corpo;
   if(tipo==="class"){titulo="CLASSIFICAÇÃO";corpo=cClass}
-  else if(tipo==="jogos"){const l=S.jogos.filter(j=>j.d===d);titulo=(l.length&&l.every(jogou)?"RESULTADOS":"JOGOS")+" · "+d;corpo=(x,y)=>cJogos(x,y,d)}
+  else if(tipo==="jogos"){const l=todos().filter(j=>j.d===d);titulo=(l.length&&l.every(jogou)?"RESULTADOS":"JOGOS")+" · "+d;corpo=(x,y)=>cJogos(x,y,d)}
   else if(tipo==="stats"){titulo="ESTATÍSTICAS";corpo=cStats}
+  else if(tipo==="mm"){titulo="MATA-MATA";corpo=cMM}
+  else if(tipo==="cart"){titulo="CARTÕES";corpo=cCart}
+  else if(tipo==="time"){titulo=nome(d).toUpperCase();corpo=(x,y)=>cTime(x,y,d)}
   else{titulo="ARTILHEIROS";await Promise.all(artilheiros().slice(0,5).map(async a=>{IMG["f:"+a.n]=await loadImg(semFotos?null:S.fotos[a.n])}));corpo=cArt}
   const top=420,link=linkSite(),extra=link?80:0,sc=document.createElement("canvas");sc.width=W;sc.height=4000;
   const fim=corpo(sc.getContext("2d"),top),H=fim+224+extra;
@@ -424,7 +670,7 @@ async function montar(tipo,d,semFotos){
   txt(x,"Desenvolvido por",900,fy+26,{f:"600 22px 'Barlow Condensed'",c:"#9fb3a3",a:"center"});
   rr(x,780,fy+40,240,108,12);x.fillStyle="#fff";x.fill();
   if(IMG.cp)x.drawImage(IMG.cp,786,fy+44,228,100);
-  txt(x,"@compusist.fsa · (75) 99821-9842",900,fy+168,{f:"600 24px 'Barlow Condensed'",c:"#cfe9d6",a:"center",w:330});
+  txt(x,"@compusist.fsa · WhatsApp (75) 3626-0318",900,fy+168,{f:"600 24px 'Barlow Condensed'",c:"#cfe9d6",a:"center",w:330});
   if(link){const lg=x.createLinearGradient(0,0,W,0);lg.addColorStop(0,"#c99a0a");lg.addColorStop(.5,"#f5c518");lg.addColorStop(1,"#c99a0a");rr(x,40,fy+196,1000,64,14);x.fillStyle=lg;x.fill();txt(x,"ACOMPANHE A COPA: "+link,540,fy+229,{f:"34px Anton",c:"#06240f",a:"center",w:940})}
   return cv;
 }
@@ -433,10 +679,13 @@ function textoShare(tipo,d){
   const link=location.protocol.startsWith("http")?(location.origin+location.pathname).replace(/index\.html$/,""):"";
   let g;
   if(tipo==="art")g="👟 Acompanhe aqui a artilharia da Copa do Mundo TS Futebol Funcional! Quem vai ser o artilheiro?";
-  else if(tipo==="jogos"){const l=S.jogos.filter(j=>j.d===d);g=l.length&&l.every(jogou)?`🏆 Resultados de ${d} na Copa do Mundo TS Futebol Funcional! Veja como foram os jogos:`:`⚽ Tem jogo da Copa do Mundo TS Futebol Funcional em ${d}! Veja os confrontos e acompanhe:`}
+  else if(tipo==="jogos"){const l=todos().filter(j=>j.d===d);g=l.length&&l.every(jogou)?`🏆 Resultados de ${d} na Copa do Mundo TS Futebol Funcional! Veja como foram os jogos:`:`⚽ Tem jogo da Copa do Mundo TS Futebol Funcional em ${d}! Veja os confrontos e acompanhe:`}
+  else if(tipo==="mm")g=fimGrupos()?"🏆 O mata-mata da Copa do Mundo TS Futebol Funcional está definido! Veja os confrontos e acompanhe o caminho até a Grande Final:":"⚽ Veja como será o mata-mata da Copa do Mundo TS Futebol Funcional: quartas, semifinais e a Grande Final! Acompanhe aqui:";
+  else if(tipo==="time")g=`⚽ Veja a campanha do ${nome(d)} na Copa do Mundo TS Futebol Funcional: jogos, gols e artilheiros! Acompanhe aqui:`;
+  else if(tipo==="cart")g="🟨 Quem está suspenso e quem está pendurado na Copa do Mundo TS Futebol Funcional? Veja os cartões:";
   else if(tipo==="stats")g="📈 Os números da Copa do Mundo TS Futebol Funcional: gols, médias e destaques! Acompanhe aqui:";
   else g="📊 Classificação atualizada da Copa do Mundo TS Futebol Funcional! Quem vai avançar? Acompanhe aqui:";
-  return g+(link?"\n"+link:"")+"\n\nSite desenvolvido pela Compusist – Reparo de Notebook 💻 @compusist.fsa";
+  return g+(link?"\n"+link:"")+"\n\nSite desenvolvido pela Compusist – Reparo de Notebook 💻\nOrçamento pelo WhatsApp: https://wa.me/557536260318 · @compusist.fsa";
 }
 async function compartilhar(tipo,d){
   $("#sheet").innerHTML='<p class="vazio-msg">Gerando imagem…</p>';$("#modal").hidden=false;
@@ -456,7 +705,89 @@ async function compartilhar(tipo,d){
     $("#bCopia").onclick=async()=>{try{await navigator.clipboard.writeText(texto);$("#bCopia").textContent="Copiado!"}catch(e){}};
   }
 }
-renderTabs();renderGrupos();renderJogos();renderArt();renderStats();renderSel();
+/* ---------- palpites da rodada (enquete) + acessos ---------- */
+const PAL=C.palpites&&C.palpites.ativo!==false&&C.palpites.url?C.palpites.url:"";
+let PV=null;
+const lsGet=k=>{try{return localStorage.getItem(k)}catch(e){return null}},lsSet=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+const vid=(()=>{let v=lsGet("copa-vid");if(!v){v=Math.random().toString(36).slice(2,10)+Date.now().toString(36);lsSet("copa-vid",v)}return v})();
+const kJ=j=>`${j.d}|${j.a}|${j.b}`;
+const pickDe=it=>it.p||(it.x!=null&&it.y!=null?(it.x>it.y?"1":it.x<it.y?"2":"X"):"");
+function rodadaAberta(){const ab=todos().filter(j=>j.a&&j.b&&!jogou(j));if(!ab.length)return null;return{d:ab[0].d,jogos:ab.filter(j=>j.d===ab[0].d)}}
+const jaVotou=R=>!!lsGet("copa-pal-"+R.d);
+const linkCompleto=()=>location.protocol.startsWith("http")?(location.origin+location.pathname).replace(/index\.html$/,""):"";
+const textoConvite=()=>"⚽ Já dei meu palpite na Copa do Mundo TS Futebol Funcional! Dê o seu e veja quem acerta mais:"+(linkCompleto()?"\n"+linkCompleto():"")+"\n\nSite desenvolvido pela Compusist – Reparo de Notebook 💻\nOrçamento pelo WhatsApp: https://wa.me/557536260318";
+function formPalpite(R){
+  return `<div class="pf" data-rod="${esc(R.d)}"><p class="dica">Rodada de ${esc(R.d)} · quem ganha? Toque no time (ou em empate). Se quiser, crave o placar.</p>
+  ${R.jogos.map(j=>`<div class="pj" data-k="${esc(kJ(j))}"><div class="pj-t">${flag(j.a)}<b>${nome(j.a)}</b><span>×</span><b>${nome(j.b)}</b>${flag(j.b)}</div><div class="pj-b"><button type="button" data-v="1">${nome(j.a)}</button>${j.k==="m"?"":'<button type="button" data-v="X">Empate</button>'}<button type="button" data-v="2">${nome(j.b)}</button></div><div class="pj-x">Placar (opcional): <input class="n" data-s="x" type="number" min="0" inputmode="numeric"> × <input class="n" data-s="y" type="number" min="0" inputmode="numeric"></div></div>`).join("")}
+  <input class="tx pNome" maxlength="40" placeholder="Seu nome (aparece se você acertar)"><label class="ck"><input type="checkbox" class="pAut" checked> Autorizo mostrar meu nome no site se eu acertar</label><button class="add pEnv" type="button">Enviar palpite</button><p class="pMsg dica"></p></div>`;
+}
+function ligarForm(box){
+  box.querySelectorAll(".pj-b button").forEach(b=>b.onclick=()=>{const on=b.classList.contains("on");b.closest(".pj-b").querySelectorAll("button").forEach(x=>x.classList.remove("on"));if(!on)b.classList.add("on")});
+  const env=box.querySelector(".pEnv");if(!env)return;
+  env.onclick=async()=>{
+    const f=box.querySelector(".pf"),msg=box.querySelector(".pMsg"),nm=box.querySelector(".pNome").value.trim();
+    const itens=[...f.querySelectorAll(".pj")].map(pj=>{const on=pj.querySelector(".pj-b .on"),sx=pj.querySelector('[data-s="x"]').value,sy=pj.querySelector('[data-s="y"]').value;return{k:pj.dataset.k,p:on?on.dataset.v:"",x:sx===""?null:+sx,y:sy===""?null:+sy}}).filter(it=>it.p||(it.x!=null&&it.y!=null));
+    if(nm.length<2){msg.textContent="Digite seu nome.";return}
+    if(!itens.length){msg.textContent="Escolha pelo menos um resultado.";return}
+    env.disabled=true;msg.textContent="Enviando…";
+    try{await fetch(PAL,{method:"POST",mode:"no-cors",body:new URLSearchParams({tipo:"palpite",rodada:f.dataset.rod,nome:nm,autoriza:box.querySelector(".pAut").checked?"sim":"nao",vid,palpites:JSON.stringify(itens)})})}
+    catch(e){env.disabled=false;msg.textContent="Sem conexão. Tente de novo.";return}
+    lsSet("copa-pal-"+f.dataset.rod,JSON.stringify({n:nm,i:itens}));
+    fecharPop();renderPal();aviso("Palpite enviado! Boa sorte 🍀");setTimeout(carregarPalpites,2500);
+  };
+}
+function enviadoHTML(R,sv){
+  const lab=it=>it.p==="1"?"vence ":it.p==="2"?"vence ":it.p==="X"?"empate":"";
+  const itens=(sv.i||[]).map(it=>{const j=R.jogos.find(z=>kJ(z)===it.k);if(!j)return"";const pk=pickDe(it),txt=pk==="1"?nome(j.a)+" vence":pk==="2"?nome(j.b)+" vence":"Empate";return `<div class="hl"><span>${nome(j.a)} × ${nome(j.b)}</span><b>${esc(txt)}${it.x!=null&&it.y!=null?` (${it.x} × ${it.y})`:""}</b></div>`}).join("");
+  return `<div class="painel" style="color:#cfe9d6;border-color:#1fb84a">✓ Palpite enviado${sv.n?`, ${esc(sv.n)}`:""}! Depois dos jogos, quem acertar aparece aqui.</div>${itens}<button class="add" data-conv="1">Chamar a galera no WhatsApp</button>`;
+}
+function torcidaHTML(R){
+  const P=(PV&&PV.palpites)||[],tor={};
+  P.forEach(p=>(p.i||[]).forEach(it=>{const pk=pickDe(it);if(!pk)return;const t=(tor[it.k]=tor[it.k]||{1:0,X:0,2:0,n:0});t[pk]++;t.n++}));
+  const l=R.jogos.filter(j=>tor[kJ(j)]).map(j=>{const t=tor[kJ(j)],pc=k=>Math.round(t[k]/t.n*100);return `<div class="tor"><div class="tn">${nome(j.a)} × ${nome(j.b)} · ${t.n} palpite${t.n>1?"s":""}</div><div class="tb"><i class="t1" style="width:${pc(1)}%"></i><i class="tX" style="width:${pc("X")}%"></i><i class="t2" style="width:${pc(2)}%"></i></div><div class="tl"><span>${pc(1)}% ${nome(j.a)}</span>${j.k==="m"?"":`<span>${pc("X")}% empate</span>`}<span>${pc(2)}% ${nome(j.b)}</span></div></div>`}).join("");
+  return l?`<h3 class="sec">O que a torcida acha</h3>${l}`:"";
+}
+function calcPal(){
+  const P=(PV&&PV.palpites)||[],res={},jog={},rank={};
+  todos().filter(j=>j.a&&j.b&&jogou(j)).forEach(j=>{const x=+j.x,y=+j.y,w=venc(j);res[kJ(j)]={j,pick:x>y?"1":x<y?"2":(w===j.a?"1":w===j.b?"2":"X"),x,y}});
+  P.forEach(p=>(p.i||[]).forEach(it=>{
+    const r=res[it.k];if(!r)return;const pk=pickDe(it),hit=!!pk&&pk===r.pick,ex=it.x!=null&&it.y!=null&&+it.x===r.x&&+it.y===r.y;
+    const J=jog[it.k]=jog[it.k]||{hit:[],ex:[],anon:0,tot:0};J.tot++;
+    if(ex||hit){if(p.n)(ex?J.ex:J.hit).push(p.n);else J.anon++}
+    if(p.n){const R=rank[p.n.toLowerCase()]=rank[p.n.toLowerCase()]||{n:p.n,pts:0,e:0};if(hit)R.pts+=1;if(ex){R.pts+=2;R.e++}}
+  }));
+  return{res,jog,rank:Object.values(rank).filter(r=>r.pts>0).sort((a,b)=>b.pts-a.pts||b.e-a.e||a.n.localeCompare(b.n))};
+}
+function acertosHTML(){
+  if(!PV)return"";const C2=calcPal(),datas=[...new Set(todos().filter(j=>C2.jog[kJ(j)]).map(j=>j.d))];if(!datas.length)return"";
+  const d=datas[datas.length-1],js=todos().filter(j=>j.d===d&&C2.jog[kJ(j)]);
+  return `<h3 class="sec">Quem acertou · ${esc(d)}</h3>`+js.map(j=>{const J=C2.jog[kJ(j)],mais=J.anon?` +${J.anon} anônimo${J.anon>1?"s":""}`:"";return `<div class="ac"><div class="ac-t">${nome(j.a)} ${j.x} × ${j.y} ${nome(j.b)}</div>${J.ex.length?`<div>🎯 Cravaram o placar: ${esc(J.ex.join(", "))}</div>`:""}<div>✅ Acertaram o vencedor: ${J.hit.length||J.anon?esc(J.hit.join(", "))+mais:"ninguém desta vez"}</div></div>`}).join("");
+}
+function rankingHTML(){
+  if(!PV)return"";const r=calcPal().rank.slice(0,10);if(!r.length)return"";
+  return `<h3 class="sec">Ranking dos palpiteiros</h3><p class="dica">Vencedor certo = 1 ponto · placar exato = +2</p>`+r.map((p,i)=>`<div class="rk"><span>${i+1}º</span><b>${esc(p.n)}</b><em>${p.pts} pts</em></div>`).join("");
+}
+function renderPal(){
+  const el=$("#pal");if(!PAL){el.innerHTML="";return}
+  const R=rodadaAberta();let h="";
+  if(R){const sv=lsGet("copa-pal-"+R.d);let o=null;try{o=sv&&JSON.parse(sv)}catch(e){}h+=`<h3 class="sec">Palpite da rodada · ${esc(R.d)}</h3>`+(o?enviadoHTML(R,o):formPalpite(R))+torcidaHTML(R)}
+  else h+='<p class="vazio-msg">Sem jogos abertos para palpite agora.</p>';
+  el.innerHTML=h+acertosHTML()+rankingHTML();
+  ligarForm(el);
+}
+async function carregarPalpites(){if(!PAL)return;try{const r=await fetch(PAL+(PAL.includes("?")?"&":"?")+"t="+Date.now());PV=await r.json()}catch(e){}renderPal()}
+function fecharPop(){$("#popPal").hidden=true}
+function dispensaPop(){const R=rodadaAberta();if(R)lsSet("copa-pop-"+R.d,"1");fecharPop()}
+function abrirPop(){const R=rodadaAberta();if(!PAL||editor||!R||jaVotou(R)||lsGet("copa-pop-"+R.d))return;$("#popBox").innerHTML=`<button class="pop-x" id="popX" aria-label="Fechar">×</button><h4>Dê seu palpite!</h4>`+formPalpite(R);$("#popPal").hidden=false;ligarForm($("#popBox"))}
+function pingAcesso(){
+  if(!PAL||editor||!/^https?:$/.test(location.protocol)||/^(localhost|127\.)/.test(location.hostname))return;
+  const u=+lsGet("copa-ping")||0;if(Date.now()-u<3600000)return;lsSet("copa-ping",String(Date.now()));
+  try{fetch(PAL,{method:"POST",mode:"no-cors",keepalive:true,body:new URLSearchParams({tipo:"acesso",vid,aba})})}catch(e){}
+}
+if(C.analytics&&!editor){const g=document.createElement("script");g.async=true;g.src="https://www.googletagmanager.com/gtag/js?id="+C.analytics;document.head.appendChild(g);window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag("js",new Date());gtag("config",C.analytics)}
+if(PAL&&!editor){const R=rodadaAberta();if(R&&!jaVotou(R))aba="pal"}
+renderTudo();carregarPlanilha();
+if(PAL){carregarPalpites();pingAcesso();setTimeout(abrirPop,1200)}
 </script>
 </body>
 </html>

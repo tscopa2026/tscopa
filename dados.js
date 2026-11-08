@@ -13,10 +13,24 @@
    - Os ARTILHEIROS são somados SOZINHOS a partir desses nomes.
    - Gol contra não precisa ser lançado.
    - Próxima rodada: copie uma linha e mude data e times.
+   - CARTÕES (opcional): no fim da linha, um bloco com quem levou cartão:
+       ["07/10","FRA","BRA",4,2,"Reni 2","Wesley",{am1:"Reni, Nuno", am2:"Rael", vm1:"", vm2:""}]
+       am1 = amarelos da casa | am2 = amarelos do fora | vm1 = vermelhos da casa | vm2 = vermelhos do fora
+       (se ninguém fez gol de um lado, use "" no lugar dos autores)
    ============================================================ */
 window.COPA = {
   ano: 2026,
-  artilheiros: true,   // troque para true para mostrar a aba Artilheiros
+  cartoes: { amarelos: 3, vermelhoSuspende: true }, // 3 amarelos = 1 jogo de suspensão; zera no mata-mata
+  // SORTEIO: só se, depois de todos os critérios, houver empate e você sortear. Ex.: sorteio: ["BRA","ARG"] (BRA fica na frente)
+  sorteio: [],
+  // PLANILHA DE CARTÕES (Google Sheets "publicada na web" em formato CSV). Deixe "" para não usar.
+  // Colunas: data | time | jogador | cartao (amarelo ou vermelho) | qtd.  Veja o arquivo GUIA-PLANILHAS.txt
+  planilhaCartoes: "https://docs.google.com/spreadsheets/d/12JSv8JzVo-1m0eT2RpkYwR2wa16CZb8nDnf-d05R9CQ",
+  // PALPITES DA RODADA + CONTAGEM DE ACESSOS: cole aqui o endereço do Apps Script (arquivo apps-script-palpites.gs). Vazio = desligado.
+  palpites: { url: "", ativo: true },
+  // GOOGLE ANALYTICS (opcional): código no formato "G-XXXXXXXXXX". Vazio = desligado.
+  analytics: "",
+  artilheiros: true,
  // ajustes: { JAP: -1 }, // ajuste manual de pontos (punição/bônus)
   times: {
     JAM: ["Jamaica"], HOL: ["Holanda"], BRA: ["Brasil"], ARG: ["Argentina"], FRA: ["França"],
@@ -26,7 +40,6 @@ window.COPA = {
     A: ["JAM","HOL","BRA","ARG","FRA"],
     B: ["ESP","CRO","MEX","NIG","JAP"]
   },
-  // ATENÇÃO: placares abaixo são PROVISÓRIOS (só para bater com a arte). Corrija.
   jogos: [
     ["26/09","BRA","ARG",1,1,"Wesley 1","Vinny 1"],
     ["26/09","CRO","MEX",1,1,"","Netto 1"],
@@ -48,6 +61,20 @@ window.COPA = {
     ["21/11","CRO","ESP"],
     ["28/11","ARG","FRA"],
     ["28/11","MEX","NIG"]
+  ],
+  // MATA-MATA: os times entram sozinhos quando a fase de grupos terminar.
+  // a / b: "1A" = 1º do Grupo A | "VJ1" = vencedor do J1 | "PSF1" = perdedor da SF1 | ou o código do time (ex.: "BRA")
+  // Resultado: acrescente x, y (gols), p1, p2 (pênaltis, se empatar), g1, g2 (autores) e am1, am2, vm1, vm2 (cartões).
+  // Exemplo: {id:"J1", fase:"Quartas de final", d:"05/12", h:"09h00", a:"1A", b:"4B", x:2, y:1, g1:"Neto 2", g2:"Ana"},
+  matamata: [
+    {id:"J1", fase:"Quartas de final", d:"05/12", h:"09h00", a:"1A", b:"4B"},
+    {id:"J2", fase:"Quartas de final", d:"05/12", h:"10h30", a:"2A", b:"3B"},
+    {id:"J3", fase:"Quartas de final", d:"05/12", h:"14h30", a:"1B", b:"4A"},
+    {id:"J4", fase:"Quartas de final", d:"05/12", h:"16h00", a:"2B", b:"3A"},
+    {id:"SF1", fase:"Semifinais", d:"12/12", h:"", a:"VJ1", b:"VJ2"},
+    {id:"SF2", fase:"Semifinais", d:"12/12", h:"", a:"VJ3", b:"VJ4"},
+    {id:"TER", fase:"Disputa de 3º lugar", d:"19/12", h:"", a:"PSF1", b:"PSF2"},
+    {id:"FIN", fase:"Grande Final", d:"19/12", h:"", a:"VSF1", b:"VSF2"}
   ],
   // FOTOS dos artilheiros (opcional): "Nome": "fotos/arquivo.jpg"
   fotos: {

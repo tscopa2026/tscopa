@@ -55,7 +55,7 @@ window.COPA = {
 	  "Nuno": "fotos/nuno.png",
 	  "Luiz": "fotos/luiz-Jamaica.png",
 	  "Rael": "fotos/rael_brasil.png",
-  "Gutierre": "fotos/gutierre-Jamaica.png",
+  "Guthyerre": "fotos/gutierre-Jamaica.png",
   "Helinho": "fotos/Helinho-jamaica.png",
   "Toka": "fotos/toka-jamaica.png",
 	  "Nilson": "fotos/Nilson-frança.png",

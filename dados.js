@@ -61,6 +61,7 @@ window.COPA = {
 	  "Nilson": "fotos/Nilson-frança.png",
   "P. Vinicius": "fotos/pv-frança.png",
   "Cassinho": "fotos/cassinho-França.png",
-  "Brown": "fotos/brown-frança.png"
+  "Brown": "fotos/brown-frança.png",
+	  "Elias": "foto/elias-Holanda.png",
   }
 };

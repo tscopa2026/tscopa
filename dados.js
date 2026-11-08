@@ -53,6 +53,6 @@ window.COPA = {
   fotos: {
      "Reni-10": "fotos/reni-10.png",
 	  "Nuno": "fotos/nuno.png",
-	  "Luiz": "foto/luiz-Jamaica.png",
+	  "Luiz": "fotos/luiz-Jamaica.png",
   }
 };

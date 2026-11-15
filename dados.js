@@ -56,7 +56,7 @@ window.COPA = {
     ["07/11","ARG","HOL",3,2,"Popó 1,Josué 1, Douglas 1","Jó Gol 1, Elias 1"],
     ["07/11","MEX","ESP",2,2,"Danilo 1, Jhon 1","Giboia 1, Wellington 1"],
     ["14/11","FRA","JAM",1,1,"Brown","Luiz"],
-    ["14/11","NIG","JAP",4,1,],
+    ["14/11","NIG","JAP",4,1,"Dultra 1, Yure Alberto 1, Rafa-23 1, Guto 1","Edu 1"],
     ["21/11","BRA","HOL"],
     ["21/11","CRO","ESP"],
     ["28/11","ARG","FRA"],

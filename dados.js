@@ -91,5 +91,6 @@ window.COPA = {
   "Brown": "fotos/brown-frança.png",
 	  "Elias": "fotos/elias-Holanda.png",
 	  "Wellington": "fotos/Wellington-espanha.jpg.png",
+	  "Yuri Alberto":"fotos/yurialberto-nigeria.jpg",
   }
 };

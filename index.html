@@ -278,7 +278,7 @@ const faseCart=()=>fCart||(todos().some(j=>j.k==="m"&&jogou(j))?"m":"g");
 function stCart(CI,p){if(CI.prox[p.t]==null)return"";if((CI.susp[p.t]||[]).includes(p.n))return"S";if(CFG.amarelos>1&&p.y>0&&p.y%CFG.amarelos===CFG.amarelos-1)return"P";return""}
 function listasCart(CI,fs){
   const lista=CI.jog.filter(p=>p.f===fs).sort((a,b)=>b.y-a.y||b.r-a.r||a.n.localeCompare(b.n));
-  const sus=[];Object.keys(CI.susp).forEach(t=>{if(CI.prox[t]!=null)CI.susp[t].forEach(n=>{const r=CI.hist.find(h=>h.t===t&&h.n===n&&h.sv.some(v=>v.j.n===CI.prox[t])),ix=r?r.sv.findIndex(v=>v.j.n===CI.prox[t])+1:0;sus.push({n,t,e:r&&r.jogos>1?` · ${ix}/${r.jogos}`:""})})});
+  const sus=[];Object.keys(CI.susp).forEach(t=>{if(CI.prox[t]!=null)CI.susp[t].forEach(n=>{const r=CI.hist.find(h=>h.t===t&&h.n===n&&h.sv.some(v=>v.j.n===CI.prox[t])),ix=r?r.sv.findIndex(v=>v.j.n===CI.prox[t])+1:0;sus.push({n,t,e:r&&r.jogos>1?` · ${ix}/${r.jogos}`:"",d:r?r.sv.filter(v=>v.feito).map((v,i)=>`${i+1}º jogo cumprido: ${v.j.d} · ${nome(v.j.a)} × ${nome(v.j.b)}`).join(" | "):""})})});
   return{lista,sus,pend:lista.filter(p=>stCart(CI,p)==="P")};
 }
 const jtx=j=>`${j.d} · ${nome(j.a)} × ${nome(j.b)}`;
@@ -401,7 +401,7 @@ function renderCart(){
   const avisos=editor?[...(PLANERR?["Não foi possível ler a planilha de cartões. Confira se ela está compartilhada como 'Qualquer pessoa com o link' (leitor) e se o link em dados.js está certo."]:[]),...PLANWARN,...PLAN.filter(r=>!todos().some(j=>j.d===r.d&&(j.a===r.t||j.b===r.t))).map(r=>`${r.d} · ${nome(r.t)} · ${r.n}: não há jogo desse time nessa data`)]:[];
   $("#cart").innerHTML=`${PLANERR&&!editor?'<p class="dica">Os cartões da planilha estão indisponíveis agora.</p>':""}${avisos.length?`<div class="painel">${avisos.slice(0,6).map(esc).join("<br>")}</div>`:""}<p class="dica">${N} amarelos = 1 jogo de suspensão${CFG.vermelhoSuspende?" · vermelho também suspende":""} · os cartões zeram no mata-mata</p>
   <div class="chips">${[["g","Fase de grupos"],["m","Mata-mata"]].map(([k,t])=>`<button data-fc="${k}" class="${fs===k?"on":""}">${t}</button>`).join("")}</div>
-  ${sus.length?`<h3 class="sec">Suspensos no próximo jogo</h3>${sus.map(s=>row(s,`<span class="cs S" style="flex:1;text-align:right">${esc(proxTxt(CI,s.t)+s.e)}</span>`)).join("")}`:""}
+  ${sus.length?`<h3 class="sec">Suspensos no próximo jogo</h3>${sus.map(s=>row(s,`<span class="cs S" style="flex:1;text-align:right">${esc(proxTxt(CI,s.t)+s.e)}</span>`)+(s.d?`<div class="lg" style="padding:0 0 6px 38px;margin:0;font-size:15px;color:#7ee08f">${esc(s.d)}</div>`:"")).join("")}`:""}
   ${pend.length?`<h3 class="sec">Pendurados (próximo amarelo suspende)</h3>${pend.map(p=>row(p,`<span class="cy">${p.y}</span>`)).join("")}`:""}
   <h3 class="sec">Cartões · ${fs==="g"?"fase de grupos":"mata-mata"}</h3>
   ${lista.length?`<div class="cr hd"><span style="flex:1">Jogador</span><span class="cy">A</span><span class="cv">V</span><span class="cs"></span></div>`+lista.map(p=>row(p,stat(p))).join(""):'<p class="vazio-msg">Nenhum cartão lançado nesta fase.</p>'}${histPun(CI)}`;
@@ -582,7 +582,7 @@ function cClass(x,y){
 function linhasJogos(x,y,lista){
   const CI=cartoesInfo();
   lista.forEach(j=>{
-    const sus=suspLinha(j,CI),sc=jogou(j)&&(j.g1||j.g2),h=(sc||sus)?132:100,cy=y+50;
+    const sus=suspLinha(j,CI),sc=jogou(j)&&(j.g1||j.g2),h=100+(sc?32:0)+(sus?36:0),cy=y+50;
     rr(x,30,y,1020,h,14);x.fillStyle="rgba(255,255,255,.1)";x.fill();
     rr(x,30,y,8,h,4);x.fillStyle="#f5c518";x.fill();
     if(j.a){flagC(x,j.a,60,cy-20);txt(x,nome(j.a).toUpperCase(),136,cy,{f:"700 36px 'Barlow Condensed'",w:270})}
@@ -596,7 +596,7 @@ function linhasJogos(x,y,lista){
       if(j.g1)txt(x,"Gols: "+j.g1,136,y+104,{f:"600 26px 'Barlow Condensed'",c:"#cfe9d6",w:400});
       if(j.g2)txt(x,"Gols: "+j.g2,946,y+104,{f:"600 26px 'Barlow Condensed'",c:"#cfe9d6",a:"right",w:400});
     }
-    if(sus)txt(x,sus,540,y+104,{f:"600 24px 'Barlow Condensed'",c:"#ff9aa2",a:"center",w:980});
+    if(sus)txt(x,sus,540,y+(sc?138:118),{f:"600 24px 'Barlow Condensed'",c:"#ff9aa2",a:"center",w:980});
     y+=h+12;
   });
   return y;
@@ -627,7 +627,7 @@ function cCart(x,y){
   const CI=cartoesInfo(),fs=faseCart(),{lista,sus,pend}=listasCart(CI,fs);
   if(!CI.jog.length){txt(x,"Sem cartões lançados ainda",540,y+50,{a:"center",c:"#9fb3a3"});return y+100}
   const sec=(t,arr,fn)=>{if(!arr.length)return;txt(x,t,40,y+24,{f:"34px Anton",c:"#f5c518",w:1000});y+=60;arr.forEach(p=>{rr(x,30,y,1020,76,14);x.fillStyle="rgba(255,255,255,.09)";x.fill();flagC(x,p.t,56,y+19,56,38);txt(x,p.n.toUpperCase(),128,y+28,{f:"700 34px 'Barlow Condensed'",w:520});txt(x,nome(p.t).toUpperCase(),128,y+57,{f:"600 22px 'Barlow Condensed'",c:"#9fb3a3"});fn(p);y+=86});y+=10};
-  sec("SUSPENSOS NO PRÓXIMO JOGO",sus.slice(0,6),p=>txt(x,proxTxt(CI,p.t)+p.e,1030,y+38,{f:"600 26px 'Barlow Condensed'",c:"#ff9aa2",a:"right",w:380}));
+  sec("SUSPENSOS NO PRÓXIMO JOGO",sus.slice(0,6),p=>{txt(x,proxTxt(CI,p.t)+p.e,1030,y+30,{f:"600 26px 'Barlow Condensed'",c:"#ff9aa2",a:"right",w:380});if(p.d)txt(x,p.d,1030,y+58,{f:"600 20px 'Barlow Condensed'",c:"#7ee08f",a:"right",w:560})});
   sec("PENDURADOS · PRÓXIMO AMARELO SUSPENDE",pend.slice(0,6),p=>cbox(x,982,y+16,"#f5c518","#06240f",p.y));
   sec("MAIS CARTÕES",lista.slice(0,5),p=>{cbox(x,982,y+16,"#e5202e","#fff",p.r);cbox(x,930,y+16,"#f5c518","#06240f",p.y)});
   return y;

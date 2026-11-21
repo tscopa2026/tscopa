@@ -58,9 +58,9 @@ window.COPA = {
     ["14/11","FRA","JAM",1,1,"Brown","Luiz"],
     ["14/11","NIG","JAP",4,1,"Dultra 1, Yuri Alberto 1, Rafa-23 1, Guto 1","Edu 1"],
     ["28/11 16:00","ARG","FRA"],
-    ["28/11","MEX","NIG"],
-    ["28/11","BRA","HOL"],
-    ["28/11","CRO","ESP"],
+    ["28/11 17:00","MEX","NIG"],
+    ["28/11 18:00","BRA","HOL"],
+    ["28/11 19:00","CRO","ESP"],
   ],
   // MATA-MATA: os times entram sozinhos quando a fase de grupos terminar.
   // a / b: "1A" = 1º do Grupo A | "VJ1" = vencedor do J1 | "PSF1" = perdedor da SF1 | ou o código do time (ex.: "BRA")

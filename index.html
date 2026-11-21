@@ -193,7 +193,7 @@ let PLAN=[],PLANWARN=[],PLANERR=false;
 const p2=n=>String(n).padStart(2,"0"),nz=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();
 const num=v=>v==null||v===""?null:+v;
 const pickC=c=>({am1:(c&&c.am1)||"",am2:(c&&c.am2)||"",vm1:(c&&c.vm1)||"",vm2:(c&&c.vm2)||""});
-const normG=([d,a,b,x,y,g1,g2,c])=>({d,a,b,x:x??null,y:y??null,g1:g1||"",g2:g2||"",...pickC(c)});
+const normG=([d0,a,b,x,y,g1,g2,c])=>{const[d,...hh]=String(d0||"").trim().split(/\s+/),h=hh.join(" ").replace(":","h");return{d:d||"",h,a,b,x:x??null,y:y??null,g1:g1||"",g2:g2||"",...pickC(c)}};
 const normM=m=>({id:m.id,fase:m.fase||"",d:m.d||"",h:m.h||"",a:m.a||"",b:m.b||"",x:num(m.x),y:num(m.y),p1:num(m.p1),p2:num(m.p2),g1:m.g1||"",g2:m.g2||"",...pickC(m)});
 let S={jogos:C.jogos.map(normG),mm:(C.matamata||MM0).map(normM),fotos:{...(C.fotos||{})},fotosTimes:{...(C.fotosTimes||{})},mostrar:!!C.artilheiros};
 let rasc=false;
@@ -248,7 +248,7 @@ function slot(cod,d=0){
 }
 function resMM(m,d=0){const A=slot(m.a,d),B=slot(m.b,d);return{...m,k:"m",a:A.c,b:B.c,la:A.label,lb:B.label}}
 function todos(){
-  const g=S.jogos.map((j,i)=>({...j,k:"g",i,id:"",h:"",fase:"Fase de grupos",la:nome(j.a),lb:nome(j.b)}));
+  const g=S.jogos.map((j,i)=>({...j,k:"g",i,id:"",fase:"Fase de grupos",la:nome(j.a),lb:nome(j.b)}));
   const m=S.mm.map((j,i)=>({...resMM(j),i}));
   return [...g,...m].map((j,n)=>({...j,n})).sort((p,q)=>ord(p)-ord(q)||String(p.h).localeCompare(String(q.h))||p.n-q.n);
 }
@@ -335,7 +335,7 @@ const opt=s=>Object.keys(T).map(k=>`<option value="${k}"${k===s?" selected":""}>
 const cardsEd=j=>`<details class="cd"><summary>Cartões${(j.am1||j.am2||j.vm1||j.vm2)?" ●":""}</summary><input class="tx" data-f="am1" value="${esc(j.am1||"")}" placeholder="Amarelos do time da casa. Ex.: Reni, Nuno"><input class="tx" data-f="am2" value="${esc(j.am2||"")}" placeholder="Amarelos do time de fora"><input class="tx" data-f="vm1" value="${esc(j.vm1||"")}" placeholder="Vermelhos do time da casa"><input class="tx" data-f="vm2" value="${esc(j.vm2||"")}" placeholder="Vermelhos do time de fora"></details>`;
 const ni=(f,v)=>`<input class="n" data-f="${f}" type="number" min="0" inputmode="numeric" value="${v??""}">`;
 const golsEd=j=>`<input class="tx" data-f="g1" value="${esc(j.g1||"")}" placeholder="Gols do time da casa. Ex.: Neto 2, Maria"><input class="tx" data-f="g2" value="${esc(j.g2||"")}" placeholder="Gols do time de fora. Ex.: Pedro">`;
-const edGrupo=(j,i)=>`<div class="jr" data-i="${i}"><div class="l1"><input class="dt" data-f="d" value="${esc(j.d)}" placeholder="dd/mm" inputmode="numeric" maxlength="5"><button class="x" data-del="${i}" aria-label="Excluir jogo">Excluir</button></div><div class="l2"><select data-f="a">${opt(j.a)}</select>${ni("x",j.x)}<span>×</span>${ni("y",j.y)}<select data-f="b">${opt(j.b)}</select></div>${golsEd(j)}${cardsEd(j)}<small class="chk" data-chk>${chk(j)}</small></div>`;
+const edGrupo=(j,i)=>`<div class="jr" data-i="${i}"><div class="l1"><input class="dt" data-f="d" value="${esc(j.d)}" placeholder="dd/mm" inputmode="numeric" maxlength="5"><input class="dt" data-f="h" value="${esc(j.h||"")}" placeholder="16h00"><button class="x" data-del="${i}" aria-label="Excluir jogo">Excluir</button></div><div class="l2"><select data-f="a">${opt(j.a)}</select>${ni("x",j.x)}<span>×</span>${ni("y",j.y)}<select data-f="b">${opt(j.b)}</select></div>${golsEd(j)}${cardsEd(j)}<small class="chk" data-chk>${chk(j)}</small></div>`;
 const edMM=(m,i)=>{const r=resMM(m);return `<div class="jr" data-mi="${i}"><div class="l1"><b>${esc(m.id)} · ${esc(m.fase)}</b><input class="dt" data-f="d" value="${esc(m.d)}" placeholder="dd/mm" maxlength="5" style="margin-left:auto"><input class="dt" data-f="h" value="${esc(m.h)}" placeholder="09h00"></div><div class="l1"><input class="tx" data-f="a" value="${esc(m.a)}" placeholder="1A, VJ1 ou BRA"><input class="tx" data-f="b" value="${esc(m.b)}" placeholder="4B, VJ2 ou ARG"></div><div class="l2"><span class="lab">${esc(r.a?nome(r.a):r.la)}</span>${ni("x",m.x)}<span>×</span>${ni("y",m.y)}<span class="lab r">${esc(r.b?nome(r.b):r.lb)}</span></div><div class="l1"><small class="chk">Pênaltis (se empatar):</small>${ni("p1",m.p1)}<span>×</span>${ni("p2",m.p2)}</div>${golsEd(m)}${cardsEd(m)}<small class="chk" data-chk>${chk(m)}</small></div>`};
 
 function suspLinha(j,CI){
@@ -345,7 +345,7 @@ function suspLinha(j,CI){
 }
 function linhaJogo(j,CI){
   const tags=[];
-  if(j.k==="m")tags.push(esc(j.id+(j.h?" · "+j.h:"")));
+  if(j.k==="m")tags.push(esc(j.id+(j.h?" · "+j.h:"")));else if(j.h)tags.push(esc(j.h));
   if(jogou(j)&&j.p1!=null&&j.p2!=null&&+j.x===+j.y)tags.push(`Pênaltis: ${j.p1} × ${j.p2}`);
   const s=suspLinha(j,CI);if(s)tags.push(esc(s));
   return `<div class="jogo"><div class="eq">${ladoHTML(j,"a")}</div>${jogou(j)?`<div class="placar">${j.x} × ${j.y}</div>`:`<div class="placar vazio">×</div>`}<div class="eq b">${ladoHTML(j,"b")}</div>${tags.length?`<div class="tag">${tags.join(" · ")}</div>`:""}</div>`;
@@ -485,7 +485,7 @@ function baixar(){const a=document.createElement("a");a.href=URL.createObjectURL
 function gerar(){
   const L=o=>Object.entries(o).map(([k,v])=>`    ${k}: ${JSON.stringify(v)}`).join(",\n");
   const cj=j=>{const c={};["am1","am2","vm1","vm2"].forEach(k=>{if(j[k])c[k]=j[k]});return c};
-  const jg=[...S.jogos].sort((p,q)=>ord(p)-ord(q)).map(j=>{const c=cj(j),tc=Object.keys(c).length,a=[j.d,j.a,j.b];if(jogou(j)){a.push(+j.x,+j.y);if(j.g1||j.g2||tc)a.push(j.g1||"",j.g2||"");if(tc)a.push(c)}return "    "+JSON.stringify(a)}).join(",\n");
+  const jg=[...S.jogos].sort((p,q)=>ord(p)-ord(q)).map(j=>{const c=cj(j),tc=Object.keys(c).length,a=[j.d+(j.h?" "+j.h:""),j.a,j.b];if(jogou(j)){a.push(+j.x,+j.y);if(j.g1||j.g2||tc)a.push(j.g1||"",j.g2||"");if(tc)a.push(c)}return "    "+JSON.stringify(a)}).join(",\n");
   const mm=S.mm.map(m=>{const o={id:m.id,fase:m.fase,d:m.d,h:m.h,a:m.a,b:m.b};["x","y","p1","p2"].forEach(k=>{if(m[k]!=null)o[k]=+m[k]});["g1","g2","am1","am2","vm1","vm2"].forEach(k=>{if(m[k])o[k]=m[k]});return "    "+JSON.stringify(o)}).join(",\n");
   return `/* DADOS DA COPA - gerado pelo modo editor.
    Jogo da fase de grupos: ["data","CASA","FORA",gols,gols,"autores casa","autores fora",{am1:"amarelos casa",am2:"amarelos fora",vm1:"vermelhos casa",vm2:"vermelhos fora"}]
@@ -571,7 +571,7 @@ function linhasJogos(x,y,lista){
     else txt(x,j.la,60,cy,{f:"600 30px 'Barlow Condensed'",c:"#9fb3a3",w:340});
     if(j.b){flagC(x,j.b,958,cy-20);txt(x,nome(j.b).toUpperCase(),946,cy,{f:"700 36px 'Barlow Condensed'",a:"right",w:270})}
     else txt(x,j.lb,1020,cy,{f:"600 30px 'Barlow Condensed'",c:"#9fb3a3",a:"right",w:340});
-    const pen=jogou(j)&&j.p1!=null&&j.p2!=null&&+j.x===+j.y?`pên. ${j.p1} × ${j.p2}`:"",tag=[j.k==="m"?j.id:"",j.k==="m"?j.h:"",pen].filter(Boolean).join(" · ");
+    const pen=jogou(j)&&j.p1!=null&&j.p2!=null&&+j.x===+j.y?`pên. ${j.p1} × ${j.p2}`:"",tag=[j.k==="m"?j.id:"",j.h,pen].filter(Boolean).join(" · ");
     txt(x,jogou(j)?`${j.x} × ${j.y}`:"×",540,cy-(tag?8:0),{f:"54px Anton",a:"center",c:jogou(j)?"#fff":"#9fb3a3"});
     if(tag)txt(x,tag,540,cy+36,{f:"600 22px 'Barlow Condensed'",c:"#f5c518",a:"center",w:240});
     if(sc){

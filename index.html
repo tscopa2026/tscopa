@@ -99,7 +99,7 @@ input.tx{flex:1;min-width:0}.jr>input.tx{width:100%}.chk{color:#ffe9a0;font-size
 .dh{display:flex;align-items:flex-end;justify-content:space-between;margin-top:10px}.dh .data{margin-top:0}.sh{padding:4px 12px;min-height:34px;font-size:15px;background:#fff}
 .acoes{display:flex;gap:8px;margin:0 0 12px}.acoes button{flex:1}.acoes .b2{background:#fff}
 .sec{font:400 26px Anton;text-transform:uppercase;margin:16px 0 6px}
-.kp{display:grid;grid-template-columns:1fr 1fr;gap:8px}.k{background:rgba(255,255,255,.08);border-left:4px solid var(--ouro);padding:10px;border-radius:0 10px 10px 0}.k b{font:400 38px Anton;color:var(--ouro);display:block;line-height:1.05}.k span{font-size:16px;color:var(--mut)}
+.kp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.k{background:rgba(255,255,255,.08);border-left:4px solid var(--ouro);padding:10px;border-radius:0 10px 10px 0}.k b{font:400 30px Anton;color:var(--ouro);display:block;line-height:1.1;overflow-wrap:anywhere}.k span{font-size:14px;color:var(--mut);line-height:1.15;display:block;margin-top:2px}
 .hl{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid rgba(255,255,255,.12);font-size:19px}.hl span{color:var(--mut);flex:none}.hl b{text-align:right}
 .bar{display:flex;align-items:center;gap:8px;padding:4px 0}.bar .eq-t{flex:0 0 150px;font-size:18px;text-transform:uppercase}.bar i{display:block;height:16px;background:linear-gradient(90deg,#1fb84a,#f5c518);border-radius:4px;min-width:3px}.bar em{font:400 20px Anton;font-style:normal;margin-left:4px}.bar div{flex:1}
 .sel{display:grid;grid-template-columns:1fr 1fr;gap:10px}.sc{background:rgba(255,255,255,.08);border-radius:12px;overflow:hidden;padding-bottom:8px;text-align:center}.sc .ph{height:120px;background:#0a2a16;display:grid;place-items:center;cursor:pointer;overflow:hidden}.sc .ph img{width:100%;height:100%;object-fit:cover}.sc .ph img.fl{width:58%;height:auto;border-radius:4px}.sc b{display:block;font:400 22px Anton;text-transform:uppercase;margin-top:6px}.sc small{color:var(--mut);font-size:15px}.sc input{width:calc(100% - 12px);margin:6px 6px 0;font-size:14px;height:34px}
@@ -528,6 +528,14 @@ function dadosStats(){
   const res=j=>`${nome(j.a)} ${j.x} × ${j.y} ${nome(j.b)}`,pl=(v,s)=>v+" "+s+(v===1?"":"s");
   const A=artilheiros(),art=A.length?A.filter(a=>a.g===A[0].g):[];
   const cards=[["Jogos realizados",`${n} de ${all.length}`],["Gols marcados",tg],["Média de gols por jogo",f(tg/n)],["Empates",jg.filter(j=>+j.x===+j.y).length]];
+  const CI=cartoesInfo(),ama=CI.jog.reduce((q,p)=>q+p.y,0),ver=CI.jog.reduce((q,p)=>q+p.r,0),falt=all.filter(j=>!jogou(j)),prx=falt[0];
+  cards.push(["Cartões amarelos",ama],["Cartões vermelhos",ver],["Jogadores que marcaram",A.length],
+    prx?[`Próxima rodada · ${pl(falt.filter(j=>j.d===prx.d).length,"jogo")}`,prx.d]:["Goleadas (4+ de diferença)",jg.filter(j=>Math.abs(j.x-j.y)>=4).length]);
+  // melhor campanha: pontos (3 vitória, 1 empate), depois saldo e gols pró
+  const PT={};jg.forEach(j=>{const x=+j.x,y=+j.y;PT[j.a]=(PT[j.a]||0)+(x>y?3:x===y?1:0);PT[j.b]=(PT[j.b]||0)+(y>x?3:x===y?1:0)});
+  const sc=r=>[PT[r.c]||0,r.gp-r.gc,r.gp],cmp=(p,q)=>{const a=sc(p),b=sc(q);return b[0]-a[0]||b[1]-a[1]||b[2]-a[2]};
+  const camp=T2.filter(r=>r.j>0).sort(cmp),empC=camp.filter(r=>cmp(r,camp[0])===0);
+  cards.push([`Melhor campanha · ${PT[camp[0].c]||0} pts`,empC.slice(0,2).map(r=>nome(r.c)).join(" / ")]);
   const hl=[];
   if(at[0].gp>0)hl.push(["Melhor ataque",`${nomes(at)} (${pl(at[0].gp,"gol")})`]);
   hl.push(["Melhor defesa",`${nomes(df)} (${df[0].gc} sofrido${df[0].gc===1?"":"s"})`]);
@@ -662,8 +670,8 @@ function cArt(x,y){
 }
 function cStats(x,y){
   const D=dadosStats();if(!D){txt(x,"Sem jogos realizados ainda",540,y+50,{a:"center",c:"#9fb3a3"});return y+100}
-  D.cards.forEach(([l,v],i)=>{const cx=30+(i%2)*525,cy=y+Math.floor(i/2)*138;rr(x,cx,cy,495,120,16);x.fillStyle="rgba(255,255,255,.1)";x.fill();rr(x,cx,cy,8,120,4);x.fillStyle="#f5c518";x.fill();txt(x,String(v),cx+34,cy+48,{f:"56px Anton",c:"#f5c518",w:430});txt(x,l,cx+34,cy+93,{f:"600 28px 'Barlow Condensed'",c:"#9fb3a3",w:430})});
-  y+=Math.ceil(D.cards.length/2)*138+16;
+  D.cards.forEach(([l,v],i)=>{const cx=30+(i%3)*350,cy=y+Math.floor(i/3)*138;rr(x,cx,cy,320,120,16);x.fillStyle="rgba(255,255,255,.1)";x.fill();rr(x,cx,cy,8,120,4);x.fillStyle="#f5c518";x.fill();txt(x,String(v),cx+30,cy+46,{f:"54px Anton",c:"#f5c518",w:270});txt(x,l,cx+30,cy+93,{f:"600 27px 'Barlow Condensed'",c:"#9fb3a3",w:270})});
+  y+=Math.ceil(D.cards.length/3)*138+16;
   txt(x,"DESTAQUES",40,y+26,{f:"36px Anton"});y+=58;
   D.hl.slice(0,5).forEach(([l,v])=>{x.fillStyle="rgba(245,197,24,.25)";x.fillRect(40,y,1000,1.5);txt(x,l,50,y+34,{f:"600 30px 'Barlow Condensed'",c:"#9fb3a3"});txt(x,v,1030,y+34,{f:"700 32px 'Barlow Condensed'",a:"right",w:620});y+=68});
   y+=14;txt(x,"GOLS POR SELEÇÃO",40,y+26,{f:"36px Anton"});y+=58;

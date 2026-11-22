@@ -673,9 +673,13 @@ function cStats(x,y){
   D.cards.forEach(([l,v],i)=>{const cx=30+(i%3)*350,cy=y+Math.floor(i/3)*138;rr(x,cx,cy,320,120,16);x.fillStyle="rgba(255,255,255,.1)";x.fill();rr(x,cx,cy,8,120,4);x.fillStyle="#f5c518";x.fill();txt(x,String(v),cx+30,cy+46,{f:"54px Anton",c:"#f5c518",w:270});txt(x,l,cx+30,cy+93,{f:"600 27px 'Barlow Condensed'",c:"#9fb3a3",w:270})});
   y+=Math.ceil(D.cards.length/3)*138+16;
   txt(x,"DESTAQUES",40,y+26,{f:"36px Anton"});y+=58;
-  D.hl.slice(0,5).forEach(([l,v])=>{x.fillStyle="rgba(245,197,24,.25)";x.fillRect(40,y,1000,1.5);txt(x,l,50,y+34,{f:"600 30px 'Barlow Condensed'",c:"#9fb3a3"});txt(x,v,1030,y+34,{f:"700 32px 'Barlow Condensed'",a:"right",w:620});y+=68});
+  D.hl.slice(0,5).forEach(([l,v])=>{x.fillStyle="rgba(245,197,24,.25)";x.fillRect(40,y,1000,1.5);txt(x,l,50,y+37,{f:"600 38px 'Barlow Condensed'",c:"#9fb3a3",w:330});txt(x,v,1030,y+37,{f:"700 44px 'Barlow Condensed'",a:"right",w:640});y+=74});
   y+=14;txt(x,"GOLS POR SELEÇÃO",40,y+26,{f:"36px Anton"});y+=58;
-  [...D.T2].sort((p,q)=>q.gp-p.gp).slice(0,5).forEach(r=>{flagC(x,r.c,50,y+4,56,36);txt(x,nome(r.c).toUpperCase(),122,y+23,{f:"700 32px 'Barlow Condensed'",w:240});const bw=Math.max(8,Math.round(r.gp/D.mxg*520));rr(x,380,y+8,bw,28,6);x.fillStyle="#1fb84a";x.fill();txt(x,String(r.gp),380+bw+16,y+23,{f:"32px Anton",c:"#f5c518"});y+=56});
+  [...D.T2].sort((p,q)=>q.gp-p.gp||nome(p.c).localeCompare(nome(q.c))).slice(0,10).forEach((r,k)=>{
+    const x0=k<5?40:560,ry=y+(k%5)*62,bw=Math.max(10,Math.round(r.gp/D.mxg*480));
+    flagC(x,r.c,x0,ry+2,48,32);txt(x,nome(r.c).toUpperCase(),x0+60,ry+18,{f:"700 32px 'Barlow Condensed'",w:300});txt(x,String(r.gp),x0+480,ry+18,{f:"34px Anton",c:"#f5c518",a:"right"});
+    rr(x,x0,ry+40,480,14,7);x.fillStyle="rgba(255,255,255,.1)";x.fill();rr(x,x0,ry+40,bw,14,7);x.fillStyle="#1fb84a";x.fill()});
+  y+=5*62;
   return y+10;
 }
 async function montar(tipo,d,semFotos){

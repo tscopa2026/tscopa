@@ -89,7 +89,7 @@ input,select{font:700 18px 'Barlow Condensed';background:#04130a;color:#fff;bord
 input.n{width:46px;text-align:center;font:400 22px Anton;padding:0}
 input.dt{width:84px;text-align:center}
 input.tx{flex:1;min-width:0}.jr>input.tx{width:100%}.chk{color:#ffe9a0;font-size:14px}
-.dev{margin-top:20px}.dev img{width:140px;background:#fff;border-radius:10px;padding:4px 8px;display:block;margin:6px auto 8px}.dev{font-size:15px;line-height:1.5}.dev a{color:var(--ouro)}
+.dev{margin-top:20px}.dev img{width:200px;background:#fff;border-radius:10px;padding:4px 8px;display:block;margin:6px auto 8px}.dev{font-size:15px;line-height:1.5}.dev a{color:var(--ouro)}
 .x{background:var(--verm);color:#fff;margin-left:auto;padding:4px 12px}
 .add{width:100%;margin:6px 0 12px;background:#fff}
 .barra[hidden]{display:none}
@@ -233,7 +233,11 @@ function tabela(g){
 
 /* ---------- mata-mata: times definidos automaticamente ---------- */
 const fimGrupos=()=>S.jogos.every(jogou);
-function venc(r){if(!r.a||!r.b||!jogou(r))return null;const x=+r.x,y=+r.y;if(x!==y)return x>y?r.a:r.b;return(r.p1!=null&&r.p2!=null&&r.p1!==r.p2)?(r.p1>r.p2?r.a:r.b):null}
+const vant=c=>{if(!c||!fimGrupos())return false;const g=Object.keys(G).find(k=>G[k].includes(c));return !!g&&tabela(g).slice(0,2).some(z=>z.c===c)};   // 1º e 2º do grupo
+const vtag=j=>{if(j.k!=="m"||!j.a||!j.b)return"";const va=vant(j.a),vb=vant(j.b);return va!==vb?"Empate classifica "+nome(va?j.a:j.b):""};
+function venc(r){if(!r.a||!r.b||!jogou(r))return null;const x=+r.x,y=+r.y;if(x!==y)return x>y?r.a:r.b;
+  if(r.k==="m"){const va=vant(r.a),vb=vant(r.b);if(va!==vb)return va?r.a:r.b}   // vantagem do empate (só um dos times tem)
+  return(r.p1!=null&&r.p2!=null&&r.p1!==r.p2)?(r.p1>r.p2?r.a:r.b):null}
 function slot(cod,d=0){
   cod=String(cod||"").trim();
   if(!cod||d>6)return{c:null,label:"A definir"};
@@ -266,7 +270,7 @@ function cartoesInfo(){
     [j.a,j.b].forEach(t=>{(pend[t]=pend[t]||[]).filter(r=>r.resta>0).forEach(r=>{r.resta--;r.sv.push({j,feito:jf});(serv[j.n]=serv[j.n]||[]).push(`${r.n} (${nome(t)})`);if(prox[t]===j.n)(susp[t]=susp[t]||[]).push(r.n)})});
     if(!jf)return;
     const ph=j.k==="g"?"g":"m",cj=cartoesJogo(j),novas={};
-    const P=(n,t)=>{const k=ph+"|"+n.toLowerCase()+"|"+t;return fases[k]=fases[k]||{n,t,f:ph,y:0,r:0}};
+    const P=(n,t)=>{const k=ph+"|"+n.toLowerCase()+"|"+t,g0=fases["g|"+n.toLowerCase()+"|"+t];return fases[k]=fases[k]||{n,t,f:ph,y:0,r:ph==="m"&&g0?g0.r:0}};   // amarelos zeram no mata-mata; vermelhos acumulam
     const novo=(p,tipo,jogos)=>{const k=p.t+"|"+p.n.toLowerCase(),r=novas[k];if(r){if(tipo==="V")r.tipo="V";r.jogos=Math.max(r.jogos,jogos);r.resta=r.jogos;return}const q=novas[k]={n:p.n,t:p.t,tipo,jogos,resta:jogos,orig:j,sv:[]};hist.push(q)};
     [[cj.am1,j.a],[cj.am2,j.b]].forEach(([s,t])=>parseG(s).forEach(o=>{const p=P(o.n,t),a0=Math.floor(p.y/CFG.amarelos);p.y+=o.g;if(Math.floor(p.y/CFG.amarelos)>a0)novo(p,"A",1)}));
     [[cj.vm1,j.a],[cj.vm2,j.b]].forEach(([s,t])=>parseG(s).forEach(o=>{const p=P(o.n,t);p.r+=o.g;if(CFG.vermelhoSuspende)novo(p,"V",Math.max(1,cj.pen[t+"|"+nz(o.n)]||1))}));
@@ -277,7 +281,9 @@ function cartoesInfo(){
 const faseCart=()=>fCart||(todos().some(j=>j.k==="m"&&jogou(j))?"m":"g");
 function stCart(CI,p){if(CI.prox[p.t]==null)return"";if((CI.susp[p.t]||[]).includes(p.n))return"S";if(CFG.amarelos>1&&p.y>0&&p.y%CFG.amarelos===CFG.amarelos-1)return"P";return""}
 function listasCart(CI,fs){
-  const lista=CI.jog.filter(p=>p.f===fs).sort((a,b)=>b.y-a.y||b.r-a.r||a.n.localeCompare(b.n));
+  const base=CI.jog.filter(p=>p.f===fs);
+  if(fs==="m")CI.jog.filter(p=>p.f==="g"&&p.r>0&&!base.some(b=>b.t===p.t&&b.n.toLowerCase()===p.n.toLowerCase())).forEach(p=>base.push({...p,f:"m",y:0}));   // vermelho da fase de grupos continua
+  const lista=base.sort((a,b)=>b.y-a.y||b.r-a.r||a.n.localeCompare(b.n));
   const sus=[];Object.keys(CI.susp).forEach(t=>{if(CI.prox[t]!=null)CI.susp[t].forEach(n=>{const r=CI.hist.find(h=>h.t===t&&h.n===n&&h.sv.some(v=>v.j.n===CI.prox[t])),ix=r?r.sv.findIndex(v=>v.j.n===CI.prox[t])+1:0;sus.push({n,t,e:r&&r.jogos>1?` · ${ix}/${r.jogos}`:"",d:r?r.sv.filter(v=>v.feito).map((v,i)=>`${i+1}º jogo cumprido: ${v.j.d} · ${nome(v.j.a)} × ${nome(v.j.b)}`).join(" | "):""})})});
   return{lista,sus,pend:lista.filter(p=>stCart(CI,p)==="P")};
 }
@@ -363,7 +369,7 @@ function suspLinha(j,CI){
 }
 function linhaJogo(j,CI){
   const tags=[];
-  if(j.k==="m")tags.push(esc(j.id+(j.h?" · "+j.h:"")));else if(j.h)tags.push(esc(j.h));
+  if(j.k==="m"){tags.push(esc(j.id+(j.h?" · "+j.h:"")));const v=vtag(j);if(v)tags.push(esc(v))}else if(j.h)tags.push(esc(j.h));
   if(jogou(j)&&j.p1!=null&&j.p2!=null&&+j.x===+j.y)tags.push(`Pênaltis: ${j.p1} × ${j.p2}`);
   const s=suspLinha(j,CI);if(s)tags.push(esc(s));
   return `<div class="jogo"><div class="eq">${ladoHTML(j,"a")}</div>${jogou(j)?`<div class="placar">${j.x} × ${j.y}</div>`:`<div class="placar vazio">×</div>`}<div class="eq b">${ladoHTML(j,"b")}</div>${tags.length?`<div class="tag">${tags.join(" · ")}</div>`:""}</div>`;
@@ -389,7 +395,7 @@ function renderJogos(){
 }
 function renderMM(){
   const L=todos().filter(j=>j.k==="m"),CI=cartoesInfo(),falta=S.jogos.filter(x=>!jogou(x)).length;
-  let h=falta?`<p class="dica">Os confrontos das quartas são definidos quando a fase de grupos terminar (faltam ${falta} jogo${falta>1?"s":""}).</p>`:"";
+  let h=(falta?`<p class="dica">Os confrontos das quartas são definidos quando a fase de grupos terminar (faltam ${falta} jogo${falta>1?"s":""}).</p>`:"")+`<p class="dica">1º e 2º colocados de cada grupo têm a vantagem do empate.</p>`;
   [...new Set(L.map(j=>j.fase))].forEach(f=>{const jj=L.filter(j=>j.fase===f);h+=`<h3 class="sec">${esc(f)} · ${esc(jj[0].d)}</h3>`+jj.map(j=>linhaJogo(j,CI)).join("")});
   $("#mm").innerHTML=h;
 }
@@ -399,7 +405,7 @@ function renderCart(){
   const row=(p,tag)=>`<div class="cr"><div class="cp" data-t="${p.t}" role="button" tabindex="0">${flag(p.t)}<b>${esc(p.n)}</b><small>${nome(p.t)}</small></div>${tag}</div>`;
   const stat=p=>{const s=stCart(CI,p);return `<span class="cy">${p.y}</span><span class="cv">${p.r}</span><span class="cs ${s}">${s==="S"?"SUSP.":s==="P"?"PEND.":""}</span>`};
   const avisos=editor?[...(PLANERR?["Não foi possível ler a planilha de cartões. Confira se ela está compartilhada como 'Qualquer pessoa com o link' (leitor) e se o link em dados.js está certo."]:[]),...PLANWARN,...PLAN.filter(r=>!todos().some(j=>j.d===r.d&&(j.a===r.t||j.b===r.t))).map(r=>`${r.d} · ${nome(r.t)} · ${r.n}: não há jogo desse time nessa data`)]:[];
-  $("#cart").innerHTML=`${PLANERR&&!editor?'<p class="dica">Os cartões da planilha estão indisponíveis agora.</p>':""}${avisos.length?`<div class="painel">${avisos.slice(0,6).map(esc).join("<br>")}</div>`:""}<p class="dica">${N} amarelos = 1 jogo de suspensão${CFG.vermelhoSuspende?" · vermelho também suspende":""} · os cartões zeram no mata-mata</p>
+  $("#cart").innerHTML=`${PLANERR&&!editor?'<p class="dica">Os cartões da planilha estão indisponíveis agora.</p>':""}${avisos.length?`<div class="painel">${avisos.slice(0,6).map(esc).join("<br>")}</div>`:""}<p class="dica">${N} amarelos = 1 jogo de suspensão${CFG.vermelhoSuspende?" · vermelho também suspende":""} · amarelos zeram no mata-mata · vermelhos não</p>
   <div class="chips">${[["g","Fase de grupos"],["m","Mata-mata"]].map(([k,t])=>`<button data-fc="${k}" class="${fs===k?"on":""}">${t}</button>`).join("")}</div>
   ${sus.length?`<h3 class="sec">Suspensos no próximo jogo</h3>${sus.map(s=>row(s,`<span class="cs S" style="flex:1;text-align:right">${esc(proxTxt(CI,s.t)+s.e)}</span>`)+(s.d?`<div class="lg" style="padding:0 0 6px 38px;margin:0;font-size:15px;color:#7ee08f">${esc(s.d)}</div>`:"")).join("")}`:""}
   ${pend.length?`<h3 class="sec">Pendurados (próximo amarelo suspende)</h3>${pend.map(p=>row(p,`<span class="cy">${p.y}</span>`)).join("")}`:""}
@@ -580,24 +586,27 @@ function cClass(x,y){
   return y;
 }
 function linhasJogos(x,y,lista){
-  const CI=cartoesInfo();
+  const CI=cartoesInfo(),F="'Barlow Condensed'";
   lista.forEach(j=>{
-    const sus=suspLinha(j,CI),sc=jogou(j)&&(j.g1||j.g2),h=100+(sc?32:0)+(sus?36:0),cy=y+50;
-    rr(x,30,y,1020,h,14);x.fillStyle="rgba(255,255,255,.1)";x.fill();
-    rr(x,30,y,8,h,4);x.fillStyle="#f5c518";x.fill();
-    if(j.a){flagC(x,j.a,60,cy-20);txt(x,nome(j.a).toUpperCase(),136,cy,{f:"700 36px 'Barlow Condensed'",w:270})}
-    else txt(x,j.la,60,cy,{f:"600 30px 'Barlow Condensed'",c:"#9fb3a3",w:340});
-    if(j.b){flagC(x,j.b,958,cy-20);txt(x,nome(j.b).toUpperCase(),946,cy,{f:"700 36px 'Barlow Condensed'",a:"right",w:270})}
-    else txt(x,j.lb,1020,cy,{f:"600 30px 'Barlow Condensed'",c:"#9fb3a3",a:"right",w:340});
+    const sus=suspLinha(j,CI),vt=vtag(j),sc=jogou(j)&&(j.g1||j.g2),HM=132,h=HM+(sc?38:0)+(vt?38:0)+(sus?38:0),cy=y+HM/2;
+    rr(x,30,y,1020,h,16);x.fillStyle="rgba(255,255,255,.11)";x.fill();
+    rr(x,30,y,10,h,5);x.fillStyle="#f5c518";x.fill();
+    if(j.a){flagC(x,j.a,58,cy-29,88,58);txt(x,nome(j.a).toUpperCase(),164,cy,{f:`700 58px ${F}`,w:280})}
+    else txt(x,j.la,58,cy,{f:`600 40px ${F}`,c:"#9fb3a3",w:380});
+    if(j.b){flagC(x,j.b,934,cy-29,88,58);txt(x,nome(j.b).toUpperCase(),916,cy,{f:`700 58px ${F}`,a:"right",w:280})}
+    else txt(x,j.lb,1022,cy,{f:`600 40px ${F}`,c:"#9fb3a3",a:"right",w:380});
     const pen=jogou(j)&&j.p1!=null&&j.p2!=null&&+j.x===+j.y?`pên. ${j.p1} × ${j.p2}`:"",tag=[j.k==="m"?j.id:"",j.h,pen].filter(Boolean).join(" · ");
-    txt(x,jogou(j)?`${j.x} × ${j.y}`:"×",540,cy-(tag?8:0),{f:"54px Anton",a:"center",c:jogou(j)?"#fff":"#9fb3a3"});
-    if(tag)txt(x,tag,540,cy+36,{f:"600 22px 'Barlow Condensed'",c:"#f5c518",a:"center",w:240});
+    txt(x,jogou(j)?`${j.x} × ${j.y}`:"×",540,cy-(tag?16:0),{f:"64px Anton",a:"center",c:jogou(j)?"#fff":"#9fb3a3",w:190});
+    if(tag)txt(x,tag,540,cy+34,{f:`700 32px ${F}`,c:"#f5c518",a:"center",w:190});
+    let ey=y+HM+4;
     if(sc){
-      if(j.g1)txt(x,"Gols: "+j.g1,136,y+104,{f:"600 26px 'Barlow Condensed'",c:"#cfe9d6",w:400});
-      if(j.g2)txt(x,"Gols: "+j.g2,946,y+104,{f:"600 26px 'Barlow Condensed'",c:"#cfe9d6",a:"right",w:400});
+      if(j.g1)txt(x,"Gols: "+j.g1,64,ey+14,{f:`600 28px ${F}`,c:"#cfe9d6",w:470});
+      if(j.g2)txt(x,"Gols: "+j.g2,1016,ey+14,{f:`600 28px ${F}`,c:"#cfe9d6",a:"right",w:470});
+      ey+=38;
     }
-    if(sus)txt(x,sus,540,y+(sc?138:118),{f:"600 24px 'Barlow Condensed'",c:"#ff9aa2",a:"center",w:980});
-    y+=h+12;
+    if(vt){txt(x,vt,540,ey+14,{f:`700 28px ${F}`,c:"#f5c518",a:"center",w:980});ey+=38}
+    if(sus)txt(x,sus,540,ey+14,{f:`600 28px ${F}`,c:"#ff9aa2",a:"center",w:980});
+    y+=h+14;
   });
   return y;
 }
@@ -686,8 +695,8 @@ async function montar(tipo,d,semFotos){
   txt(x,"TS FUTEBOL FUNCIONAL",168,fy+62,{f:"32px Anton"});
   txt(x,"Copa do Mundo · Casa Esportiva",168,fy+100,{f:"600 26px 'Barlow Condensed'",c:"#9fb3a3"});
   txt(x,"Desenvolvido por",900,fy+26,{f:"600 22px 'Barlow Condensed'",c:"#9fb3a3",a:"center"});
-  rr(x,780,fy+40,240,108,12);x.fillStyle="#fff";x.fill();
-  if(IMG.cp)x.drawImage(IMG.cp,786,fy+44,228,100);
+  rr(x,770,fy+38,260,110,12);x.fillStyle="#fff";x.fill();
+  if(IMG.cp)x.drawImage(IMG.cp,778,fy+43,244,100);
   txt(x,"@compusist.fsa · WhatsApp (75) 3626-0318",900,fy+168,{f:"600 24px 'Barlow Condensed'",c:"#cfe9d6",a:"center",w:330});
   if(link){const lg=x.createLinearGradient(0,0,W,0);lg.addColorStop(0,"#c99a0a");lg.addColorStop(.5,"#f5c518");lg.addColorStop(1,"#c99a0a");rr(x,40,fy+196,1000,64,14);x.fillStyle=lg;x.fill();txt(x,"ACOMPANHE A COPA: "+link,540,fy+229,{f:"34px Anton",c:"#06240f",a:"center",w:940})}
   return cv;
